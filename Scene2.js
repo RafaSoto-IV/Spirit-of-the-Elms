@@ -40,9 +40,10 @@ class Scene2 extends Phaser.Scene{
     this.player.setScale(1.3);
 
     //Check which direction player is facing
-    this.direction = "player-right";
-    this.movement = "player-right";
-    this.previous = "player-right";
+    this.test_direction = "player_right";
+    this.direction = "player_right";
+    this.movement = "player_right";
+    this.previous = "player_right";
     this.cloak = false;
 
 
@@ -71,15 +72,18 @@ class Scene2 extends Phaser.Scene{
     this.projectiles = this.add.group();
 
     //Projectiles
-    // this.physics.add.collider(this.projectiles, this.enemies, magic(this.projectiles, this.enemies){
-    //   projectile.destroy();
-    // });
+    this.physics.add.collider(this.projectiles, envLayer, this.enviro_hit, null, this);
+    this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
+
   }
 
     //If player touches enemy
   //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
 
-
+  enviro_hit(projectile, layer){
+    projectile.destroy();
+  }
+  //accidental function but cloaks player
   cloaking(){
     // var magic = new Magic(this);
     if (this.cloak){
@@ -90,6 +94,7 @@ class Scene2 extends Phaser.Scene{
     }
   }
 
+  //ranged magic attack
   magic(){
     var magic = new Magic(this);
   }
@@ -165,18 +170,20 @@ class Scene2 extends Phaser.Scene{
     if(this.cursorKeys.up.isDown){
       this.player.setVelocityY(-gameSettings.playerSpeed);
       if (!this.cloak){
-        this.direction = this.movement
+        this.direction = this.movement;
       }else{
-        this.direction = 'cloak_anim'
+        this.direction = 'cloak_anim';
       }
+      this.test_direction = "player_down";
       this.animation();
     }else if(this.cursorKeys.down.isDown){
       this.player.setVelocityY(gameSettings.playerSpeed);
       if (!this.cloak){
-        this.direction = this.movement
+        this.direction = this.movement;
       }else{
-        this.direction = 'cloak_anim'
+        this.direction = 'cloak_anim';
       }
+      this.test_direction = "player_up";
       this.animation();
     }
 
@@ -189,6 +196,7 @@ class Scene2 extends Phaser.Scene{
         this.direction = 'cloak_anim';
         this.movement = 'player_left';
       }
+      this.test_direction = "player_left";
       this.animation();
     }else if(this.cursorKeys.right.isDown){
       this.player.setVelocityX(gameSettings.playerSpeed);
@@ -199,6 +207,7 @@ class Scene2 extends Phaser.Scene{
         this.direction = 'cloak_anim';
         this.movement = 'player_right';
       }
+      this.test_direction = "player_right";
       this.animation();
     }
   }
