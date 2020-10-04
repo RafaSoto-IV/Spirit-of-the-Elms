@@ -5,35 +5,55 @@ class Scene2 extends Phaser.Scene{
 
   create(){
     //Background image here. Will be changed to tileset
-    this.background = this.add.image(0,0, "background");
-    this.background.setOrigin(0,0);
-    this.add.text();
+    //this.background = this.add.image(0,0, "background");
+    //this.background.setOrigin(0,0);
+    //this.add.text();
+    this.cameras.main.centerOn(1300, 200);
+    const map = this.make.tilemap({ key: 'map' });
+    const envtileset = map.addTilesetImage('envtileset', 'envtiles');
+    const tileset = map.addTilesetImage('tileset', 'tiles');
+
+
+    map.createStaticLayer('ground', tileset);
+    const treeLayer = map.createStaticLayer('trees', envtileset)
+    const envLayer = map.createStaticLayer('environment', envtileset);
+    envLayer.setCollisionByProperty({ collides: true});
+    treeLayer.setCollisionByProperty({ collides: true});
+    // for testing collision
+    //const envLayer = map.createStaticLayer('environment', [envtileset, completeFence])
+    // envLayer.setCollisionByProperty({ collides: true});
+    // const debugGraphics = this.add.graphics().setAlpha(0.7)
+    // envLayer.renderDebug(debugGraphics, {
+    //   tileColor: null,
+    //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+    // })
 
     //Player sprite and interactions placed here
-    this.player = this.physics.add.sprite(300, 200, "player");
-    this.player.setSize(100,100);
-    this.player.play("player_anim");
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
-    this.player.setCollideWorldBounds(true);
-    this.player.setScale(.3);
+    // this.player = this.physics.add.sprite(300, 200, "player");
+    // this.player.setSize(100,100);
+    // this.player.play("player_anim");
+    // this.cursorKeys = this.input.keyboard.createCursorKeys();
+    // this.player.setCollideWorldBounds(true);
+    // this.player.setScale(.3);
 
     //Random enemy sprites input here
-    this.enemy1 = this.physics.add.sprite();
-    this.enemy2 = this.physics.add.sprite();
-    this.enemy3 = this.physics.add.sprite();
-    this.enemy4 = this.physics.add.sprite();
-    this.enemy5 = this.physics.add.sprite();
+    // this.enemy1 = this.physics.add.sprite();
+    // this.enemy2 = this.physics.add.sprite();
+    // this.enemy3 = this.physics.add.sprite();
+    // this.enemy4 = this.physics.add.sprite();
+    // this.enemy5 = this.physics.add.sprite();
 
     //Enemies put into group
-    this.enemies = this.physics.add.group();
-    this.obstacles.add(this.enemy1);
-    this.obstacles.add(this.enemy2);
-    this.obstacles.add(this.enemy3);
-    this.obstacles.add(this.enemy4);
-    this.obstacles.add(this.enemy5);
+    // this.enemies = this.physics.add.group();
+    // this.obstacles.add(this.enemy1);
+    // this.obstacles.add(this.enemy2);
+    // this.obstacles.add(this.enemy3);
+    // this.obstacles.add(this.enemy4);
+    // this.obstacles.add(this.enemy5);
 
     //If player touches enemy
-    this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
+  //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
   }
 
   //When player touches enemy
@@ -52,10 +72,10 @@ class Scene2 extends Phaser.Scene{
 
   update(){
     //Camera should be locked onto player
-    game.camera.focusOnXY(player.x, player.y);
+    //game.camera.focusOnXY(player.x, player.y);
 
     //Let's player move
-    this.movePlayer();
+    //this.movePlayer();
 
 
   }
