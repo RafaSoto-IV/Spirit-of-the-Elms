@@ -36,12 +36,14 @@ class Scene2 extends Phaser.Scene{
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     this.player.setScale(1.3);
 
     //Check which direction player is facing
-    this.direction = "player-right"
-    this.previous = "player-right"
-    this.cloak = false
+    this.direction = "player-right";
+    this.movement = "player-right";
+    this.previous = "player-right";
+    this.cloak = false;
 
 
 
@@ -78,7 +80,7 @@ class Scene2 extends Phaser.Scene{
   //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
 
 
-  magic(){
+  cloaking(){
     // var magic = new Magic(this);
     if (this.cloak){
       this.cloak = false
@@ -86,6 +88,10 @@ class Scene2 extends Phaser.Scene{
       this.cloak = true
       // this.player.play("magic_anim");
     }
+  }
+
+  magic(){
+    var magic = new Magic(this);
   }
 
   stop(player, obstacle){
@@ -120,14 +126,18 @@ class Scene2 extends Phaser.Scene{
     //Let's player move
     this.movePlayer();
 
+    if (Phaser.Input.Keyboard.JustDown(this.c)){
+      this.cloaking();
+    }
+
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
       this.magic();
     }
 
-    for(var i = 0; i < this.projectiles.getChildren().length; i++){
-      var magic = this.projectiles.getChildren()[i];
-      magic.update()
-    }
+    // for(var i = 0; i < this.projectiles.getChildren().length; i++){
+    //   var magic = this.projectiles.getChildren()[i];
+    //   magic.update()
+    // }
 
   }
 
@@ -154,24 +164,40 @@ class Scene2 extends Phaser.Scene{
     // this.player.play();
     if(this.cursorKeys.up.isDown){
       this.player.setVelocityY(-gameSettings.playerSpeed);
+      if (!this.cloak){
+        this.direction = this.movement
+      }else{
+        this.direction = 'cloak_anim'
+      }
+      this.animation();
     }else if(this.cursorKeys.down.isDown){
       this.player.setVelocityY(gameSettings.playerSpeed);
+      if (!this.cloak){
+        this.direction = this.movement
+      }else{
+        this.direction = 'cloak_anim'
+      }
+      this.animation();
     }
 
     if(this.cursorKeys.left.isDown){
       this.player.setVelocityX(-gameSettings.playerSpeed);
       if (!this.cloak){
-        this.direction = 'player_left'
+        this.direction = 'player_left';
+        this.movement = 'player_left';
       }else{
-        this.direction = 'magic_anim'
+        this.direction = 'cloak_anim';
+        this.movement = 'player_left';
       }
       this.animation();
     }else if(this.cursorKeys.right.isDown){
       this.player.setVelocityX(gameSettings.playerSpeed);
       if (!this.cloak){
-        this.direction = 'player_right'
+        this.direction = 'player_right';
+        this.movement = 'player_right';
       }else{
-        this.direction = 'magic_anim'
+        this.direction = 'cloak_anim';
+        this.movement = 'player_right';
       }
       this.animation();
     }

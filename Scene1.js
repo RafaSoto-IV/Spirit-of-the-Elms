@@ -16,6 +16,10 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 24,
       frameHeight: 24
     });
+    this.load.spritesheet("cloak", "assets/images/spritesheets/explosion.png",{
+      frameWidth: 16,
+      framHeight: 16
+    });
     this.load.spritesheet("magic", "assets/images/spritesheets/explosion.png",{
       frameWidth: 16,
       framHeight: 16
@@ -37,6 +41,13 @@ class Scene1 extends Phaser.Scene{
       key: "player_left",
       frames: this.anims.generateFrameNumbers("player-left"),
       frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "cloak_anim",
+      frames: this.anims.generateFrameNumbers("cloak"),
+      frameRate: 5,
       repeat: -1
     });
 
