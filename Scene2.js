@@ -9,7 +9,6 @@ class Scene2 extends Phaser.Scene{
     //this.background = this.add.image(0,0, "background");
     //this.background.setOrigin(0,0);
     //this.add.text();
-    this.cameras.main.centerOn(1300, 200);
     const map = this.make.tilemap({ key: 'map' });
     const envtileset = map.addTilesetImage('envtileset', 'envtiles');
     const tileset = map.addTilesetImage('tileset', 'tiles');
@@ -41,6 +40,10 @@ class Scene2 extends Phaser.Scene{
 
     //Check which direction player is facing
     this.direction = "player-right"
+    this.previous = "player-right"
+    this.cloak = false
+
+
 
     //collision on the world
     // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
@@ -63,8 +66,7 @@ class Scene2 extends Phaser.Scene{
     // this.enemies.add(this.enemy5);
 
     //Projectiles put into group
-    // this.projectiles = this.add.group();
-
+    this.projectiles = this.add.group();
 
     //Projectiles
     // this.physics.add.collider(this.projectiles, this.enemies, magic(this.projectiles, this.enemies){
@@ -76,9 +78,15 @@ class Scene2 extends Phaser.Scene{
   //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
 
 
-  // magic(projectile, enemy){
-  //   var magic = new Beam(this);
-  // }
+  magic(){
+    // var magic = new Magic(this);
+    if (this.cloak){
+      this.cloak = false
+    }else{
+      this.cloak = true
+      // this.player.play("magic_anim");
+    }
+  }
 
   stop(player, obstacle){
     this.player.setVelocityX(0);
@@ -102,19 +110,24 @@ class Scene2 extends Phaser.Scene{
 
   update(){
     //Camera should be locked onto player
-    //game.camera.focusOnXY(player.x, player.y);
+    // game.camera.focusOnXY(player.x, player.y);
+    // this.cameras.main.centerOn(this.player.width + 750, this.player.height - 100);
+    // this.cameras.follow(this.player)
+    this.cameras.main.setBounds(0, 0, 1600, 1600);
+    this.cameras.main.startFollow(this.player);
+
 
     //Let's player move
     this.movePlayer();
 
-    // if (Phaser.Input.Mouse.JustDown(this.rightButtonDown)){
-    //   this.magic();
-    // }
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
+      this.magic();
+    }
 
-    // for(var i = 0; i < this.projectiles.getChildren().length; i++){
-    //   var magic = this.projectiles.getChildren()[i];
-    //   magic.update()
-    // }
+    for(var i = 0; i < this.projectiles.getChildren().length; i++){
+      var magic = this.projectiles.getChildren()[i];
+      magic.update()
+    }
 
   }
 
@@ -127,10 +140,18 @@ class Scene2 extends Phaser.Scene{
     }
   }
 
+  animation(){
+    if (this.previous != this.direction){
+      this.player.play(this.direction);
+      this.previous = this.direction
+    }
+  }
+
   //How player is moved
   movePlayer(){
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
+    // this.player.play();
     if(this.cursorKeys.up.isDown){
       this.player.setVelocityY(-gameSettings.playerSpeed);
     }else if(this.cursorKeys.down.isDown){
@@ -139,12 +160,20 @@ class Scene2 extends Phaser.Scene{
 
     if(this.cursorKeys.left.isDown){
       this.player.setVelocityX(-gameSettings.playerSpeed);
-      this.direction = 'player_left'
-      this.player.play(this.direction)
+      if (!this.cloak){
+        this.direction = 'player_left'
+      }else{
+        this.direction = 'magic_anim'
+      }
+      this.animation();
     }else if(this.cursorKeys.right.isDown){
       this.player.setVelocityX(gameSettings.playerSpeed);
-      this.direction = 'player_right'
-      this.player.play(this.direction)
+      if (!this.cloak){
+        this.direction = 'player_right'
+      }else{
+        this.direction = 'magic_anim'
+      }
+      this.animation();
     }
   }
 }
