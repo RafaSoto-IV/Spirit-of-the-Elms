@@ -6,7 +6,7 @@ class Scene2 extends Phaser.Scene{
   create(){
     this.health = 2000
     //Background image here. Will be changed to tileset
-    //this.background.tileset = this.add.image(0,0, "background");
+    //this.background = this.add.image(0,0, "background");
     //this.background.setOrigin(0,0);
     //this.add.text();
     this.cameras.main.centerOn(1300, 200);
@@ -43,11 +43,11 @@ class Scene2 extends Phaser.Scene{
     this.direction = y
 
     //Random enemy sprites input here
-    this.enemy1 = this.physics.add.sprite();
-    this.enemy2 = this.physics.add.sprite();
-    this.enemy3 = this.physics.add.sprite();
-    this.enemy4 = this.physics.add.sprite();
-    this.enemy5 = this.physics.add.sprite();
+    // this.enemy1 = this.physics.add.sprite();
+    // this.enemy2 = this.physics.add.sprite();
+    // this.enemy3 = this.physics.add.sprite();
+    // this.enemy4 = this.physics.add.sprite();
+    // this.enemy5 = this.physics.add.sprite();
 
     //Enemies put into group
     this.enemies = this.physics.add.group();
@@ -67,7 +67,7 @@ class Scene2 extends Phaser.Scene{
     });
 
     //If player touches enemy
-    this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
+  //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
   }
 
   magic(projectile, enemy){
@@ -91,10 +91,10 @@ class Scene2 extends Phaser.Scene{
 
   update(){
     //Camera should be locked onto player
-    game.camera.focusOnXY(player.x, player.y);
+    //game.camera.focusOnXY(player.x, player.y);
 
     //Let's player move
-    this.movePlayer();
+    //this.movePlayer();
 
     if (Phaser.Input.Mouse.JustDown(this.rightButtonDown)){
       this.magic();
