@@ -29,5 +29,14 @@ class Magic extends Phaser.GameObjects.Sprite{
     if(this.x < -20){
       this.destroy();
     }
+    if(this.y < -20){
+      this.destroy();
+    }
+    if (this.x > 2000){
+      this.destroy();
+    }
+    if (this.y > 2000){
+      this.destroy();
+    }
   }
 }
