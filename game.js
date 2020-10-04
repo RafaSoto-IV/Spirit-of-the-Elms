@@ -1,6 +1,6 @@
 var config = {
-  width: 626,
-  height: 417,
+  width: 1600,
+  height: 1600,
   backgroundColor: 0x000000,
   scene: [Scene1, Scene2],
   physics: {
@@ -12,7 +12,7 @@ var config = {
 }
 
 var gameSettings = {
-  playerSpeed: 350
+  playerSpeed: 200
 }
 var game = new Phaser.Game(config)
 

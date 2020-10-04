@@ -31,17 +31,22 @@ class Scene2 extends Phaser.Scene{
     // })
 
     //Player sprite and interactions placed here
-    this.player = this.physics.add.sprite(300, 200, "player");
-    this.player.setSize(100,100);
-    this.player.play("player_anim");
+    this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
+    //this.player.setSize(100,100);
+    this.player.play("player_left")
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.player.setScale(.3);
+    this.player.setScale(1.3);
 
     //Check which direction player is facing
-    this.direction = y
+    this.direction = "player-right"
 
+    //collision on the world
+    // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
+    this.physics.add.collider(this.player, envLayer);
+    this.physics.add.collider(this.player, treeLayer);
+    // this.physics.overlap(this.player, envLayer, this.stop. null, this);
     //Random enemy sprites input here
     // this.enemy1 = this.physics.add.sprite();
     // this.enemy2 = this.physics.add.sprite();
@@ -50,30 +55,35 @@ class Scene2 extends Phaser.Scene{
     // this.enemy5 = this.physics.add.sprite();
 
     //Enemies put into group
-    this.enemies = this.physics.add.group();
-    this.enemies.add(this.enemy1);
-    this.enemies.add(this.enemy2);
-    this.enemies.add(this.enemy3);
-    this.enemies.add(this.enemy4);
-    this.enemies.add(this.enemy5);
+    // this.enemies = this.physics.add.group();
+    // this.enemies.add(this.enemy1);
+    // this.enemies.add(this.enemy2);
+    // this.enemies.add(this.enemy3);
+    // this.enemies.add(this.enemy4);
+    // this.enemies.add(this.enemy5);
 
     //Projectiles put into group
-    this.projectiles = this.add.group();
+    // this.projectiles = this.add.group();
 
 
     //Projectiles
-    this.physics.add.collider(this.projectiles, this.enemies, range_attack(this.projectiles, this.enemies){
-      projectile.destroy();
-    });
+    // this.physics.add.collider(this.projectiles, this.enemies, magic(this.projectiles, this.enemies){
+    //   projectile.destroy();
+    // });
+  }
 
     //If player touches enemy
   //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
-  }
 
-  magic(projectile, enemy){
-    var magic = new Beam(this);
-  }
 
+  // magic(projectile, enemy){
+  //   var magic = new Beam(this);
+  // }
+
+  stop(player, obstacle){
+    this.player.setVelocityX(0);
+    this.player.setVelocityY(0);
+  }
   //When player touches enemy
   damage(player, obstacle){
     //input code
@@ -89,21 +99,22 @@ class Scene2 extends Phaser.Scene{
     }
   }
 
+
   update(){
     //Camera should be locked onto player
     //game.camera.focusOnXY(player.x, player.y);
 
     //Let's player move
-    //this.movePlayer();
+    this.movePlayer();
 
-    if (Phaser.Input.Mouse.JustDown(this.rightButtonDown)){
-      this.magic();
-    }
+    // if (Phaser.Input.Mouse.JustDown(this.rightButtonDown)){
+    //   this.magic();
+    // }
 
-    for(var i = 0; i < this.projectiles.getChildren().length; i++){
-      var magic = this.projectiles.getChildren()[i];
-      magic.update()
-    }
+    // for(var i = 0; i < this.projectiles.getChildren().length; i++){
+    //   var magic = this.projectiles.getChildren()[i];
+    //   magic.update()
+    // }
 
   }
 
@@ -122,18 +133,18 @@ class Scene2 extends Phaser.Scene{
     this.player.setVelocityY(0);
     if(this.cursorKeys.up.isDown){
       this.player.setVelocityY(-gameSettings.playerSpeed);
-      this.direction = -y
     }else if(this.cursorKeys.down.isDown){
       this.player.setVelocityY(gameSettings.playerSpeed);
-      this.direction = y
     }
 
     if(this.cursorKeys.left.isDown){
       this.player.setVelocityX(-gameSettings.playerSpeed);
-      this.direction = -x
+      this.direction = 'player_left'
+      this.player.play(this.direction)
     }else if(this.cursorKeys.right.isDown){
       this.player.setVelocityX(gameSettings.playerSpeed);
-      this.direction = x
+      this.direction = 'player_right'
+      this.player.play(this.direction)
     }
   }
 }
