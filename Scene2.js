@@ -1,7 +1,9 @@
 class Scene2 extends Phaser.Scene{
   constructor(){
     super("playGame");
+    this.debugtext;
   }
+
 
   create(){
     this.health = 2000
@@ -9,9 +11,11 @@ class Scene2 extends Phaser.Scene{
     //this.background = this.add.image(0,0, "background");
     //this.background.setOrigin(0,0);
     //this.add.text();
+    //this.cameras.main.centerOn(800, 800);
+
     const map = this.make.tilemap({ key: 'map' });
-    const envtileset = map.addTilesetImage('envtileset', 'envtiles');
-    const tileset = map.addTilesetImage('tileset', 'tiles');
+    const envtileset = map.addTilesetImage('envtileset', 'envtiles', 16, 16, 1, 2);
+    const tileset = map.addTilesetImage('tileset', 'tiles', 16, 16, 1, 2);
 
 
     map.createStaticLayer('ground', tileset);
@@ -30,14 +34,22 @@ class Scene2 extends Phaser.Scene{
     // })
 
     //Player sprite and interactions placed here
-    this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
+    //this.player = this.physics.add.sprite(120, 120, "player-right");
+    this.player = this.physics.add.sprite(map.widthInPixels -120, map.heightInPixels-1500, "player-right");
+
+    //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
     this.cursorKeys = this.input.keyboard.createCursorKeys();
-    this.player.setCollideWorldBounds(true);
+    //this.mouse = this.input.pointer.
+    //this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     this.player.setScale(1.3);
+
+    // set camera to follow player and to not show out of bounds
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.startFollow(this.player, true);
 
     //Check which direction player is facing
     this.test_direction = "player_right";
@@ -120,12 +132,14 @@ class Scene2 extends Phaser.Scene{
 
 
   update(){
+    //this.debugtext.setText('player x: ' + Math.trunc(this.player.x) + ' player y: ' + Math.trunc(this.player.y) + ' x: ' + Math.trunc(this.cameras.main.x) + ' y: ' + Math.trunc(this.cameras.main.y))
+    //this.debug.cameraInfo(this.cameras.main, 32, 32);
     //Camera should be locked onto player
     // game.camera.focusOnXY(player.x, player.y);
     // this.cameras.main.centerOn(this.player.width + 750, this.player.height - 100);
     // this.cameras.follow(this.player)
-    this.cameras.main.setBounds(0, 0, 1600, 1600);
-    this.cameras.main.startFollow(this.player);
+    // this.cameras.main.setBounds(0, 0, 1600, 1600);
+    // this.cameras.main.startFollow(this.player);
 
 
     //Let's player move

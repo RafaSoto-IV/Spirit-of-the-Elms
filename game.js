@@ -1,6 +1,6 @@
 var config = {
-  width: 1600,
-  height: 1600,
+  width: 400,
+  height: 300,
   backgroundColor: 0x000000,
   scene: [Scene1, Scene2],
   physics: {
@@ -8,6 +8,9 @@ var config = {
     arcade:{
       debug: false
     }
+  },
+  scale: {
+    zoom: 2
   }
 }
 

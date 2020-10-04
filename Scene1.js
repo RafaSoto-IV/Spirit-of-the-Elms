@@ -4,8 +4,8 @@ class Scene1 extends Phaser.Scene{
   }
 
   preload(){
-    this.load.image('envtiles', 'envtilesSheet.png')
-    this.load.image('tiles', 'tilesSheet.png');
+    this.load.image('envtiles', 'envtilesSheetExtruded.png')
+    this.load.image('tiles', 'tilesSheetExtruded.png');
     this.load.tilemapTiledJSON('map', 'tileMap.json');
     //Sprite input here
     this.load.spritesheet("player-right", "assets/images/spritesheets/witch-idle-run-Sheet.png", {
