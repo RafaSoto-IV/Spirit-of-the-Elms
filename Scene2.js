@@ -172,11 +172,6 @@ class Scene2 extends Phaser.Scene{
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
   }
-  //When player touches enemy
-  damage(player, obstacle){
-    //input code
-    this.health -= 20
-  }
 
   update(){
     //this.debugtext.setText('player x: ' + Math.trunc(this.player.x) + ' player y: ' + Math.trunc(this.player.y) + ' x: ' + Math.trunc(this.cameras.main.x) + ' y: ' + Math.trunc(this.cameras.main.y))
