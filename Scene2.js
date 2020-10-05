@@ -36,7 +36,7 @@ class Scene2 extends Phaser.Scene{
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(map.widthInPixels -120, map.heightInPixels-1500, "player-right");
-
+    this.player.health = 1000;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -53,7 +53,7 @@ class Scene2 extends Phaser.Scene{
 
     //Check which direction player is facing
     this.test_direction = "player_right";
-    this.slime_scale = 2
+    // this.slime_scale = 2
     this.direction = "player_right";
     this.movement = "player_right";
     this.previous = "player_right";
@@ -91,14 +91,14 @@ class Scene2 extends Phaser.Scene{
     this.slime6.setScale(this.slime_scale);
     this.slime6.play("blue_slime_anim")
 
-    //Enemies put into group
-    this.enemies = this.physics.add.group();
-    this.enemies.add(this.slime1);
-    this.enemies.add(this.slime2);
-    this.enemies.add(this.slime3);
-    this.enemies.add(this.slime4);
-    this.enemies.add(this.slime5);
-    this.enemies.add(this.slime6);
+    //slime_enemies put into group
+    this.slime_enemies = this.physics.add.group();
+    this.slime_enemies.add(this.slime1);
+    this.slime_enemies.add(this.slime2);
+    this.slime_enemies.add(this.slime3);
+    this.slime_enemies.add(this.slime4);
+    this.slime_enemies.add(this.slime5);
+    this.slime_enemies.add(this.slime6);
 
     //Projectiles put into group
     this.projectiles = this.add.group();
@@ -106,15 +106,41 @@ class Scene2 extends Phaser.Scene{
     //Projectiles
     this.physics.add.collider(this.projectiles, envLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
-    this.physics.add.collider(this.projectiles, this.enemies, this.enemy_hit, null, this);
+    this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
+
+    // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
+    // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
+
+    this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
 
   }
 
     //If player touches enemy
-  //  this.physics.add.overlap(this.player, this.enemies, this.damage, null, this);
+  //  this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
+
+  damage(player, enemy){
+    if (this.cloak){
+      enemy.destroy();
+    }
+    this.player_health -= 100
+    if (this.player_health <= 0){
+      this.add.text(20, 20, "GAMEOVER");
+    }
+    if (this.direction == "player_left"){
+      player.setVelocityX(20);
+    } else if (this.direction == "player_right"){
+      player.setVelocityX(-20);
+    }
+    player.play("blue_slime_anim")
+  }
 
   enviro_hit(projectile, layer){
     projectile.destroy();
+  }
+
+  enviro_hug(unit, layer){
+    unit.setVelocityX(0);
+    unit.setVelocityY(0);
   }
 
   enemy_hit(projectile, enemy){
