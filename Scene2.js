@@ -111,27 +111,28 @@ class Scene2 extends Phaser.Scene{
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
 
-    this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
+    this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
 
   }
 
     //If player touches enemy
   //  this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
 
-  damage(player, enemy){
+  hit(player, enemy){
     if (this.cloak){
       enemy.destroy();
+    } else{
+      this.player_health -= 100
+      if (this.player_health <= 0){
+        this.add.text(20, 20, "GAMEOVER");
+      }
+      if (this.direction == "player_left"){
+        player.setVelocityX(20);
+      } else if (this.direction == "player_right"){
+        player.setVelocityX(-20);
+      }
+      player.play("blue_slime_anim")
     }
-    this.player_health -= 100
-    if (this.player_health <= 0){
-      this.add.text(20, 20, "GAMEOVER");
-    }
-    if (this.direction == "player_left"){
-      player.setVelocityX(20);
-    } else if (this.direction == "player_right"){
-      player.setVelocityX(-20);
-    }
-    player.play("blue_slime_anim")
   }
 
   enviro_hit(projectile, layer){
