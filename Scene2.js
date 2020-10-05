@@ -35,7 +35,7 @@ class Scene2 extends Phaser.Scene{
 
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
-    this.player = this.physics.add.sprite(map.widthInPixels -120, map.heightInPixels-1500, "player-right");
+    this.player = this.physics.add.sprite(map.widthInPixels -120, map.heightInPixels-1490, "player-right");
     this.player.health = 1000;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
@@ -58,6 +58,7 @@ class Scene2 extends Phaser.Scene{
     this.movement = "player_right";
     this.previous = "player_right";
     this.cloak = false;
+    this.gameover = false;
 
 
 
@@ -122,14 +123,17 @@ class Scene2 extends Phaser.Scene{
     if (this.cloak){
       enemy.destroy();
     } else{
-      this.player_health -= 100
-      if (this.player_health <= 0){
-        this.add.text(20, 20, "GAMEOVER");
+      this.player.health -= 100
+      if (this.player.health <= 0){
+        if (!this.gameover){
+          this.add.text(player.x, player.y, "GAMEOVER");
+          this.gameover = true;
+        }
       }
       if (this.direction == "player_left"){
-        player.setVelocityX(20);
+        player.setVelocityX(100);
       } else if (this.direction == "player_right"){
-        player.setVelocityX(-20);
+        player.setVelocityX(-100);
       }
       player.play("blue_slime_anim")
     }
@@ -186,7 +190,12 @@ class Scene2 extends Phaser.Scene{
 
 
     //Let's player move
-    this.movePlayer();
+    if(!this.gameover){
+      this.movePlayer();
+    } else {
+      this.player.setVelocityX(0);
+      this.player.setVelocityY(0);
+    }
 
     if (Phaser.Input.Keyboard.JustDown(this.c)){
       this.cloaking();
