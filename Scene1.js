@@ -18,11 +18,19 @@ class Scene1 extends Phaser.Scene{
     });
     this.load.spritesheet("cloak", "assets/images/spritesheets/explosion.png",{
       frameWidth: 16,
-      framHeight: 16
+      frameHeight: 16
     });
     this.load.spritesheet("magic", "assets/images/spritesheets/explosion.png",{
       frameWidth: 16,
-      framHeight: 16
+      frameHeight: 16
+    });
+    this.load.spritesheet("slime_green", "assets/images/spritesheets/slime-green.png",{
+      frameWidth: 16,
+      frameHeight: 24
+    });
+    this.load.spritesheet("slime_blue", "assets/images/spritesheets/slime-blue.png",{
+      frameWidth: 16,
+      frameHeight: 24
     });
   }
 
@@ -55,6 +63,20 @@ class Scene1 extends Phaser.Scene{
       key: "magic_anim",
       frames: this.anims.generateFrameNumbers("magic"),
       frameRate: 5,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "green_slime_anim",
+      frames: this.anims.generateFrameNumbers("slime_green"),
+      frameRate: 4,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "blue_slime_anim",
+      frames: this.anims.generateFrameNumbers("slime_blue"),
+      frameRate: 4,
       repeat: -1
     });
 

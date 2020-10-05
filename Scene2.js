@@ -64,21 +64,40 @@ class Scene2 extends Phaser.Scene{
     // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
     this.physics.add.collider(this.player, envLayer);
     this.physics.add.collider(this.player, treeLayer);
-    // this.physics.overlap(this.player, envLayer, this.stop. null, this);
+
     //Random enemy sprites input here
-    // this.enemy1 = this.physics.add.sprite();
-    // this.enemy2 = this.physics.add.sprite();
-    // this.enemy3 = this.physics.add.sprite();
-    // this.enemy4 = this.physics.add.sprite();
-    // this.enemy5 = this.physics.add.sprite();
+    this.slime1 = this.physics.add.sprite(map.widthInPixels - 700, map.heightInPixels - 1050, "slime_green");
+    this.slime1.setScale(3);
+    this.slime1.play("green_slime_anim")
+
+    this.slime2 = this.physics.add.sprite(map.widthInPixels - 650, map.heightInPixels - 1100, "slime_green");
+    this.slime2.setScale(3);
+    this.slime2.play("green_slime_anim")
+
+    this.slime3 = this.physics.add.sprite(map.widthInPixels - 700, map.heightInPixels - 1185, "slime_green");
+    this.slime3.setScale(3);
+    this.slime3.play("green_slime_anim")
+
+    this.slime4 = this.physics.add.sprite(map.widthInPixels - 800, map.heightInPixels - 1050, "slime_green");
+    this.slime4.setScale(3);
+    this.slime4.play("green_slime_anim")
+
+    this.slime5 = this.physics.add.sprite(map.widthInPixels - 850, map.heightInPixels - 1100, "slime_green");
+    this.slime5.setScale(3);
+    this.slime5.play("green_slime_anim")
+
+    this.slime6 = this.physics.add.sprite(map.widthInPixels - 815, map.heightInPixels - 1185, "slime_green");
+    this.slime6.setScale(3);
+    this.slime6.play("green_slime_anim")
 
     //Enemies put into group
-    // this.enemies = this.physics.add.group();
-    // this.enemies.add(this.enemy1);
-    // this.enemies.add(this.enemy2);
-    // this.enemies.add(this.enemy3);
-    // this.enemies.add(this.enemy4);
-    // this.enemies.add(this.enemy5);
+    this.enemies = this.physics.add.group();
+    this.enemies.add(this.slime1);
+    this.enemies.add(this.slime2);
+    this.enemies.add(this.slime3);
+    this.enemies.add(this.slime4);
+    this.enemies.add(this.slime5);
+    this.enemies.add(this.slime6);
 
     //Projectiles put into group
     this.projectiles = this.add.group();
@@ -86,6 +105,7 @@ class Scene2 extends Phaser.Scene{
     //Projectiles
     this.physics.add.collider(this.projectiles, envLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
+    this.physics.add.collider(this.projectiles, this.enemies, this.enemy_hit, null, this);
 
   }
 
@@ -94,6 +114,11 @@ class Scene2 extends Phaser.Scene{
 
   enviro_hit(projectile, layer){
     projectile.destroy();
+  }
+
+  enemy_hit(projectile, enemy){
+    projectile.destroy();
+    enemy.destroy();
   }
   //accidental function but cloaks player
   cloaking(){
@@ -120,16 +145,6 @@ class Scene2 extends Phaser.Scene{
     //input code
     this.health -= 20
   }
-
-  //Sample code (May be deleted)
-  moveAsteroid(asteroid, speed){
-    asteroid.x -= speed;
-    asteroid.angle += speed;
-    if (asteroid.x < 0) {
-      this.resetAsteroidPos(asteroid, false);
-    }
-  }
-
 
   update(){
     //this.debugtext.setText('player x: ' + Math.trunc(this.player.x) + ' player y: ' + Math.trunc(this.player.y) + ' x: ' + Math.trunc(this.cameras.main.x) + ' y: ' + Math.trunc(this.cameras.main.y))
