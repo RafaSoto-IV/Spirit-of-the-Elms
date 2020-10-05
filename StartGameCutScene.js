@@ -26,6 +26,7 @@ class StartGameCutScene extends Phaser.Scene{
     this.sensei = this.physics.add.staticSprite(1180, 130, "sensei");
     this.player.setScale(1.3);
     this.sensei.setScale(1.3);
+    this.sensei.setSize(.1, .1);
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.centerOn(1220, 130);
 

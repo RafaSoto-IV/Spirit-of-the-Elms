@@ -62,11 +62,11 @@ class Scene2 extends Phaser.Scene{
     this.cameras.main.startFollow(this.player, true);
 
     //Check which direction player is facing
-    this.test_direction = "player_right";
+    this.test_direction = "player_left";
     // this.slime_scale = 2
-    this.direction = "player_right";
-    this.movement = "player_right";
-    this.previous = "player_right";
+    this.direction = "player_left";
+    this.movement = "player_left";
+    this.previous = "player_left";
     this.cloak = false;
     this.gameover = false;
 
