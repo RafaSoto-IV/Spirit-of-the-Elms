@@ -43,7 +43,8 @@ class StartGameCutScene extends Phaser.Scene{
       this.dialogText.destroy(true);
       this.dialogBox.destroy(true);
       this.scene.start("playGame");
-
+      this.scene.launch("uiScene");
+      this.scene.bringToTop("uiScene");
       }
   }
 

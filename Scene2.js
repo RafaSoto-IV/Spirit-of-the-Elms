@@ -121,7 +121,7 @@ class Scene2 extends Phaser.Scene{
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
-
+  
   }
 
     //If player touches enemy
@@ -131,7 +131,8 @@ class Scene2 extends Phaser.Scene{
     if (this.cloak){
       enemy.destroy();
     } else{
-      this.player.health -= 100
+      this.player.health -= 100;
+      this.events.emit('playerHit');
       if (this.player.health <= 0){
         if (!this.gameover){
           this.add.text(player.x, player.y, "GAMEOVER");

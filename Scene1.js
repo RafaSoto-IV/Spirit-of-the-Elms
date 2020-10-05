@@ -4,9 +4,11 @@ class Scene1 extends Phaser.Scene{
   }
 
   preload(){
+    this.load.image('healthbar', 'healthbar.png');
+    this.load.image('manabar', 'manabar.png');
     this.load.image('sensei', 'rpg-pack/chars/sensei/sensei.png');
-    this.load.image('dialogBox', 'rpg-pack/UI/generic-rpg-ui-text-box.png')
-    this.load.image('envtiles', 'envtilesSheetExtruded.png')
+    this.load.image('dialogBox', 'rpg-pack/UI/generic-rpg-ui-text-box.png');
+    this.load.image('envtiles', 'envtilesSheetExtruded.png');
     this.load.image('tiles', 'tilesSheetExtruded.png');
     this.load.tilemapTiledJSON('map', 'tileMap.json');
     //Sprite input here
