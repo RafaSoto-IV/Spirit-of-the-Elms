@@ -3,6 +3,8 @@ class StartGameCutScene extends Phaser.Scene{
     super("startingCutScene");
     this.dialogBox;
     this.dialogText;
+    this.dialogTextInstructions;
+    this.timer;
   }
 
   preload(){
@@ -28,18 +30,21 @@ class StartGameCutScene extends Phaser.Scene{
     this.cameras.main.centerOn(1220, 130);
 
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    this.dialogBox = this.add.image(1220, 230, 'dialogBox').setScale(2);
+    //this.dialogBox = this.add.image(1220, 230, 'dialogBox').setScale(2);
+    this.dialogBox = this.add.sprite(1220, 230, 'dialogBox').setScale(2);
     this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '132px', fill: '#000' }).setScale(0.1);
-    this.dialogText = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '50px', fill: '#000' }).setScale(0.2);
+    this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '50px', fill: '#000' }).setScale(0.2);
 
   }
 
   update(){
     if (Phaser.Input.Keyboard.JustDown(this.enterKey)){
-      console.log("enter key presssed")
-        this.dialogText.destroy();
-        this.dialogBox.destroy();
-        this.scene.start("playGame");
+      this.dialogTextInstructions.destroy(true)
+      this.dialogText.destroy(true);
+      this.dialogBox.destroy(true);
+      this.scene.start("playGame");
+
       }
   }
+
 }
