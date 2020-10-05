@@ -5,7 +5,8 @@ class Scene2 extends Phaser.Scene{
 
 
   create(){
-    this.health = 2000
+    this.health = 2000;
+    this.mana = 2000;
     //Background image here. Will be changed to tileset
     //this.background = this.add.image(0,0, "background");
     //this.background.setOrigin(0,0);
@@ -121,7 +122,7 @@ class Scene2 extends Phaser.Scene{
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
-  
+
   }
 
     //If player touches enemy
@@ -204,7 +205,19 @@ class Scene2 extends Phaser.Scene{
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
-      this.magic();
+      if (this.mana >= 50){
+        this.magic();
+        this.mana -= 50;
+      }
+    }
+
+    if(this.cloak){
+      this.mana -= 50;
+      if (this.mana <= 0){
+        this.cloak = false;
+      }
+    } else{
+      this.mana += 1;
     }
 
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){
