@@ -24,9 +24,9 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 16,
       frameHeight: 16
     });
-    this.load.spritesheet("slime_blue", "assets/images/spritesheets/slime-blue.png",{
-      frameWidth: 16,
-      frameHeight: 24
+    this.load.spritesheet("slime_blue", "assets/images/spritesheets/slime-Sheet.png",{
+      frameWidth: 96/6,
+      frameHeight: 16
     });
   }
 
@@ -65,7 +65,7 @@ class Scene1 extends Phaser.Scene{
     this.anims.create({
       key: "blue_slime_anim",
       frames: this.anims.generateFrameNumbers("slime_blue"),
-      frameRate: 4,
+      frameRate: 6,
       repeat: -1
     });
 
