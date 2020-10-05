@@ -1,7 +1,6 @@
 class Scene2 extends Phaser.Scene{
   constructor(){
     super("playGame");
-    this.debugtext;
   }
 
 
@@ -23,6 +22,8 @@ class Scene2 extends Phaser.Scene{
     const envLayer = map.createStaticLayer('environment', envtileset);
     envLayer.setCollisionByProperty({ collides: true});
     treeLayer.setCollisionByProperty({ collides: true});
+
+
     // for testing collision
     //const envLayer = map.createStaticLayer('environment', [envtileset, completeFence])
     // envLayer.setCollisionByProperty({ collides: true});
@@ -35,7 +36,7 @@ class Scene2 extends Phaser.Scene{
 
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
-    this.player = this.physics.add.sprite(map.widthInPixels -120, map.heightInPixels-1490, "player-right");
+    this.player = this.physics.add.sprite(map.widthInPixels - 380, map.heightInPixels - 1470, "player-right");
     this.player.health = 1000;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
@@ -46,6 +47,10 @@ class Scene2 extends Phaser.Scene{
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     this.player.setScale(1.3);
+
+    this.sensei = this.physics.add.staticSprite(1180, 130, "sensei");
+    this.sensei.setScale(1.3);
+    this.physics.add.collider(this.player, this.sensei);
 
     // set camera to follow player and to not show out of bounds
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -111,7 +116,6 @@ class Scene2 extends Phaser.Scene{
 
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
-
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
 
   }
@@ -174,8 +178,6 @@ class Scene2 extends Phaser.Scene{
   }
 
   update(){
-    //this.debugtext.setText('player x: ' + Math.trunc(this.player.x) + ' player y: ' + Math.trunc(this.player.y) + ' x: ' + Math.trunc(this.cameras.main.x) + ' y: ' + Math.trunc(this.cameras.main.y))
-    //this.debug.cameraInfo(this.cameras.main, 32, 32);
     //Camera should be locked onto player
     // game.camera.focusOnXY(player.x, player.y);
     // this.cameras.main.centerOn(this.player.width + 750, this.player.height - 100);
