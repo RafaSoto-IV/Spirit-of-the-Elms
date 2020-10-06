@@ -5,8 +5,6 @@ class Scene2 extends Phaser.Scene{
 
 
   create(){
-    this.health = 2000;
-    this.mana = 2000;
     //Background image here. Will be changed to tileset
     //this.background = this.add.image(0,0, "background");
     //this.background.setOrigin(0,0);
@@ -42,6 +40,7 @@ class Scene2 extends Phaser.Scene{
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(map.widthInPixels - 380, map.heightInPixels - 1470, "player-right");
+    this.player.mana = 2000;
     this.player.health = 1000;
     this.player.vulnerable = true;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
@@ -220,19 +219,22 @@ class Scene2 extends Phaser.Scene{
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
-      if (this.mana >= 50){
+      if (this.player.mana >= 50){
         this.magic();
-        this.mana -= 50;
+        this.player.mana -= 50;
+        this.events.emit('playerUseMagic');
       }
     }
 
     if(this.cloak){
-      this.mana -= 50;
-      if (this.mana <= 0){
+      this.events.emit('playerUseMagic');
+      this.player.mana -= 50;
+      if (this.player.mana <= 0){
         this.cloak = false;
       }
     } else{
-      this.mana += 1;
+      this.events.emit('playerUseMagic');
+      this.player.mana += 1;
     }
 
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){

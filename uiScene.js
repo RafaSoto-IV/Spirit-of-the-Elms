@@ -10,7 +10,7 @@ class uiScene extends Phaser.Scene {
         let ourGame = this.scene.get('playGame');
 
         //  health and mana bars
-        console.log(ourGame.player);
+        //console.log(ourGame.player);
         this.healthbar = this.add.image(66, 10, 'healthbar');
         this.manabar = this.add.image(66, 20, 'manabar');
         this.healthbarMaxWidth = this.healthbar.width;
@@ -21,6 +21,11 @@ class uiScene extends Phaser.Scene {
            this.healthbar.setCrop(0, 0, width , this.healthbar.height);
 
        }, this);
+       ourGame.events.on('playerUseMagic', function () {
+          var width = ourGame.player.mana/2000 * this.manabar.width
+          this.manabar.setCrop(0, 0, width , this.manabar.height);
+
+      }, this);
 
 
 
