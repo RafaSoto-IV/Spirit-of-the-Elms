@@ -43,6 +43,7 @@ class Scene2 extends Phaser.Scene{
     //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(map.widthInPixels - 380, map.heightInPixels - 1470, "player-right");
     this.player.health = 1000;
+    this.player.vulnerable = true;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -122,31 +123,45 @@ class Scene2 extends Phaser.Scene{
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
-
+    this.hitTimer;
   }
 
     //If player touches enemy
   //  this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
 
   hit(player, enemy){
-    if (this.cloak){
-      enemy.destroy();
-    } else{
-      this.player.health -= 100;
-      this.events.emit('playerHit');
-      if (this.player.health <= 0){
-        if (!this.gameover){
-          this.add.text(player.x, player.y, "GAMEOVER");
-          this.gameover = true;
+    if(this.player.vulnerable){
+      if (this.cloak){
+        enemy.destroy();
+      } else{
+        this.player.health -= 100;
+        this.events.emit('playerHit');
+        this.player.vulnerable = false;
+        if (this.player.health <= 0){
+          if (!this.gameover){
+            this.add.text(player.x, player.y, "GAMEOVER");
+            this.gameover = true;
+          }
         }
+        if (this.direction == "player_left"){
+          player.setVelocityX(100);
+        } else if (this.direction == "player_right"){
+          player.setVelocityX(-100);
+        }
+        player.play("blue_slime_anim")
       }
-      if (this.direction == "player_left"){
-        player.setVelocityX(100);
-      } else if (this.direction == "player_right"){
-        player.setVelocityX(-100);
-      }
-      player.play("blue_slime_anim")
+      this.hitTimer = this.time.addEvent({
+            delay: 500,
+            callback: this.removePlayerInvulnerability,
+            callbackScope: this,
+            loop: false,
+            repeat: 0
+        });
     }
+  }
+
+  removePlayerInvulnerability(){
+    this.player.vulnerable = true;
   }
 
   enviro_hit(projectile, layer){

@@ -17,7 +17,8 @@ class uiScene extends Phaser.Scene {
         var check = true;
         ourGame.events.on('playerHit', function () {
            //var rect = new Phaser.Geom.Rectangle(0, 0, 20 , this.healthbar.height);
-           this.healthbar.setCrop(0, 0, this.healthbar.width/2 , this.healthbar.height);
+           var width = ourGame.player.health/1000 * this.healthbar.width
+           this.healthbar.setCrop(0, 0, width , this.healthbar.height);
 
        }, this);
 
