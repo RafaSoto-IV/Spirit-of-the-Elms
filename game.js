@@ -11,7 +11,12 @@ var config = {
   },
   scale: {
     zoom: 2
-  }
+  },
+  render: {
+        //antialias: false,
+        pixelArt: true
+        //roundPixels: true
+    }
 }
 
 var gameSettings = {

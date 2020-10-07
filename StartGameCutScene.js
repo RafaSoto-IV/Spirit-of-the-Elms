@@ -33,9 +33,26 @@ class StartGameCutScene extends Phaser.Scene{
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     //this.dialogBox = this.add.image(1220, 230, 'dialogBox').setScale(2);
     this.dialogBox = this.add.sprite(1220, 230, 'dialogBox').setScale(2);
-    this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '132px', fill: '#000' }).setScale(0.1);
-    this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '50px', fill: '#000' }).setScale(0.2);
+    //sprite.setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
+    // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '132px', fill: '#000' }).setScale(0.1);
+    // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '50px', fill: '#000' }).setScale(0.2);
+
+    // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '264px', fill: '#000' }).setScale(0.05);
+    // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '100px', fill: '#000' }).setScale(0.1);
+
+    this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+    this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+
+    // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '12px', fill: '#000' });
+    // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '8px', fill: '#000' });
+    // console.log(this.dialogText.style);
+    // var fontInfo = this.dialogText.style.fontSize.split('px');
+    // this.dialogText.style.font = fontInfo[0]*this.sys.game.config.resolution + 'px' + fontInfo[1];
+    // this.dialogText.setScale(1/this.sys.game.config.resolution)
+    // var fontInfo = this.dialogTextInstructions.style.fontSize.split('px');
+    // this.dialogTextInstructions.style.font = fontInfo[0]*this.sys.game.config.resolution + 'px' + fontInfo[1];
+    // this.dialogTextInstructions.setScale(1/this.sys.game.config.resolution)
   }
 
   update(){
