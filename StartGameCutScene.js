@@ -22,17 +22,17 @@ class StartGameCutScene extends Phaser.Scene{
     this.envLayer.setCollisionByProperty({ collides: true});
     this.treeLayer.setCollisionByProperty({ collides: true});
 
-    this.player = this.physics.add.sprite(1220, 130, "player-left");
-    this.sensei = this.physics.add.staticSprite(1180, 130, "sensei");
+    this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-left");
+    this.sensei = this.physics.add.staticSprite(this.map.widthInPixels - 420, 130, "sensei");
     this.player.setScale(1.3);
     this.sensei.setScale(1.3);
     this.sensei.setSize(.1, .1);
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-    this.cameras.main.centerOn(1220, 130);
+    this.cameras.main.centerOn(this.map.widthInPixels - 380, 130);
 
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     //this.dialogBox = this.add.image(1220, 230, 'dialogBox').setScale(2);
-    this.dialogBox = this.add.sprite(1220, 230, 'dialogBox').setScale(2);
+    this.dialogBox = this.add.sprite(this.map.widthInPixels - 380, 230, 'dialogBox').setScale(2);
     //sprite.setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
     // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '132px', fill: '#000' }).setScale(0.1);
@@ -41,8 +41,8 @@ class StartGameCutScene extends Phaser.Scene{
     // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '264px', fill: '#000' }).setScale(0.05);
     // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '100px', fill: '#000' }).setScale(0.1);
 
-    this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-    this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+    this.dialogText = this.add.text(this.map.widthInPixels - 490, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+    this.dialogTextInstructions = this.add.text(this.map.widthInPixels - 460, 250, '(Press Enter to exit dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
     // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '12px', fill: '#000' });
     // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '8px', fill: '#000' });

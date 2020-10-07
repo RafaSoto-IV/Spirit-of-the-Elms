@@ -39,7 +39,7 @@ class Scene2 extends Phaser.Scene{
 
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
-    this.player = this.physics.add.sprite(map.widthInPixels - 380, map.heightInPixels - 1470, "player-right");
+    this.player = this.physics.add.sprite(map.widthInPixels - 380, 130, "player-right");
     this.player.mana = 2000;
     this.player.health = 1000;
     this.player.vulnerable = true;
@@ -53,7 +53,7 @@ class Scene2 extends Phaser.Scene{
     this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     this.player.setScale(1.3);
 
-    this.sensei = this.physics.add.staticSprite(1180, 130, "sensei");
+    this.sensei = this.physics.add.staticSprite(map.widthInPixels - 420, 130, "sensei");
     this.sensei.setScale(1.3);
     this.physics.add.collider(this.player, this.sensei);
 
@@ -78,27 +78,27 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.player, treeLayer);
 
     //Random enemy sprites input here
-    this.slime1 = this.physics.add.sprite(map.widthInPixels - 700, map.heightInPixels - 1050, "slime_blue");
+    this.slime1 = this.physics.add.sprite(map.widthInPixels - 700, 550, "slime_blue");
     this.slime1.setScale(this.slime_scale);
     this.slime1.play("blue_slime_anim")
 
-    this.slime2 = this.physics.add.sprite(map.widthInPixels - 650, map.heightInPixels - 1100, "slime_blue");
+    this.slime2 = this.physics.add.sprite(map.widthInPixels - 650, 500, "slime_blue");
     this.slime2.setScale(this.slime_scale);
     this.slime2.play("blue_slime_anim")
 
-    this.slime3 = this.physics.add.sprite(map.widthInPixels - 700, map.heightInPixels - 1185, "slime_blue");
+    this.slime3 = this.physics.add.sprite(map.widthInPixels - 700, 415, "slime_blue");
     this.slime3.setScale(this.slime_scale);
     this.slime3.play("blue_slime_anim")
 
-    this.slime4 = this.physics.add.sprite(map.widthInPixels - 800, map.heightInPixels - 1050, "slime_blue");
+    this.slime4 = this.physics.add.sprite(map.widthInPixels - 800, 550, "slime_blue");
     this.slime4.setScale(this.slime_scale);
     this.slime4.play("blue_slime_anim")
 
-    this.slime5 = this.physics.add.sprite(map.widthInPixels - 850, map.heightInPixels - 1100, "slime_blue");
+    this.slime5 = this.physics.add.sprite(map.widthInPixels - 850, 500, "slime_blue");
     this.slime5.setScale(this.slime_scale);
     this.slime5.play("blue_slime_anim")
 
-    this.slime6 = this.physics.add.sprite(map.widthInPixels - 815, map.heightInPixels - 1185, "slime_blue");
+    this.slime6 = this.physics.add.sprite(map.widthInPixels - 815, 415, "slime_blue");
     this.slime6.setScale(this.slime_scale);
     this.slime6.play("blue_slime_anim")
 
