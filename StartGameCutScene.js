@@ -19,6 +19,8 @@ class StartGameCutScene extends Phaser.Scene{
     this.map.createStaticLayer('ground', tileset);
     this.treeLayer = this.map.createStaticLayer('trees', envtileset)
     this.envLayer = this.map.createStaticLayer('environment', envtileset);
+    this.envLayer2 = this.map.createStaticLayer('environment2', envtileset);
+    this.envLayer2.setCollisionByProperty({ collides: true});
     this.envLayer.setCollisionByProperty({ collides: true});
     this.treeLayer.setCollisionByProperty({ collides: true});
 

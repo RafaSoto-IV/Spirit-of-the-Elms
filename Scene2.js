@@ -11,15 +11,17 @@ class Scene2 extends Phaser.Scene{
     //this.add.text();
     //this.cameras.main.centerOn(800, 800);
 
-    const map = this.make.tilemap({ key: 'map' });
-    const envtileset = map.addTilesetImage('envtileset', 'envtiles', 16, 16, 1, 2);
-    const tileset = map.addTilesetImage('tileset', 'tiles', 16, 16, 1, 2);
+    this.map = this.make.tilemap({ key: 'map' });
+    const envtileset = this.map.addTilesetImage('envtileset', 'envtiles', 16, 16, 1, 2);
+    const tileset = this.map.addTilesetImage('tileset', 'tiles', 16, 16, 1, 2);
 
 
-    map.createStaticLayer('ground', tileset);
-    const treeLayer = map.createStaticLayer('trees', envtileset)
-    const envLayer = map.createStaticLayer('environment', envtileset);
+    this.map.createStaticLayer('ground', tileset);
+    const treeLayer = this.map.createStaticLayer('trees', envtileset)
+    const envLayer = this.map.createStaticLayer('environment', envtileset);
+    const envLayer2 = this.map.createStaticLayer('environment2', envtileset);
     envLayer.setCollisionByProperty({ collides: true});
+    envLayer2.setCollisionByProperty({ collides: true});
     treeLayer.setCollisionByProperty({ collides: true});
 
 
@@ -39,10 +41,11 @@ class Scene2 extends Phaser.Scene{
 
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
-    this.player = this.physics.add.sprite(map.widthInPixels - 380, 130, "player-right");
+    this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
     this.player.mana = 2000;
     this.player.health = 1000;
     this.player.vulnerable = true;
+    this.player.progress = 1;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -51,14 +54,15 @@ class Scene2 extends Phaser.Scene{
     //this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+    this.p = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
     this.player.setScale(1.3);
 
-    this.sensei = this.physics.add.staticSprite(map.widthInPixels - 420, 130, "sensei");
+    this.sensei = this.physics.add.staticSprite(this.map.widthInPixels - 420, 130, "sensei");
     this.sensei.setScale(1.3);
     this.physics.add.collider(this.player, this.sensei);
 
     // set camera to follow player and to not show out of bounds
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true);
 
     //Check which direction player is facing
@@ -78,27 +82,27 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.player, treeLayer);
 
     //Random enemy sprites input here
-    this.slime1 = this.physics.add.sprite(map.widthInPixels - 700, 550, "slime_blue");
+    this.slime1 = this.physics.add.sprite(this.map.widthInPixels - 700, 550, "slime_blue");
     this.slime1.setScale(this.slime_scale);
     this.slime1.play("blue_slime_anim")
 
-    this.slime2 = this.physics.add.sprite(map.widthInPixels - 650, 500, "slime_blue");
+    this.slime2 = this.physics.add.sprite(this.map.widthInPixels - 650, 500, "slime_blue");
     this.slime2.setScale(this.slime_scale);
     this.slime2.play("blue_slime_anim")
 
-    this.slime3 = this.physics.add.sprite(map.widthInPixels - 700, 415, "slime_blue");
+    this.slime3 = this.physics.add.sprite(this.map.widthInPixels - 700, 415, "slime_blue");
     this.slime3.setScale(this.slime_scale);
     this.slime3.play("blue_slime_anim")
 
-    this.slime4 = this.physics.add.sprite(map.widthInPixels - 800, 550, "slime_blue");
+    this.slime4 = this.physics.add.sprite(this.map.widthInPixels - 800, 550, "slime_blue");
     this.slime4.setScale(this.slime_scale);
     this.slime4.play("blue_slime_anim")
 
-    this.slime5 = this.physics.add.sprite(map.widthInPixels - 850, 500, "slime_blue");
+    this.slime5 = this.physics.add.sprite(this.map.widthInPixels - 850, 500, "slime_blue");
     this.slime5.setScale(this.slime_scale);
     this.slime5.play("blue_slime_anim")
 
-    this.slime6 = this.physics.add.sprite(map.widthInPixels - 815, 415, "slime_blue");
+    this.slime6 = this.physics.add.sprite(this.map.widthInPixels - 815, 415, "slime_blue");
     this.slime6.setScale(this.slime_scale);
     this.slime6.play("blue_slime_anim")
 
@@ -212,6 +216,17 @@ class Scene2 extends Phaser.Scene{
     } else {
       this.player.setVelocityX(0);
       this.player.setVelocityY(0);
+    }
+
+    if(this.player.progress == 1 && this.player.x > this.map.widthInPixels- 160  && this.player.y > this.map.heightInPixels - 720){
+      this.scene.launch('VillageCutScene');
+      this.scene.pause();
+    }
+
+    if(Phaser.Input.Keyboard.JustDown(this.p)){
+      console.log("p pressed")
+      this.scene.launch('PauseScreenScene');
+      this.scene.pause();
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.c)){
