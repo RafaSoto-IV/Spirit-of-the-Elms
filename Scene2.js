@@ -262,18 +262,9 @@ class Scene2 extends Phaser.Scene{
       this.player.mana += 1;
     }
 
-    this.slime_enemies.getChildren().forEach(function(slime){
-      var slimeX = this.player.x - slime.x;
-      var slimeY = this.player.y - slime.y;
-      if(Math.abs(slimeX) < this.slimeRange){
-        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-        slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
-      }
-      if (Math.abs(slimeY) < this.slimeRange){
-        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-        slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
-      }
-    });
+    this.slime_enemies.children.each(child => {
+      this.moveSlimes(child);
+    })
 
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){
     //   var magic = this.projectiles.getChildren()[i];
