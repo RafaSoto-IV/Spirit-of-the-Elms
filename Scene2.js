@@ -74,6 +74,9 @@ class Scene2 extends Phaser.Scene{
     this.cloak = false;
     this.gameover = false;
 
+    this.slimeRange = 5;
+    this.slimeSpeed = 50;
+
 
 
     //collision on the world
@@ -115,6 +118,11 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime5);
     this.slime_enemies.add(this.slime6);
 
+
+    this.physics.add.collider(this.slime_enemies, envLayer);
+    this.physics.add.collider(this.slime_enemies, treeLayer);
+    this.physics.add.collider(this.slime_enemies, this.slime_enemies);
+
     //Projectiles put into group
     this.projectiles = this.add.group();
 
@@ -123,10 +131,12 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
 
+
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
     this.hitTimer;
+
   }
 
     //If player touches enemy
@@ -197,8 +207,8 @@ class Scene2 extends Phaser.Scene{
   }
 
   stop(player, obstacle){
-    this.player.setVelocityX(0);
-    this.player.setVelocityY(0);
+    player.setVelocityX(0);
+    player.setVelocityY(0);
   }
 
   update(){
@@ -252,11 +262,23 @@ class Scene2 extends Phaser.Scene{
       this.player.mana += 1;
     }
 
+    this.slime_enemies.getChildren().forEach(function(slime){
+      var slimeX = this.player.x - slime.x;
+      var slimeY = this.player.y - slime.y;
+      if(Math.abs(slimeX) < this.slimeRange){
+        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+        slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
+      }
+      if (Math.abs(slimeY) < this.slimeRange){
+        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+        slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
+      }
+    });
+
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){
     //   var magic = this.projectiles.getChildren()[i];
     //   magic.update()
     // }
-
   }
 
   //attack based on what familiars player has
@@ -272,6 +294,19 @@ class Scene2 extends Phaser.Scene{
     if (this.previous != this.direction){
       this.player.play(this.direction);
       this.previous = this.direction
+    }
+  }
+
+  moveSlimes(slime){
+    var slimeX = this.player.x - slime.x;
+    var slimeY = this.player.y - slime.y;
+    if(Math.abs(slimeX) < this.slimeRange){
+      slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+      slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
+    }
+    if (Math.abs(slimeY) < this.slimeRange){
+      slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+      slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
     }
   }
 
