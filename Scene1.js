@@ -4,6 +4,10 @@ class Scene1 extends Phaser.Scene{
   }
 
   preload(){
+    this.load.spritesheet("titleScreen", "assets/images/spritesheets/title_screen-Sheet.png", {
+      frameWidth: 200,
+      frameHeight: 100
+    });
     this.load.image('healthbar', 'healthbar.png');
     this.load.image('manabar', 'manabar.png');
     this.load.image('sensei', 'rpg-pack/chars/sensei/sensei.png');
@@ -35,7 +39,6 @@ class Scene1 extends Phaser.Scene{
   }
 
   create(){
-    this.add.text(20, 20, "Loading Game");
 
     //Animate walking here
     this.anims.create({
@@ -73,6 +76,19 @@ class Scene1 extends Phaser.Scene{
       repeat: -1
     });
 
-    this.scene.start("startingCutScene");
+    this.anims.create({
+      key: "title_screen_anim",
+      frames: this.anims.generateFrameNumbers("titleScreen"),
+      frameRate: 4,
+      repeat: -1
+    });
+
+    const titleScreen = this.add.sprite(200, 150, "titleScreen").setScale(2);
+    titleScreen.play("title_screen_anim");
+    const startText = this.add.text(160, 265, "Start Game", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' })
+    startText.setInteractive(new Phaser.Geom.Rectangle(0, 0, startText.width, startText.height), Phaser.Geom.Rectangle.Contains);
+    startText.on('pointerdown', function () {
+      this.scene.start("startingCutScene");
+    }, this);
   }
 }

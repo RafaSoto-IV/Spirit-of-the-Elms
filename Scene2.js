@@ -234,7 +234,6 @@ class Scene2 extends Phaser.Scene{
     }
 
     if(Phaser.Input.Keyboard.JustDown(this.p)){
-      console.log("p pressed")
       this.scene.launch('PauseScreenScene');
       this.scene.pause();
     }

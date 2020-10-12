@@ -15,7 +15,7 @@ class VillageCutScene extends Phaser.Scene {
 
         this.input.mouse.disableContextMenu();
 
-        this.input.on('pointerdown', this.pointerHandler);
+        this.input.on('pointerdown', this.pointerHandler, this);
     }
 
     pointerHandler(pointer){

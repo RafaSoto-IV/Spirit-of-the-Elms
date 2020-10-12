@@ -7,34 +7,30 @@ class PauseScreenScene extends Phaser.Scene {
 
     create(){
         //  Grab a reference to the Game Scene
-        console.log("Paise Screen")
         this.ourGame = this.scene.get('playGame');
         this.add.text(100,100, "click in this area")
 
         this.input.mouse.disableContextMenu();
 
         this.input.on('pointerdown', this.pointerHandler, this);
+
+        this.p = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    }
+
+    update(){
+      if(Phaser.Input.Keyboard.JustDown(this.p)){
+        this.scene.resume('playGame');
+        this.scene.stop();
+      }
     }
 
     pointerHandler(pointer){
-      console.log("click");
-      // console.log(pointer);
-      // console.log(pointer.position);
-      // console.log(pointer.position.x);
-      // console.log(pointer.position.y);
-      // console.log(pointer.x);
-      // console.log(pointer.y);
-      // console.log(pointer.worldX);
-      // console.log(pointer.worldY);
-      // this.mouseX = pointer.position.x;
-      // this.mouseY = pointer.position.y;
       this.mouseX = pointer.x;
       this.mouseY = pointer.y;
-      //draw = true;
     console.log("mouse x: " + this.mouseX);
     console.log("mouse y: " + this.mouseY);
-    console.log(this.scene)
-    console.log(this.ourGame)
+    // console.log(this.scene)
+    // console.log(this.ourGame)
       if (pointer.leftButtonDown()){
         if((this.mouseX > 200 && this.mouseX < 300) && (this.mouseY > 100 && this.mouseY < 150)){
           this.scene.resume('playGame');
