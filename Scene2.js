@@ -109,7 +109,7 @@ class Scene2 extends Phaser.Scene{
     this.slime6.setScale(this.slime_scale);
     this.slime6.play("blue_slime_anim")
 
-    this.slime7 = this.physics.add.sprite(this.map.widthInPixels - 75, 1000, "slime_blue");
+    this.slime7 = this.physics.add.sprite(this.map.widthInPixels - 70, 1000, "slime_blue");
     this.slime7.setScale(this.slime_scale);
     this.slime7.play("blue_slime_anim")
 
@@ -117,7 +117,7 @@ class Scene2 extends Phaser.Scene{
     this.slime8.setScale(this.slime_scale);
     this.slime8.play("blue_slime_anim")
 
-    this.slime9 = this.physics.add.sprite(this.map.widthInPixels - 75, 1100, "slime_blue");
+    this.slime9 = this.physics.add.sprite(this.map.widthInPixels - 70, 1100, "slime_blue");
     this.slime9.setScale(this.slime_scale);
     this.slime9.play("blue_slime_anim")
 
@@ -125,7 +125,7 @@ class Scene2 extends Phaser.Scene{
     this.slime10.setScale(this.slime_scale);
     this.slime10.play("blue_slime_anim")
 
-    this.slime11 = this.physics.add.sprite(this.map.widthInPixels - 75, 1200, "slime_blue");
+    this.slime11 = this.physics.add.sprite(this.map.widthInPixels - 70, 1200, "slime_blue");
     this.slime11.setScale(this.slime_scale);
     this.slime11.play("blue_slime_anim")
 
@@ -133,7 +133,7 @@ class Scene2 extends Phaser.Scene{
     this.slime12.setScale(this.slime_scale);
     this.slime12.play("blue_slime_anim")
 
-    this.slime13 = this.physics.add.sprite(this.map.widthInPixels - 75, 1300, "slime_blue");
+    this.slime13 = this.physics.add.sprite(this.map.widthInPixels - 70, 1300, "slime_blue");
     this.slime13.setScale(this.slime_scale);
     this.slime13.play("blue_slime_anim")
 
@@ -141,7 +141,7 @@ class Scene2 extends Phaser.Scene{
     this.slime14.setScale(this.slime_scale);
     this.slime14.play("blue_slime_anim")
 
-    this.slime15 = this.physics.add.sprite(this.map.widthInPixels - 75, 1400, "slime_blue");
+    this.slime15 = this.physics.add.sprite(this.map.widthInPixels - 70, 1400, "slime_blue");
     this.slime15.setScale(this.slime_scale);
     this.slime15.play("blue_slime_anim")
 
@@ -163,8 +163,9 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime14);
     this.slime_enemies.add(this.slime15);
 
-
-
+    this.slime_enemies.children.each(child => {
+      child.health = 200;
+    })
 
     this.physics.add.collider(this.slime_enemies, envLayer);
     this.physics.add.collider(this.slime_enemies, treeLayer);
@@ -177,7 +178,6 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.projectiles, envLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
-
 
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
@@ -192,7 +192,7 @@ class Scene2 extends Phaser.Scene{
   hit(player, enemy){
     if(this.player.vulnerable){
       if (this.cloak){
-        enemy.destroy();
+        enemy.health -= 100
       } else{
         this.player.health -= 100;
         this.events.emit('playerHit');
@@ -235,7 +235,7 @@ class Scene2 extends Phaser.Scene{
 
   enemy_hit(projectile, enemy){
     projectile.destroy();
-    enemy.destroy();
+    enemy.health -= 100;
   }
   //accidental function but cloaks player
   cloaking(){
@@ -309,8 +309,15 @@ class Scene2 extends Phaser.Scene{
     }
 
     this.slime_enemies.children.each(child => {
+      if (child.health <= 0){
+        child.destroy();
+      };
+    });
+
+    this.slime_enemies.children.each(child => {
       this.moveSlimes(child);
-    })
+    });
+
 
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){
     //   var magic = this.projectiles.getChildren()[i];
