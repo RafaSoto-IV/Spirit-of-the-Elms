@@ -39,6 +39,9 @@ class Scene2 extends Phaser.Scene{
     //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
     // })
 
+    this.vendor = this.physics.add.staticSprite(this.map.widthInPixels - 1080, this.map.heightInPixels - 330, "vendor");
+    this.vendor.setScale(1.3);
+
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
@@ -60,6 +63,14 @@ class Scene2 extends Phaser.Scene{
     this.sensei = this.physics.add.staticSprite(this.map.widthInPixels - 420, 130, "sensei");
     this.sensei.setScale(1.3);
     this.physics.add.collider(this.player, this.sensei);
+
+
+
+    this.physics.add.collider(this.player, this.vendor);
+
+    this.hatGuy = this.physics.add.staticSprite(this.map.widthInPixels- 155, this.map.heightInPixels - 680, "hatGuy");
+    this.hatGuy.setScale(1.3);
+    this.physics.add.collider(this.player, this.hatGuy);
 
     // set camera to follow player and to not show out of bounds
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -184,6 +195,8 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
     this.hitTimer;
 
+    this.sys.events.on('resume', this.resume, this);
+
   }
 
     //If player touches enemy
@@ -275,7 +288,7 @@ class Scene2 extends Phaser.Scene{
       this.player.setVelocityY(0);
     }
 
-    if(this.player.progress == 1 && this.player.x > this.map.widthInPixels- 160  && this.player.y > this.map.heightInPixels - 720){
+    if(this.player.progress == 1 && this.player.x > this.map.widthInPixels- 155  && this.player.y > this.map.heightInPixels - 690){
       this.scene.launch('VillageCutScene');
       this.scene.pause();
     }
@@ -404,5 +417,12 @@ class Scene2 extends Phaser.Scene{
       this.test_direction = "player_right";
       this.animation();
     }
+  }
+
+  resume() {
+    this.cursorKeys.left.reset();
+    this.cursorKeys.right.reset();
+    this.cursorKeys.up.reset();
+    this.cursorKeys.down.reset();
   }
 }

@@ -11,6 +11,8 @@ class Scene1 extends Phaser.Scene{
     this.load.image('healthbar', 'healthbar.png');
     this.load.image('manabar', 'manabar.png');
     this.load.image('sensei', 'rpg-pack/chars/sensei/sensei.png');
+    this.load.image('hatGuy', 'rpg-pack/chars/hat-guy/hat-guy.png');
+    this.load.image('vendor', 'rpg-pack/chars/vendor/generic-rpg-vendor.png');
     this.load.image('dialogBox', 'rpg-pack/UI/generic-rpg-ui-text-box.png');
     this.load.image('envtiles', 'envtilesSheetExtruded.png');
     this.load.image('tiles', 'tilesSheetExtruded.png');
@@ -85,7 +87,7 @@ class Scene1 extends Phaser.Scene{
 
     const titleScreen = this.add.sprite(200, 150, "titleScreen").setScale(2);
     titleScreen.play("title_screen_anim");
-    const startText = this.add.text(160, 265, "Start Game", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' })
+    const startText = this.add.text(160, 265, "Start Game", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
     startText.setInteractive(new Phaser.Geom.Rectangle(0, 0, startText.width, startText.height), Phaser.Geom.Rectangle.Contains);
     startText.on('pointerdown', function () {
       this.scene.start("startingCutScene");
