@@ -58,6 +58,11 @@ class Scene2 extends Phaser.Scene{
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     this.p = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    this.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.a = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    this.d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
     this.player.setScale(1.3);
 
     this.sensei = this.physics.add.staticSprite(this.map.widthInPixels - 420, 130, "sensei");
@@ -96,6 +101,7 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.player, treeLayer);
 
     //Random enemy sprites input here
+    //1 - 6 Around trees first left path
     this.slime1 = this.physics.add.sprite(this.map.widthInPixels - 700, 550, "slime_blue");
     this.slime1.setScale(this.slime_scale);
     this.slime1.play("blue_slime_anim")
@@ -120,6 +126,8 @@ class Scene2 extends Phaser.Scene{
     this.slime6.setScale(this.slime_scale);
     this.slime6.play("blue_slime_anim")
 
+
+    //7 - 15 Downward path
     this.slime7 = this.physics.add.sprite(this.map.widthInPixels - 70, 1000, "slime_blue");
     this.slime7.setScale(this.slime_scale);
     this.slime7.play("blue_slime_anim")
@@ -374,7 +382,7 @@ class Scene2 extends Phaser.Scene{
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
     // this.player.play();
-    if(this.cursorKeys.up.isDown){
+    if(this.w.isDown){
       this.player.setVelocityY(-gameSettings.playerSpeed);
       if (!this.cloak){
         this.direction = this.movement;
@@ -383,7 +391,7 @@ class Scene2 extends Phaser.Scene{
       }
       this.test_direction = "player_down";
       this.animation();
-    }else if(this.cursorKeys.down.isDown){
+    }else if(this.s.isDown){
       this.player.setVelocityY(gameSettings.playerSpeed);
       if (!this.cloak){
         this.direction = this.movement;
@@ -394,7 +402,7 @@ class Scene2 extends Phaser.Scene{
       this.animation();
     }
 
-    if(this.cursorKeys.left.isDown){
+    if(this.a.isDown){
       this.player.setVelocityX(-gameSettings.playerSpeed);
       if (!this.cloak){
         this.direction = 'player_left';
@@ -405,7 +413,7 @@ class Scene2 extends Phaser.Scene{
       }
       this.test_direction = "player_left";
       this.animation();
-    }else if(this.cursorKeys.right.isDown){
+    }else if(this.d.isDown){
       this.player.setVelocityX(gameSettings.playerSpeed);
       if (!this.cloak){
         this.direction = 'player_right';
