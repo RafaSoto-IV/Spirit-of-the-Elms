@@ -74,7 +74,7 @@ class Scene2 extends Phaser.Scene{
     this.cloak = false;
     this.gameover = false;
 
-    this.slimeRange = 5;
+    this.slimeRange = 150;
     this.slimeSpeed = 50;
 
 
@@ -109,6 +109,42 @@ class Scene2 extends Phaser.Scene{
     this.slime6.setScale(this.slime_scale);
     this.slime6.play("blue_slime_anim")
 
+    this.slime7 = this.physics.add.sprite(this.map.widthInPixels - 75, 1000, "slime_blue");
+    this.slime7.setScale(this.slime_scale);
+    this.slime7.play("blue_slime_anim")
+
+    this.slime8 = this.physics.add.sprite(this.map.widthInPixels - 200, 1050, "slime_blue");
+    this.slime8.setScale(this.slime_scale);
+    this.slime8.play("blue_slime_anim")
+
+    this.slime9 = this.physics.add.sprite(this.map.widthInPixels - 75, 1100, "slime_blue");
+    this.slime9.setScale(this.slime_scale);
+    this.slime9.play("blue_slime_anim")
+
+    this.slime10 = this.physics.add.sprite(this.map.widthInPixels - 200, 1150, "slime_blue");
+    this.slime10.setScale(this.slime_scale);
+    this.slime10.play("blue_slime_anim")
+
+    this.slime11 = this.physics.add.sprite(this.map.widthInPixels - 75, 1200, "slime_blue");
+    this.slime11.setScale(this.slime_scale);
+    this.slime11.play("blue_slime_anim")
+
+    this.slime12 = this.physics.add.sprite(this.map.widthInPixels - 200, 1250, "slime_blue");
+    this.slime12.setScale(this.slime_scale);
+    this.slime12.play("blue_slime_anim")
+
+    this.slime13 = this.physics.add.sprite(this.map.widthInPixels - 75, 1300, "slime_blue");
+    this.slime13.setScale(this.slime_scale);
+    this.slime13.play("blue_slime_anim")
+
+    this.slime14 = this.physics.add.sprite(this.map.widthInPixels - 200, 1350, "slime_blue");
+    this.slime14.setScale(this.slime_scale);
+    this.slime14.play("blue_slime_anim")
+
+    this.slime15 = this.physics.add.sprite(this.map.widthInPixels - 75, 1400, "slime_blue");
+    this.slime15.setScale(this.slime_scale);
+    this.slime15.play("blue_slime_anim")
+
     //slime_enemies put into group
     this.slime_enemies = this.physics.add.group();
     this.slime_enemies.add(this.slime1);
@@ -117,6 +153,17 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime4);
     this.slime_enemies.add(this.slime5);
     this.slime_enemies.add(this.slime6);
+    this.slime_enemies.add(this.slime7);
+    this.slime_enemies.add(this.slime8);
+    this.slime_enemies.add(this.slime9);
+    this.slime_enemies.add(this.slime10);
+    this.slime_enemies.add(this.slime11);
+    this.slime_enemies.add(this.slime12);
+    this.slime_enemies.add(this.slime13);
+    this.slime_enemies.add(this.slime14);
+    this.slime_enemies.add(this.slime15);
+
+
 
 
     this.physics.add.collider(this.slime_enemies, envLayer);
@@ -291,13 +338,15 @@ class Scene2 extends Phaser.Scene{
     var slimeX = this.player.x - slime.x;
     var slimeY = this.player.y - slime.y;
     if(Math.abs(slimeX) < this.slimeRange){
-      slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-      slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
+      if (Math.abs(slimeY) < this.slimeRange){
+        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+        slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
+      }
     }
-    if (Math.abs(slimeY) < this.slimeRange){
-      slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-      slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
-    }
+    // if (Math.abs(slimeY) < this.slimeRange){
+    //   slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+    //   slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
+    // }
   }
 
   //How player is moved
