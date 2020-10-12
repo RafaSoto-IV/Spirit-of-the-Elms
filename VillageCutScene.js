@@ -61,7 +61,9 @@ class VillageCutScene extends Phaser.Scene {
           //this.unPause();
         }
       }
-
+      // if(this.player.x == 7880 && this.player.y <2030 && this.player.y >2025 ){
+      //   this.readyToMove = true;
+      // }
       this.progressCutScene()
 
         //this.player.play(this.direction);
@@ -76,6 +78,8 @@ class VillageCutScene extends Phaser.Scene {
         if(this.progress == 0){
           // console.log("progress=0")
           this.player.play("player_left");
+          console.log("player x: " + this.player.x);
+          console.log("player y: " + this.player.y);
           this.player.setVelocityY(100);
           this.progress = 1;
           this.readyToMove = false;
@@ -89,6 +93,8 @@ class VillageCutScene extends Phaser.Scene {
         } else if(this.progress ==1){
           console.log("progress=1")
           this.player.play("player_left");
+          console.log("player x: " + this.player.x);
+          console.log("player y: " + this.player.y);
           this.player.setVelocityX(-100);
           this.player.setVelocityY(0);
           this.progress = 2;
@@ -103,6 +109,8 @@ class VillageCutScene extends Phaser.Scene {
         } else if(this.progress == 2){
           console.log("progress=3")
           this.player.play("player_left");
+          console.log("player x: " + this.player.x);
+          console.log("player y: " + this.player.y);
           this.player.setVelocityX(0);
           this.player.setVelocityY(100);
           this.progress = 3;
@@ -117,6 +125,8 @@ class VillageCutScene extends Phaser.Scene {
         } else if(this.progress == 3){
           console.log("progress=3")
           this.player.play("player_left");
+          console.log("player x: " + this.player.x);
+          console.log("player y: " + this.player.y);
           this.player.setVelocityX(-100);
           this.player.setVelocityY(0);
           this.progress = 4;
@@ -131,6 +141,8 @@ class VillageCutScene extends Phaser.Scene {
         } else if(this.progress == 4){
           console.log("progress=4")
           this.player.play("player_up");
+          console.log("player x: " + this.player.x);
+          console.log("player y: " + this.player.y);
           this.player.setVelocityX(0);
           this.player.setVelocityY(-100);
           this.progress = 5;

@@ -84,13 +84,10 @@ class Scene1 extends Phaser.Scene{
       frameRate: 4,
       repeat: -1
     });
-
-    const titleScreen = this.add.sprite(200, 150, "titleScreen").setScale(2);
-    titleScreen.play("title_screen_anim");
-    const startText = this.add.text(160, 265, "Start Game", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-    startText.setInteractive(new Phaser.Geom.Rectangle(0, 0, startText.width, startText.height), Phaser.Geom.Rectangle.Contains);
-    startText.on('pointerdown', function () {
+    this.input.keyboard.on('keydown', function () {
       this.scene.start("startingCutScene");
     }, this);
+
+    const titleScreen = this.add.sprite(200, 150, "titleScreen").setScale(2);
   }
 }

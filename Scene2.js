@@ -428,10 +428,10 @@ class Scene2 extends Phaser.Scene{
   }
 
   resume() {
-    this.player.play("player_left")
-    this.cursorKeys.left.reset();
-    this.cursorKeys.right.reset();
-    this.cursorKeys.up.reset();
-    this.cursorKeys.down.reset();
+    this.player.play("player_left");
+    this.w.reset();
+    this.a.reset();
+    this.s.reset();
+    this.d.reset();
   }
 }
