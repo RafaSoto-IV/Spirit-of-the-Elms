@@ -170,27 +170,27 @@ class Scene2 extends Phaser.Scene{
     this.slime16.setScale(this.slime_scale);
     this.slime16.play("blue_slime_anim")
 
-    this.slime17 = this.physics.add.sprite(this.map.widthInPixels - 1225, 1675, "slime_blue");
+    this.slime17 = this.physics.add.sprite(this.map.widthInPixels - 1250, 1675, "slime_blue");
     this.slime17.setScale(this.slime_scale);
     this.slime17.play("blue_slime_anim")
 
-    this.slime18 = this.physics.add.sprite(this.map.widthInPixels - 1250, 1650, "slime_blue");
+    this.slime18 = this.physics.add.sprite(this.map.widthInPixels - 1300, 1650, "slime_blue");
     this.slime18.setScale(this.slime_scale);
     this.slime18.play("blue_slime_anim")
 
-    this.slime19 = this.physics.add.sprite(this.map.widthInPixels - 1275, 1625, "slime_blue");
+    this.slime19 = this.physics.add.sprite(this.map.widthInPixels - 1350, 1625, "slime_blue");
     this.slime19.setScale(this.slime_scale);
     this.slime19.play("blue_slime_anim")
 
-    this.slime20 = this.physics.add.sprite(this.map.widthInPixels - 1300, 1650, "slime_blue");
+    this.slime20 = this.physics.add.sprite(this.map.widthInPixels - 1400, 1650, "slime_blue");
     this.slime20.setScale(this.slime_scale);
     this.slime20.play("blue_slime_anim")
 
-    this.slime21 = this.physics.add.sprite(this.map.widthInPixels - 1325, 1675, "slime_blue");
+    this.slime21 = this.physics.add.sprite(this.map.widthInPixels - 1450, 1675, "slime_blue");
     this.slime21.setScale(this.slime_scale);
     this.slime21.play("blue_slime_anim")
 
-    this.slime22 = this.physics.add.sprite(this.map.widthInPixels - 1350, 1700, "slime_blue");
+    this.slime22 = this.physics.add.sprite(this.map.widthInPixels - 1500, 1700, "slime_blue");
     this.slime22.setScale(this.slime_scale);
     this.slime22.play("blue_slime_anim")
 
@@ -213,6 +213,9 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime15);
 
     this.magic_slime_enemies = this.physics.add.group();
+    this.magic_slime_enemies.add(this.slime16);
+    this.magic_slime_enemies.add(this.slime17);
+    this.magic_slime_enemies.add(this.slime18);
     this.magic_slime_enemies.add(this.slime19);
     this.magic_slime_enemies.add(this.slime20);
     this.magic_slime_enemies.add(this.slime21);
