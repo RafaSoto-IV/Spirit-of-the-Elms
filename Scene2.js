@@ -164,6 +164,36 @@ class Scene2 extends Phaser.Scene{
     this.slime15.setScale(this.slime_scale);
     this.slime15.play("blue_slime_anim")
 
+
+    //After town enemies
+    this.slime16 = this.physics.add.sprite(this.map.widthInPixels - 1200, 1700, "slime_blue");
+    this.slime16.setScale(this.slime_scale);
+    this.slime16.play("blue_slime_anim")
+
+    this.slime17 = this.physics.add.sprite(this.map.widthInPixels - 1225, 1675, "slime_blue");
+    this.slime17.setScale(this.slime_scale);
+    this.slime17.play("blue_slime_anim")
+
+    this.slime18 = this.physics.add.sprite(this.map.widthInPixels - 1250, 1650, "slime_blue");
+    this.slime18.setScale(this.slime_scale);
+    this.slime18.play("blue_slime_anim")
+
+    this.slime19 = this.physics.add.sprite(this.map.widthInPixels - 1275, 1625, "slime_blue");
+    this.slime19.setScale(this.slime_scale);
+    this.slime19.play("blue_slime_anim")
+
+    this.slime20 = this.physics.add.sprite(this.map.widthInPixels - 1300, 1650, "slime_blue");
+    this.slime20.setScale(this.slime_scale);
+    this.slime20.play("blue_slime_anim")
+
+    this.slime21 = this.physics.add.sprite(this.map.widthInPixels - 1325, 1675, "slime_blue");
+    this.slime21.setScale(this.slime_scale);
+    this.slime21.play("blue_slime_anim")
+
+    this.slime22 = this.physics.add.sprite(this.map.widthInPixels - 1350, 1700, "slime_blue");
+    this.slime22.setScale(this.slime_scale);
+    this.slime22.play("blue_slime_anim")
+
     //slime_enemies put into group
     this.slime_enemies = this.physics.add.group();
     this.slime_enemies.add(this.slime1);
@@ -182,6 +212,16 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime14);
     this.slime_enemies.add(this.slime15);
 
+    this.magic_slime_enemies = this.physics.add.group();
+    this.magic_slime_enemies.add(this.slime19);
+    this.magic_slime_enemies.add(this.slime20);
+    this.magic_slime_enemies.add(this.slime21);
+    this.magic_slime_enemies.add(this.slime22);
+
+    this.magic_slime_enemies.children.each(child => {
+      child.mana = 50
+    })
+
     this.slime_enemies.children.each(child => {
       child.health = 200;
     })
@@ -192,15 +232,20 @@ class Scene2 extends Phaser.Scene{
 
     //Projectiles put into group
     this.projectiles = this.add.group();
+    this.slime_projectiles = this.add.group();
 
     //Projectiles
     this.physics.add.collider(this.projectiles, envLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
+    this.physics.add.collider(this.slime_projectiles, envLayer, this.enviro_hit, null, this);
+    this.physics.add.collider(this.slime_projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
+
 
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
+    this.physics.add.overlap(this.player, this.slime_projectiles, this.projectile_hit, null, this);
     this.hitTimer;
 
     this.sys.events.on('resume', this.resume, this);
@@ -209,6 +254,31 @@ class Scene2 extends Phaser.Scene{
 
     //If player touches enemy
   //  this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
+
+  projectile_hit(player, projectile){
+    projectile.destroy();
+    if(this.player.vulnerable){
+      if (!this.cloak){
+        this.player.health -= 100;
+        this.events.emit('playerHit');
+        this.player.vulnerable = false;
+        if (this.player.health <= 0){
+          if (!this.gameover){
+            this.add.text(player.x, player.y, "GAMEOVER");
+            this.gameover = true;
+          }
+        }
+        player.play("blue_slime_anim");
+      }
+      this.hitTimer = this.time.addEvent({
+            delay: 500,
+            callback: this.removePlayerInvulnerability,
+            callbackScope: this,
+            loop: false,
+            repeat: 0
+        });
+    }
+  }
 
   hit(player, enemy){
     if(this.player.vulnerable){
@@ -272,6 +342,10 @@ class Scene2 extends Phaser.Scene{
   //ranged magic attack
   magic(){
     var magic = new Magic(this);
+  }
+
+  slime_magic(magic_slime){
+    var slime_magic = new Slime_Magic(this, magic_slime);
   }
 
   stop(player, obstacle){
@@ -339,6 +413,17 @@ class Scene2 extends Phaser.Scene{
       this.moveSlimes(child);
     });
 
+    this.magic_slime_enemies.children.each(child => {
+      if (child.mana >= 50){
+        this.slime_magic(child);
+        child.mana = 0;
+      } else{
+        child.mana += .75;
+      }
+      child.setVelocityX(0);
+      child.setVelocityY(0);
+    })
+
 
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){
     //   var magic = this.projectiles.getChildren()[i];
@@ -368,7 +453,7 @@ class Scene2 extends Phaser.Scene{
     if(Math.abs(slimeX) < this.slimeRange){
       if (Math.abs(slimeY) < this.slimeRange){
         slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-        slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
+        slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
       }
     }
     // if (Math.abs(slimeY) < this.slimeRange){
