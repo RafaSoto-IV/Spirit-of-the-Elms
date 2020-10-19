@@ -668,6 +668,7 @@ class Scene2 extends Phaser.Scene{
 
   resume() {
     this.player.play("player_left");
+    this.cloak = false;
     this.w.reset();
     this.a.reset();
     this.s.reset();
