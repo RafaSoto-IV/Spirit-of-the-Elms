@@ -81,6 +81,9 @@ class Scene2 extends Phaser.Scene{
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.startFollow(this.player, true);
 
+    this.cameraRangeX = this.sys.game.config.width / 2;
+    this.cameraRangeY = this.sys.game.config.height / 2;
+
     //Check which direction player is facing
     this.test_direction = "player_left";
     // this.slime_scale = 2
@@ -348,7 +351,9 @@ class Scene2 extends Phaser.Scene{
   }
 
   slime_magic(magic_slime){
+    //console.log("slime magic ");
     var slime_magic = new Slime_Magic(this, magic_slime);
+    //console.log(slime_magic);
   }
 
   stop(player, obstacle){
@@ -417,7 +422,7 @@ class Scene2 extends Phaser.Scene{
     });
 
     this.magic_slime_enemies.children.each(child => {
-      if (child.mana >= 50){
+      if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
         this.slime_magic(child);
         child.mana = 0;
       } else{
