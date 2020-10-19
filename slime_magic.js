@@ -18,7 +18,7 @@ class Slime_Magic extends Phaser.GameObjects.Sprite{
     // this.enemyWeapon.fire();
 
     this.play("slime_magic");
-    this.setScale(.2);
+    this.setScale(.5);
     scene.physics.world.enableBody(this);
     // if(Math.abs(slimeX) < scene.slimeRange){
     //   if (Math.abs(slimeY) < scene.slimeRange){

@@ -36,19 +36,30 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 889/7,
       frameHeight: 110
     });
-    this.load.spritesheet("slime_magic", "assets/images/spritesheets/slime_magic.png",{
-      frameWidth: 760/5,
-      frameHeight: 152
-  })
+    this.load.spritesheet("slime_magic", "assets/images/spritesheets/fireball2-Sheet.png",{
+      frameWidth: 64/4,
+      frameHeight: 16
+    })
+
+    this.load.spritesheet("slime_red", "assets/images/spritesheets/fire_slug-Sheet.png",{
+      frameWidth: 80/5,
+      frameHeight: 16
+    })
+
     this.load.spritesheet("slime_blue", "assets/images/spritesheets/slime-Sheet.png",{
       frameWidth: 96/6,
       frameHeight: 16
     });
 
-    this.load.spritesheet("idle", "assets/images/spritesheets/witch-idle-idle-Sheet-Sheet.png",{
+    this.load.spritesheet("idle_left", "assets/images/spritesheets/witch-idle-idle-Sheet-Sheet.png",{
       frameWidth: 72/3,
       frameHeight: 24
     });
+
+    this.load.spritesheet("idle_right", "assets/images/spritesheets/witch-idle-Sheet_right.png",{
+      frameWidth: 72/3,
+      frameHeight: 24
+    })
   }
 
   create(){
@@ -62,8 +73,15 @@ class Scene1 extends Phaser.Scene{
     });
 
     this.anims.create({
-      key: "idle_anim",
-      frames: this.anims.generateFrameNumbers("idle"),
+      key: "idle_left_anim",
+      frames: this.anims.generateFrameNumbers("idle_left"),
+      frameRate: 3,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "idle_right_anim",
+      frames: this.anims.generateFrameNumbers("idle_right"),
       frameRate: 3,
       repeat: -1
     });
@@ -93,6 +111,13 @@ class Scene1 extends Phaser.Scene{
       key: "slime_magic",
       frames: this.anims.generateFrameNumbers("slime_magic"),
       frameRate: 10,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: "red_slime_anim",
+      frames: this.anims.generateFrameNumbers("slime_red"),
+      frameRate: 5,
       repeat: -1
     })
 

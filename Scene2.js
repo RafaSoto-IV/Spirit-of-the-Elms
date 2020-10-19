@@ -177,61 +177,61 @@ class Scene2 extends Phaser.Scene{
     //16 - 22 After town enemies
     this.slime16 = this.physics.add.sprite(this.map.widthInPixels - 1250, 1700, "slime_blue");
     this.slime16.setScale(this.slime_scale);
-    this.slime16.play("blue_slime_anim")
+    this.slime16.play("red_slime_anim")
 
     this.slime17 = this.physics.add.sprite(this.map.widthInPixels - 1300, 1675, "slime_blue");
     this.slime17.setScale(this.slime_scale);
-    this.slime17.play("blue_slime_anim")
+    this.slime17.play("red_slime_anim")
 
     this.slime18 = this.physics.add.sprite(this.map.widthInPixels - 1350, 1650, "slime_blue");
     this.slime18.setScale(this.slime_scale);
-    this.slime18.play("blue_slime_anim")
+    this.slime18.play("red_slime_anim")
 
     this.slime19 = this.physics.add.sprite(this.map.widthInPixels - 1400, 1625, "slime_blue");
     this.slime19.setScale(this.slime_scale);
-    this.slime19.play("blue_slime_anim")
+    this.slime19.play("red_slime_anim")
 
     this.slime20 = this.physics.add.sprite(this.map.widthInPixels - 1450, 1650, "slime_blue");
     this.slime20.setScale(this.slime_scale);
-    this.slime20.play("blue_slime_anim")
+    this.slime20.play("red_slime_anim")
 
     this.slime21 = this.physics.add.sprite(this.map.widthInPixels - 1500, 1675, "slime_blue");
     this.slime21.setScale(this.slime_scale);
-    this.slime21.play("blue_slime_anim")
+    this.slime21.play("red_slime_anim")
 
     this.slime22 = this.physics.add.sprite(this.map.widthInPixels - 1550, 1700, "slime_blue");
     this.slime22.setScale(this.slime_scale);
-    this.slime22.play("blue_slime_anim")
+    this.slime22.play("red_slime_anim")
 
 
     //23 - 36 After town first right (23 - 29 ranged, 30 - 36 melee)
-    this.slime23 = this.physics.add.sprite(this.map.widthInPixels - 1000, 850, "slime_blue");
+    this.slime23 = this.physics.add.sprite(this.map.widthInPixels - 1025, 925, "slime_blue");
     this.slime23.setScale(this.slime_scale);
-    this.slime23.play("blue_slime_anim")
+    this.slime23.play("red_slime_anim")
 
-    this.slime24 = this.physics.add.sprite(this.map.widthInPixels - 900, 950, "slime_blue");
+    this.slime24 = this.physics.add.sprite(this.map.widthInPixels - 925, 1000, "slime_blue");
     this.slime24.setScale(this.slime_scale);
-    this.slime24.play("blue_slime_anim")
+    this.slime24.play("red_slime_anim")
 
-    this.slime25 = this.physics.add.sprite(this.map.widthInPixels - 800, 1050, "slime_blue");
+    this.slime25 = this.physics.add.sprite(this.map.widthInPixels - 825, 1075, "slime_blue");
     this.slime25.setScale(this.slime_scale);
-    this.slime25.play("blue_slime_anim")
+    this.slime25.play("red_slime_anim")
 
-    this.slime26 = this.physics.add.sprite(this.map.widthInPixels - 700, 1150, "slime_blue");
+    this.slime26 = this.physics.add.sprite(this.map.widthInPixels - 725, 1150, "slime_blue");
     this.slime26.setScale(this.slime_scale);
-    this.slime26.play("blue_slime_anim")
+    this.slime26.play("red_slime_anim")
 
-    this.slime27 = this.physics.add.sprite(this.map.widthInPixels - 800, 1250, "slime_blue");
+    this.slime27 = this.physics.add.sprite(this.map.widthInPixels - 825, 1225, "slime_blue");
     this.slime27.setScale(this.slime_scale);
-    this.slime27.play("blue_slime_anim")
+    this.slime27.play("red_slime_anim")
 
-    this.slime28 = this.physics.add.sprite(this.map.widthInPixels - 900, 1350, "slime_blue");
+    this.slime28 = this.physics.add.sprite(this.map.widthInPixels - 925, 1300, "slime_blue");
     this.slime28.setScale(this.slime_scale);
-    this.slime28.play("blue_slime_anim")
+    this.slime28.play("red_slime_anim")
 
-    this.slime29 = this.physics.add.sprite(this.map.widthInPixels - 1000, 1450, "slime_blue");
+    this.slime29 = this.physics.add.sprite(this.map.widthInPixels - 1025, 1375, "slime_blue");
     this.slime29.setScale(this.slime_scale);
-    this.slime29.play("blue_slime_anim")
+    this.slime29.play("red_slime_anim")
 
     this.slime30 = this.physics.add.sprite(this.map.widthInPixels - 1000, 1100, "slime_blue");
     this.slime30.setScale(this.slime_scale);
@@ -383,7 +383,7 @@ class Scene2 extends Phaser.Scene{
   hit(player, enemy){
     if(this.player.vulnerable){
       if (this.cloak){
-        enemy.health -= 100
+        enemy.health -= 10
       } else{
         this.player.health -= 100;
         this.events.emit('playerHit');
@@ -620,8 +620,18 @@ class Scene2 extends Phaser.Scene{
         this.animation();
       }
     } else {
-      this.direction = 'idle_anim';
-      this.animation();
+        if (!this.cloak){
+          if(this.test_direction == "player_left"){
+            this.direction = 'idle_left_anim';
+            this.animation();
+          } else if (this.test_direction == "player_right"){
+            this.direction = 'idle_right_anim';
+            this.animation();
+          }
+        } else{
+            this.direction = 'cloak_anim';
+            this.animation();
+      }
     }
   }
 
