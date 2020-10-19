@@ -13,19 +13,26 @@ class uiScene extends Phaser.Scene {
         //console.log(ourGame.player);
         this.healthbar = this.add.image(66, 10, 'healthbar');
         this.manabar = this.add.image(66, 20, 'manabar');
+        this.xpbar = this.add.image(66, 30, 'xpbar');
+        this.xpbar.setCrop(0, 0, 0, this.xpbar.height);
         this.healthbarMaxWidth = this.healthbar.width;
         var check = true;
         ourGame.events.on('playerHit', function () {
            //var rect = new Phaser.Geom.Rectangle(0, 0, 20 , this.healthbar.height);
-           var width = ourGame.player.health/1000 * this.healthbar.width
+           var width = ourGame.player.health/ourGame.player.maxHealth * this.healthbar.width
            this.healthbar.setCrop(0, 0, width , this.healthbar.height);
 
        }, this);
        ourGame.events.on('playerUseMagic', function () {
-          var width = ourGame.player.mana/2000 * this.manabar.width
+          var width = ourGame.player.mana/ourGame.player.maxMana * this.manabar.width
           this.manabar.setCrop(0, 0, width , this.manabar.height);
 
       }, this);
+      ourGame.events.on('gainXp', function () {
+         var width = ourGame.player.xp/ourGame.player.xpForNextLevel * this.xpbar.width
+         this.xpbar.setCrop(0, 0, width , this.xpbar.height);
+
+     }, this);
 
 
 
