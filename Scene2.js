@@ -47,6 +47,7 @@ class Scene2 extends Phaser.Scene{
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
     this.player.mana = 9999999999999999;
     this.player.health = 1000;
+    this.player.maxHealth = 1000;
     this.player.vulnerable = true;
     this.player.progress = 1;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
@@ -102,6 +103,10 @@ class Scene2 extends Phaser.Scene{
     // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
     this.physics.add.collider(this.player, envLayer);
     this.physics.add.collider(this.player, treeLayer);
+
+
+    this.healthPickups = this.physics.add.group();
+    this.physics.add.overlap(this.player, this.healthPickups, this.pickupHealth, null, this);
 
     //Random enemy sprites input here
     //1 - 6 Around trees first left path
@@ -420,7 +425,8 @@ class Scene2 extends Phaser.Scene{
 
     this.slime_enemies.children.each(child => {
       if (child.health <= 0){
-        child.destroy();
+        this.destroyEnemy(child);
+        //child.destroy();
       };
     });
 
@@ -430,7 +436,8 @@ class Scene2 extends Phaser.Scene{
 
     this.magic_slime_enemies.children.each(child => {
       if (child.health <= 0){
-        child.destroy();
+        this.destroyEnemy(child);
+        //child.destroy();
       } else {
         if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
           this.slime_magic(child);
@@ -528,6 +535,24 @@ class Scene2 extends Phaser.Scene{
       }
       this.test_direction = "player_right";
       this.animation();
+    }
+  }
+
+
+  destroyEnemy(enemy){
+    if(Phaser.Math.Between(1, 100) <= 20){
+      var healthPickup = this.physics.add.sprite(enemy.x, enemy.y, "healthPickup");
+      healthPickup.setScale(0.02);
+      this.healthPickups.add(healthPickup);
+    }
+    enemy.destroy();
+  }
+
+  pickupHealth(player, healthPickup){
+    if(this.player.health < this.player.maxHealth){
+      this.player.health += 50;
+      this.events.emit('playerHit');
+      healthPickup.destroy();
     }
   }
 

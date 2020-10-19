@@ -10,6 +10,7 @@ class Scene1 extends Phaser.Scene{
     });
     this.load.image('healthbar', 'healthbar.png');
     this.load.image('manabar', 'manabar.png');
+    this.load.image('healthPickup', 'healthPickup.png');
     this.load.image('sensei', 'rpg-pack/chars/sensei/sensei.png');
     this.load.image('hatGuy', 'rpg-pack/chars/hat-guy/hat-guy.png');
     this.load.image('vendor', 'rpg-pack/chars/vendor/generic-rpg-vendor.png');
