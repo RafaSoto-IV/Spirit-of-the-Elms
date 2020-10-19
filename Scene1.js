@@ -44,6 +44,11 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 96/6,
       frameHeight: 16
     });
+
+    this.load.spritesheet("idle", "assets/images/spritesheets/witch-idle-idle-Sheet-Sheet.png",{
+      frameWidth: 72/3,
+      frameHeight: 24
+    });
   }
 
   create(){
@@ -53,6 +58,13 @@ class Scene1 extends Phaser.Scene{
       key: "player_right",
       frames: this.anims.generateFrameNumbers("player-right"),
       frameRate: 6,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "idle_anim",
+      frames: this.anims.generateFrameNumbers("idle"),
+      frameRate: 3,
       repeat: -1
     });
 

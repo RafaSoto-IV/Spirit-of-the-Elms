@@ -575,47 +575,52 @@ class Scene2 extends Phaser.Scene{
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
     // this.player.play();
-    if(this.w.isDown){
-      this.player.setVelocityY(-gameSettings.playerSpeed);
-      if (!this.cloak){
-        this.direction = this.movement;
-      }else{
-        this.direction = 'cloak_anim';
+    if (this.w.isDown || this.s.isDown || this.a.isDown || this.d.isDown){
+      if(this.w.isDown){
+        this.player.setVelocityY(-gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = this.movement;
+        }else{
+          this.direction = 'cloak_anim';
+        }
+        this.test_direction = "player_down";
+        this.animation();
+      }else if(this.s.isDown){
+        this.player.setVelocityY(gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = this.movement;
+        }else{
+          this.direction = 'cloak_anim';
+        }
+        this.test_direction = "player_up";
+        this.animation();
       }
-      this.test_direction = "player_down";
-      this.animation();
-    }else if(this.s.isDown){
-      this.player.setVelocityY(gameSettings.playerSpeed);
-      if (!this.cloak){
-        this.direction = this.movement;
-      }else{
-        this.direction = 'cloak_anim';
-      }
-      this.test_direction = "player_up";
-      this.animation();
-    }
 
-    if(this.a.isDown){
-      this.player.setVelocityX(-gameSettings.playerSpeed);
-      if (!this.cloak){
-        this.direction = 'player_left';
-        this.movement = 'player_left';
-      }else{
-        this.direction = 'cloak_anim';
-        this.movement = 'player_left';
+      if(this.a.isDown){
+        this.player.setVelocityX(-gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = 'player_left';
+          this.movement = 'player_left';
+        }else{
+          this.direction = 'cloak_anim';
+          this.movement = 'player_left';
+        }
+        this.test_direction = "player_left";
+        this.animation();
+      }else if(this.d.isDown){
+        this.player.setVelocityX(gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = 'player_right';
+          this.movement = 'player_right';
+        }else{
+          this.direction = 'cloak_anim';
+          this.movement = 'player_right';
+        }
+        this.test_direction = "player_right";
+        this.animation();
       }
-      this.test_direction = "player_left";
-      this.animation();
-    }else if(this.d.isDown){
-      this.player.setVelocityX(gameSettings.playerSpeed);
-      if (!this.cloak){
-        this.direction = 'player_right';
-        this.movement = 'player_right';
-      }else{
-        this.direction = 'cloak_anim';
-        this.movement = 'player_right';
-      }
-      this.test_direction = "player_right";
+    } else {
+      this.direction = 'idle_anim';
       this.animation();
     }
   }
