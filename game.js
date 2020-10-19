@@ -2,7 +2,7 @@ var config = {
   width: 400,
   height: 300,
   backgroundColor: 0x000000,
-  scene: [Scene1, StartGameCutScene, Scene2, uiScene, PauseScreenScene, VillageCutScene],
+  scene: [Scene1, StartGameCutScene, Scene2, uiScene, LevelUpScreenScene, PauseScreenScene, VillageCutScene],
   physics: {
     default: "arcade",
     arcade:{
