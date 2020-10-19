@@ -225,7 +225,8 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime22);
 
     this.magic_slime_enemies.children.each(child => {
-      child.mana = 50
+      child.mana = 50;
+      child.health = 300;
     })
 
     this.slime_enemies.children.each(child => {
@@ -235,6 +236,11 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.slime_enemies, envLayer);
     this.physics.add.collider(this.slime_enemies, treeLayer);
     this.physics.add.collider(this.slime_enemies, this.slime_enemies);
+
+    this.physics.add.collider(this.magic_slime_enemies, envLayer);
+    this.physics.add.collider(this.magic_slime_enemies, treeLayer);
+    this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
+
 
     //Projectiles put into group
     this.projectiles = this.add.group();
@@ -246,11 +252,12 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.slime_projectiles, envLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
-
+    this.physics.add.collider(this.projectiles, this.magic_slime_enemies, this.enemy_hit, null, this);
 
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
+    this.physics.add.overlap(this.player, this.magic_slime_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.slime_projectiles, this.projectile_hit, null, this);
     this.hitTimer;
 
@@ -420,14 +427,18 @@ class Scene2 extends Phaser.Scene{
     });
 
     this.magic_slime_enemies.children.each(child => {
-      if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
-        this.slime_magic(child);
-        child.mana = 0;
-      } else{
-        child.mana += .75;
+      if (child.health <= 0){
+        child.destroy();
+      } else {
+        if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
+          this.slime_magic(child);
+          child.mana = 0;
+        } else{
+          child.mana += .75;
+        }
+        child.setVelocityX(0);
+        child.setVelocityY(0);
       }
-      child.setVelocityX(0);
-      child.setVelocityY(0);
     })
 
 
