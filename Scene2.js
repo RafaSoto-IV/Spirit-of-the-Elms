@@ -351,9 +351,7 @@ class Scene2 extends Phaser.Scene{
   }
 
   slime_magic(magic_slime){
-    //console.log("slime magic ");
     var slime_magic = new Slime_Magic(this, magic_slime);
-    //console.log(slime_magic);
   }
 
   stop(player, obstacle){
