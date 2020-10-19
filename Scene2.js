@@ -45,7 +45,7 @@ class Scene2 extends Phaser.Scene{
     //Player sprite and interactions placed here
     //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
-    this.player.mana = 2000;
+    this.player.mana = 9999999999999999;
     this.player.health = 1000;
     this.player.vulnerable = true;
     this.player.progress = 1;
@@ -253,6 +253,8 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.slime_projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.magic_slime_enemies, this.enemy_hit, null, this);
+    this.physics.add.collider(this.projectiles, this.vendor, this.enviro_hit, null, this);
+    this.physics.add.collider(this.slime_projectiles, this.vendor, this.enviro_hit, null, this);
 
     // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
     // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
@@ -434,7 +436,7 @@ class Scene2 extends Phaser.Scene{
           this.slime_magic(child);
           child.mana = 0;
         } else{
-          child.mana += .75;
+          child.mana += .25;
         }
         child.setVelocityX(0);
         child.setVelocityY(0);

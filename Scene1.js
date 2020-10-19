@@ -30,14 +30,14 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 16,
       frameHeight: 16
     });
-    this.load.spritesheet("magic", "assets/images/spritesheets/explosion.png",{
-      frameWidth: 16,
-      frameHeight: 16
+    this.load.spritesheet("magic", "assets/images/spritesheets/eldritch_magic.png",{
+      frameWidth: 889/7,
+      frameHeight: 110
     });
-    //this.load.spritesheet("slime_magic", "assets/images/spritesheets/?????.png",{
-    //  frameWidth: ??,
-    //  frameHeight: ??
-  //})
+    this.load.spritesheet("slime_magic", "assets/images/spritesheets/slime_magic.png",{
+      frameWidth: 760/5,
+      frameHeight: 152
+  })
     this.load.spritesheet("slime_blue", "assets/images/spritesheets/slime-Sheet.png",{
       frameWidth: 96/6,
       frameHeight: 16
@@ -64,21 +64,21 @@ class Scene1 extends Phaser.Scene{
     this.anims.create({
       key: "cloak_anim",
       frames: this.anims.generateFrameNumbers("cloak"),
-      frameRate: 5,
+      frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
       key: "magic_anim",
       frames: this.anims.generateFrameNumbers("magic"),
-      frameRate: 5,
+      frameRate: 10,
       repeat: -1
     });
 
     this.anims.create({
       key: "slime_magic",
-      frames: this.anims.generateFrameNumbers("magic"),
-      frameRate: 5,
+      frames: this.anims.generateFrameNumbers("slime_magic"),
+      frameRate: 10,
       repeat: -1
     })
 
