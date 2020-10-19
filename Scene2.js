@@ -46,8 +46,11 @@ class Scene2 extends Phaser.Scene{
     //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
     this.player.mana = 9999999999999999;
+    this.player.maxMana = this.player.mana;
     this.player.health = 1000;
-    this.player.maxHealth = 1000;
+    this.player.maxHealth = this.player.health;
+    this.player.xp = 0;
+    this.player.xpForNextLevel = 1000;
     this.player.vulnerable = true;
     this.player.progress = 1;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
@@ -625,6 +628,8 @@ class Scene2 extends Phaser.Scene{
       this.healthPickups.add(healthPickup);
     }
     enemy.destroy();
+    this.player.xp += 100;
+    this.events.emit('gainXp');
   }
 
   pickupHealth(player, healthPickup){
