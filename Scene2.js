@@ -303,7 +303,6 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime27);
     this.magic_slime_enemies.add(this.slime28);
     this.magic_slime_enemies.add(this.slime29);
-    this.magic_slime_enemies.add(this.slimeBigBoi);
 
     this.magic_slime_enemies.children.each(child => {
       child.mana = 50;
