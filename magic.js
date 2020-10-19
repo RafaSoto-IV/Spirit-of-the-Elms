@@ -12,13 +12,13 @@ class Magic extends Phaser.GameObjects.Sprite{
     this.setScale(.3);
     scene.physics.world.enableBody(this);
     if (test_direction == "player_left"){
-      this.body.velocity.x = -250;
+      this.body.velocity.x = -350;
     } else if (test_direction == "player_right"){
-      this.body.velocity.x = 250;
+      this.body.velocity.x = 350;
     } else if (test_direction == "player_up"){
-      this.body.velocity.y = 250;
+      this.body.velocity.y = 350;
     } else if (test_direction == "player_down"){
-      this.body.velocity.y = -250;
+      this.body.velocity.y = -350;
     }
     // this.body.velocity.x = - 250;
 
