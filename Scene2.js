@@ -52,6 +52,7 @@ class Scene2 extends Phaser.Scene{
     this.player.level = 1;
     this.player.xp = 0;
     this.player.xpForNextLevel = 1000;
+    this.player.projectileDamage = 100;
     this.player.vulnerable = true;
     this.player.progress = 1;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
@@ -523,7 +524,7 @@ class Scene2 extends Phaser.Scene{
 
   enemy_hit(projectile, enemy){
     projectile.destroy();
-    enemy.health -= 100;
+    enemy.health -= this.player.projectileDamage;
   }
   //accidental function but cloaks player
   cloaking(){
