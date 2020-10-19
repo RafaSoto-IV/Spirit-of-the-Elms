@@ -49,6 +49,7 @@ class Scene2 extends Phaser.Scene{
     this.player.maxMana = this.player.mana;
     this.player.health = 1000;
     this.player.maxHealth = this.player.health;
+    this.player.level = 1;
     this.player.xp = 0;
     this.player.xpForNextLevel = 1000;
     this.player.vulnerable = true;
@@ -699,7 +700,18 @@ class Scene2 extends Phaser.Scene{
     enemy.destroy();
     this.player.xp += 100;
     this.events.emit('gainXp');
+    if(this.player.xp >= this.player.xpForNextLevel){
+      this.levelUp();
+    }
   }
+
+  levelUp(){
+    this.player.level += 1;
+    this.scene.launch('LevelUpScreenScene');
+    this.scene.pause();
+  }
+
+
 
   pickupHealth(player, healthPickup){
     if(this.player.health < this.player.maxHealth){
@@ -711,6 +723,7 @@ class Scene2 extends Phaser.Scene{
 
   resume() {
     this.player.play("player_left");
+    this.cloak = false;
     this.w.reset();
     this.a.reset();
     this.s.reset();
