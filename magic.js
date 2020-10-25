@@ -3,7 +3,7 @@ class Magic extends Phaser.GameObjects.Sprite{
 
     var x = scene.player.x;
     var y = scene.player.y;
-    var test_direction = scene.test_direction;
+    var magic_direction = scene.magic_direction;
 
     super(scene, x, y, "magic");
     scene.add.existing(this);
@@ -11,13 +11,13 @@ class Magic extends Phaser.GameObjects.Sprite{
     this.play("magic_anim");
     this.setScale(.3);
     scene.physics.world.enableBody(this);
-    if (test_direction == "player_left"){
+    if (magic_direction == "player_left"){
       this.body.velocity.x = -350;
-    } else if (test_direction == "player_right"){
+    } else if (magic_direction == "player_right"){
       this.body.velocity.x = 350;
-    } else if (test_direction == "player_up"){
+    } else if (magic_direction == "player_up"){
       this.body.velocity.y = 350;
-    } else if (test_direction == "player_down"){
+    } else if (magic_direction == "player_down"){
       this.body.velocity.y = -350;
     }
     // this.body.velocity.x = - 250;

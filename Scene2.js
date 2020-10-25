@@ -58,7 +58,7 @@ class Scene2 extends Phaser.Scene{
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys();
     //this.mouse = this.input.pointer.
     //this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -92,6 +92,7 @@ class Scene2 extends Phaser.Scene{
 
     //Check which direction player is facing
     this.test_direction = "player_left";
+    this.magic_direction = "player_left"
     // this.slime_scale = 2
     this.direction = "player_left";
     this.movement = "player_left";
@@ -582,12 +583,34 @@ class Scene2 extends Phaser.Scene{
       this.cloaking();
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)){
+    if (this.cursors.left.isDown){
       if (this.player.mana >= 50){
+        this.magic_direction = "player_left"
         this.magic();
         this.player.mana -= 50;
         this.events.emit('playerUseMagic');
       }
+    }else if (this.cursors.right.isDown){
+        if(this.player.mana >= 50){
+          this.magic_direction = "player_right";
+          this.magic();
+          this.player.mana -= 50;
+          this.events.emit('playerUseMagic');
+      }
+    } else if (this.cursors.up.isDown){
+        if(this.player.mana >= 50){
+          this.magic_direction = "player_down";
+          this.magic();
+          this.player.mana -= 50;
+          this.events.emit('playerUseMagic');
+        }
+    } else if (this.cursors.down.isDown){
+        if(this.player.mana >= 50){
+          this.magic_direction = "player_up";
+          this.magic();
+          this.player.mana -= 50;
+          this.events.emit('playerUseMagic');
+        }
     }
 
     if(this.cloak){
