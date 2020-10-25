@@ -44,7 +44,7 @@ class StartGameCutScene extends Phaser.Scene{
     // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '100px', fill: '#000' }).setScale(0.1);
 
     this.dialogText = this.add.text(this.map.widthInPixels - 490, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-    this.dialogTextInstructions = this.add.text(this.map.widthInPixels - 460, 250, '(Press Enter to progress dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+    this.dialogTextInstructions = this.add.text(this.map.widthInPixels - 455, 250, '(Press Enter to progress dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
     // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '12px', fill: '#000' });
     // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '8px', fill: '#000' });

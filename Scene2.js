@@ -54,7 +54,9 @@ class Scene2 extends Phaser.Scene{
     this.player.xpForNextLevel = 1000;
     this.player.projectileDamage = 100;
     this.player.vulnerable = true;
+    this.player.canShootProjectiles = true;
     this.player.progress = 1;
+    this.player.projectileTimer;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -514,6 +516,10 @@ class Scene2 extends Phaser.Scene{
     this.player.vulnerable = true;
   }
 
+  allowPlayerProjectiles(){
+    this.player.canShootProjectiles = true;
+  }
+
   enviro_hit(projectile, layer){
     projectile.destroy();
   }
@@ -584,32 +590,64 @@ class Scene2 extends Phaser.Scene{
     }
 
     if (this.cursors.left.isDown){
-      if (this.player.mana >= 50){
+      if (this.player.mana >= 50 && this.player.canShootProjectiles){
         this.magic_direction = "player_left"
         this.magic();
         this.player.mana -= 50;
         this.events.emit('playerUseMagic');
+        this.player.canShootProjectiles = false;
+        this.player.projectileTimer = this.time.addEvent({
+              delay: 300,
+              callback: this.allowPlayerProjectiles,
+              callbackScope: this,
+              loop: false,
+              repeat: 0
+          });
       }
     }else if (this.cursors.right.isDown){
-        if(this.player.mana >= 50){
+        if(this.player.mana >= 50 && this.player.canShootProjectiles){
           this.magic_direction = "player_right";
           this.magic();
           this.player.mana -= 50;
           this.events.emit('playerUseMagic');
+          this.player.canShootProjectiles = false;
+          this.player.projectileTimer = this.time.addEvent({
+                delay: 300,
+                callback: this.allowPlayerProjectiles,
+                callbackScope: this,
+                loop: false,
+                repeat: 0
+            });
       }
     } else if (this.cursors.up.isDown){
-        if(this.player.mana >= 50){
+        if(this.player.mana >= 50 && this.player.canShootProjectiles){
           this.magic_direction = "player_down";
           this.magic();
           this.player.mana -= 50;
           this.events.emit('playerUseMagic');
+          this.player.canShootProjectiles = false;
+          this.player.projectileTimer = this.time.addEvent({
+                delay: 300,
+                callback: this.allowPlayerProjectiles,
+                callbackScope: this,
+                loop: false,
+                repeat: 0
+            });
         }
     } else if (this.cursors.down.isDown){
-        if(this.player.mana >= 50){
+        if(this.player.mana >= 50 && this.player.canShootProjectiles){
           this.magic_direction = "player_up";
           this.magic();
           this.player.mana -= 50;
           this.events.emit('playerUseMagic');
+          this.player.canShootProjectiles = false;
+          this.player.projectileTimer = this.time.addEvent({
+                delay: 300,
+                callback: this.allowPlayerProjectiles,
+                callbackScope: this,
+                loop: false,
+                repeat: 0
+            });
         }
     }
 
