@@ -4,8 +4,23 @@ class Slime_Magic extends Phaser.GameObjects.Sprite{
     var x = magic_slime.x;
     var y = magic_slime.y;
 
-    var slimeX = scene.player.x - magic_slime.x;
-    var slimeY = scene.player.y - magic_slime.y;
+    var slimeX = -scene.player.x + magic_slime.x;
+    var slimeY = -scene.player.y + magic_slime.y;
+
+    var slimeSpeedX = scene.slimeSpeed;
+    var slimeSpeedY = scene.slimeSpeed;
+
+    if (slimeX > 0){
+      slimeSpeedX = -scene.slimeSpeed;
+    } else if (slimeX <= 0){
+      slimeSpeedX = scene.slimeSpeed;
+    }
+
+    if (slimeY > 0){
+      slimeSpeedY = -scene.slimeSpeed;
+    } else if (slimeY <= 0){
+      slimeSpeedY = scene.slimeSpeed;
+    }
 
     //var angle = game.physics.arcade.angleBetween(magic_slime, scene.player)
 
@@ -22,8 +37,8 @@ class Slime_Magic extends Phaser.GameObjects.Sprite{
     scene.physics.world.enableBody(this);
     // if(Math.abs(slimeX) < scene.slimeRange){
     //   if (Math.abs(slimeY) < scene.slimeRange){
-    this.body.velocity.x = (Math.sign(slimeX)*scene.slimeSpeed);
-    this.body.velocity.y = (Math.sign(slimeY)*scene.slimeSpeed);
+    this.body.velocity.x = (Math.abs(slimeX/slimeY)*slimeSpeedX) * .20;
+    this.body.velocity.y = (Math.abs(slimeY/slimeX)*slimeSpeedY) * .20;
     //this.body.angularVelocity
     //   }
     // }

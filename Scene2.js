@@ -484,23 +484,23 @@ class Scene2 extends Phaser.Scene{
       if (this.cloak){
         enemy.health -= 10
       } else{
-        this.player.health -= 100;
-        this.events.emit('playerHit');
-        this.player.vulnerable = false;
-        if (this.player.health <= 0){
-          if (!this.gameover){
-            this.add.text(player.x, player.y, "GAMEOVER");
-            this.gameover = true;
+          this.player.health -= 100;
+          this.events.emit('playerHit');
+          this.player.vulnerable = false;
+          if (this.player.health <= 0){
+            if (!this.gameover){
+              this.add.text(player.x, player.y, "GAMEOVER");
+              this.gameover = true;
+            }
           }
+          if (this.direction == "player_left"){
+            player.setVelocityX(100);
+          } else if (this.direction == "player_right"){
+            player.setVelocityX(-100);
+          }
+          player.play("blue_slime_anim")
         }
-        if (this.direction == "player_left"){
-          player.setVelocityX(100);
-        } else if (this.direction == "player_right"){
-          player.setVelocityX(-100);
-        }
-        player.play("blue_slime_anim")
-      }
-      this.hitTimer = this.time.addEvent({
+        this.hitTimer = this.time.addEvent({
             delay: 500,
             callback: this.removePlayerInvulnerability,
             callbackScope: this,
