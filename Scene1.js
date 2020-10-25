@@ -8,6 +8,7 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 200,
       frameHeight: 100
     });
+    this.load.image("pauseScreen", "assets/images/spritesheets/pause1.png");
     this.load.image('healthbar', 'healthbar.png');
     this.load.image('manabar', 'manabar.png');
     this.load.image('xpbar', 'xpbar.png');
