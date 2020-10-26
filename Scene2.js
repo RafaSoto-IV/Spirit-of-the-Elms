@@ -65,6 +65,7 @@ class Scene2 extends Phaser.Scene{
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
     this.player.mana = 2000;
     this.player.maxMana = this.player.mana;
+    this.player.manaRegen = 1;
     this.player.health = 1000;
     this.player.maxHealth = this.player.health;
     this.player.level = 1;
@@ -73,9 +74,12 @@ class Scene2 extends Phaser.Scene{
     this.player.projectileDamage = 100;
     this.player.vulnerable = true;
     this.player.canShootProjectiles = true;
+    this.player.canAttack = true;
     this.player.progress = 1;
     this.player.projectileTimer;
-    this.player.projectileDelay = 1000;
+    this.player.attackTimer;
+    this.player.projectileDelay = 750;
+    this.player.attackDelay = 750
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -108,8 +112,6 @@ class Scene2 extends Phaser.Scene{
     this.sensei = this.physics.add.staticSprite(this.map.widthInPixels - 420, 130, "sensei");
     this.sensei.setScale(1.3);
     this.physics.add.collider(this.player, this.sensei);
-
-
 
     this.physics.add.collider(this.player, this.vendor);
 
@@ -535,6 +537,10 @@ class Scene2 extends Phaser.Scene{
     this.player.canShootProjectiles = true;
   }
 
+  allowPlayerAttack(){
+    this.player.canAttack = true;
+  }
+
   cloaking(){
     // var magic = new Magic(this);
     if (this.cloak){
@@ -569,11 +575,7 @@ class Scene2 extends Phaser.Scene{
   }
 
   attack(){
-    this.input.mouse.disableContextMenu();
-
-    if(pointer.leftButtonDown()){
-      //attack animation goes here
-    }
+    var attack = new Attack(this);
   }
 
   movePlayer(){
@@ -706,6 +708,11 @@ class Scene2 extends Phaser.Scene{
     this.a.reset();
     this.s.reset();
     this.d.reset();
+    this.cursors.up.reset();
+    this.cursors.down.reset();
+    this.cursors.left.reset();
+    this.cursors.right.reset();
+
   }
 
   animation(){
@@ -807,6 +814,10 @@ class Scene2 extends Phaser.Scene{
         }
     }
 
+    if (this.spacebar.isDown){
+      this.attack();
+    }
+
     if(this.cloak){
       this.events.emit('playerUseMagic');
       this.player.mana -= 50;
@@ -815,7 +826,7 @@ class Scene2 extends Phaser.Scene{
       }
     } else{
       this.events.emit('playerUseMagic');
-      this.player.mana += 1;
+      this.player.mana += this.player.manaRegen;
     }
 
     this.slime_enemies.children.each(child => {

@@ -31,6 +31,7 @@ class LevelUpScreenScene extends Phaser.Scene {
     levelUpMana(){
       this.ourGame.player.maxMana += 200;
       this.ourGame.player.mana = this.ourGame.player.maxMana;
+      this.ourGame.player.manaRegen += 1;
       this.ourGame.events.emit('playerUseMagic');
       this.unPause();
     }
@@ -49,7 +50,7 @@ class LevelUpScreenScene extends Phaser.Scene {
 
     levelUpProjectileDelay(){
       if (this.ourGame.player.projectileDelay > 100){
-        this.ourGame.player.projectileDelay -= 50;
+        this.ourGame.player.projectileDelay -= 100;
       }
       this.unPause();
     }

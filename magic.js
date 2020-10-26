@@ -8,6 +8,8 @@ class Magic extends Phaser.GameObjects.Sprite{
     super(scene, x, y, "magic");
     scene.add.existing(this);
 
+    scene.projectiles.add(this);
+
     this.play("magic_anim");
     this.setScale(.3);
     scene.physics.world.enableBody(this);
@@ -22,7 +24,7 @@ class Magic extends Phaser.GameObjects.Sprite{
     }
     // this.body.velocity.x = - 250;
 
-    scene.projectiles.add(this);
+    //scene.projectiles.add(this);
   }
 
   update(){

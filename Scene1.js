@@ -28,6 +28,7 @@ class Scene1 extends Phaser.Scene{
     this.load.image('dialogBox', 'rpg-pack/UI/generic-rpg-ui-text-box.png');
     this.load.image('envtiles', 'envtilesSheetExtruded.png');
     this.load.image('tiles', 'tilesSheetExtruded.png');
+    this.load.image('attack', 'assets/images/spritesheets/hit1.png')
     this.load.tilemapTiledJSON('map', 'tileMap.json');
     //Sprite input here
     this.load.spritesheet("player-hit", "assets/images/spritesheets/witch_ow1.png", {
