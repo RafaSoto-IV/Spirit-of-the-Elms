@@ -14,6 +14,7 @@ class LevelUpScreenScene extends Phaser.Scene {
         const healthText = this.add.text(150, 130, "Increase Health", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
         const manaText = this.add.text(150, 160, "Increase Mana", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
         const projectileDamageText = this.add.text(115, 190, "Increase Projectile Damage", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+        const projectileDelayText = this.add.text(115, 220, "Decrease Projectile Delay", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
         manaText.setInteractive(new Phaser.Geom.Rectangle(0, 0, manaText.width, manaText.height), Phaser.Geom.Rectangle.Contains);
         manaText.on('pointerdown', this.levelUpMana, this);
@@ -21,6 +22,8 @@ class LevelUpScreenScene extends Phaser.Scene {
         healthText.on('pointerdown', this.levelUpHealth, this);
         projectileDamageText.setInteractive(new Phaser.Geom.Rectangle(0, 0, projectileDamageText.width, projectileDamageText.height), Phaser.Geom.Rectangle.Contains);
         projectileDamageText.on('pointerdown', this.levelUpProjectileDamage, this);
+        projectileDelayText.setInteractive(new Phaser.Geom.Rectangle(0, 0, projectileDelayText.width, projectileDelayText.height), Phaser.Geom.Rectangle.Contains);
+        projectileDelayText.on('pointerdown', this.levelUpProjectileDelay, this);
 
 
     }
@@ -40,7 +43,14 @@ class LevelUpScreenScene extends Phaser.Scene {
     }
 
     levelUpProjectileDamage(){
-      this.ourGame.player.projectileDamage += 100;
+      this.ourGame.player.projectileDamage += 50;
+      this.unPause();
+    }
+
+    levelUpProjectileDelay(){
+      if (this.ourGame.player.projectileDelay > 100){
+        this.ourGame.player.projectileDelay -= 50;
+      }
       this.unPause();
     }
 

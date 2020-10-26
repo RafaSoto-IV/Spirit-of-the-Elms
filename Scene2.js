@@ -75,6 +75,7 @@ class Scene2 extends Phaser.Scene{
     this.player.canShootProjectiles = true;
     this.player.progress = 1;
     this.player.projectileTimer;
+    this.player.projectileDelay = 1000;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -752,7 +753,7 @@ class Scene2 extends Phaser.Scene{
         this.events.emit('playerUseMagic');
         this.player.canShootProjectiles = false;
         this.player.projectileTimer = this.time.addEvent({
-              delay: 300,
+              delay: this.player.projectileDelay,
               callback: this.allowPlayerProjectiles,
               callbackScope: this,
               loop: false,
@@ -767,7 +768,7 @@ class Scene2 extends Phaser.Scene{
           this.events.emit('playerUseMagic');
           this.player.canShootProjectiles = false;
           this.player.projectileTimer = this.time.addEvent({
-                delay: 300,
+                delay: this.player.projectileDelay,
                 callback: this.allowPlayerProjectiles,
                 callbackScope: this,
                 loop: false,
@@ -782,7 +783,7 @@ class Scene2 extends Phaser.Scene{
           this.events.emit('playerUseMagic');
           this.player.canShootProjectiles = false;
           this.player.projectileTimer = this.time.addEvent({
-                delay: 300,
+                delay: this.player.projectileDelay,
                 callback: this.allowPlayerProjectiles,
                 callbackScope: this,
                 loop: false,
@@ -797,7 +798,7 @@ class Scene2 extends Phaser.Scene{
           this.events.emit('playerUseMagic');
           this.player.canShootProjectiles = false;
           this.player.projectileTimer = this.time.addEvent({
-                delay: 300,
+                delay: this.player.projectileDelay,
                 callback: this.allowPlayerProjectiles,
                 callbackScope: this,
                 loop: false,
