@@ -568,7 +568,6 @@ class Scene2 extends Phaser.Scene{
     // this.cameras.main.setBounds(0, 0, 1600, 1600);
     // this.cameras.main.startFollow(this.player);
 
-
     //Let's player move
     if(!this.gameover){
       this.movePlayer();
@@ -736,8 +735,6 @@ class Scene2 extends Phaser.Scene{
   movePlayer(){
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
-    console.log("move player player x: " + this.player.x);
-    console.log("move player player y: " + this.player.y);
     // this.player.play();
     if (this.w.isDown || this.s.isDown || this.a.isDown || this.d.isDown){
       if(this.w.isDown){
@@ -832,6 +829,8 @@ class Scene2 extends Phaser.Scene{
   }
 
   resume() {
+    this.player.setVelocityX(0);
+    this.player.setVelocityY(0);
     if(this.direction == "player_right" || this.direction == "idle_right_anim"){
       this.player.play("idle_right_anim");
     } else {
