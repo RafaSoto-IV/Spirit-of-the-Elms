@@ -50,6 +50,7 @@ class VillageCutScene extends Phaser.Scene {
         this.progress = -1;
         this.readyToMove = false;
         this.player.play("idle_left_anim");
+        console.log(ourGame.player.body.velocity.x)
     }
 
     update(){
@@ -177,6 +178,7 @@ class VillageCutScene extends Phaser.Scene {
 
     unPause(){
       let ourGame = this.scene.get('playGame');
+      ourGame.direction = "idle_left_anim";
       ourGame.player.progress = 2;
       //console.log(ourGame.player);
       ourGame.player.x = this.player.x;
