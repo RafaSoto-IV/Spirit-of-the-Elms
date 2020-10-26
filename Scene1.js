@@ -30,6 +30,10 @@ class Scene1 extends Phaser.Scene{
     this.load.image('tiles', 'tilesSheetExtruded.png');
     this.load.tilemapTiledJSON('map', 'tileMap.json');
     //Sprite input here
+    this.load.spritesheet("player-hit", "assets/images/spritesheets/witch_ow1.png", {
+      frameWidth: 24,
+      frameHeight: 24
+    });
     this.load.spritesheet("player-right", "assets/images/spritesheets/witch-idle-run-Sheet.png", {
       frameWidth: 24,
       frameHeight: 24
@@ -75,6 +79,12 @@ class Scene1 extends Phaser.Scene{
   create(){
 
     //Animate walking here
+    this.anims.create({
+      key: "player_hit",
+      frames: this.anims.generateFrameNumbers("player-hit"),
+      frameRate: 1,
+      repeat: -1
+    });
     this.anims.create({
       key: "player_right",
       frames: this.anims.generateFrameNumbers("player-right"),

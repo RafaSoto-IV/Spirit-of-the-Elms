@@ -469,7 +469,8 @@ class Scene2 extends Phaser.Scene{
             this.gameover = true;
           }
         }
-        player.play("blue_slime_anim");
+        //player.play("blue_slime_anim");
+        player.play("player_hit");
       }
       this.hitTimer = this.time.addEvent({
             delay: 500,
@@ -500,7 +501,8 @@ class Scene2 extends Phaser.Scene{
           } else if (this.direction == "player_right"){
             player.setVelocityX(-100);
           }
-          player.play("blue_slime_anim")
+          //player.play("blue_slime_anim");
+          player.play("player_hit");
         }
         this.hitTimer = this.time.addEvent({
             delay: 500,
@@ -828,7 +830,12 @@ class Scene2 extends Phaser.Scene{
   }
 
   resume() {
-    this.player.play("player_left");
+    console.log("resume: " + this.direction)
+    if(this.direction == "player_right" || this.direction == "idle_right_anim"){
+      this.player.play("idle_right_anim");
+    } else {
+      this.player.play("idle_left_anim");
+    }
     this.cloak = false;
     this.w.reset();
     this.a.reset();

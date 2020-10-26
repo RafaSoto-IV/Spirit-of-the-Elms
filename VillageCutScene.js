@@ -49,6 +49,7 @@ class VillageCutScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true);
         this.progress = -1;
         this.readyToMove = false;
+        this.player.play("idle_left_anim");
     }
 
     update(){
@@ -166,6 +167,9 @@ class VillageCutScene extends Phaser.Scene {
       console.log("vendor text hit")
       this.player.setVelocityX(0);
       this.player.setVelocityY(0);
+      this.player.play("idle_left_anim");
+      console.log("player x: " + this.player.x);
+      console.log("player y: " + this.player.y);
       //this.readyToMove = true;
       this.dialogBox = this.add.sprite(this.map.widthInPixels - 1050, this.map.heightInPixels - 180, 'dialogBox').setScale(2);
       this.dialogText = this.add.text(this.map.widthInPixels - 1155, this.map.heightInPixels - 210, "We don't have much to eat with\nthe slimes poisoning the land.\nPlease help us or we'll starve.", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
