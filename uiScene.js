@@ -11,9 +11,15 @@ class uiScene extends Phaser.Scene {
 
         //  health and mana bars
         //console.log(ourGame.player);
-        this.healthbar = this.add.image(66, 10, 'healthbar');
-        this.manabar = this.add.image(66, 20, 'manabar');
-        this.xpbar = this.add.image(66, 30, 'xpbar');
+        this.healthbarEmpty = this.add.image(30, 10, 'healthbar2');
+        this.manabarEmpty = this.add.image(30, 20, 'manabar2');
+        this.xpbarEmpty = this.add.image(30, 30, 'xpbar2');
+        this.healthbar = this.add.image(30, 10, 'healthbar1');
+        this.manabar = this.add.image(30, 20, 'manabar1');
+        this.xpbar = this.add.image(30, 30, 'xpbar1');
+        this.healthbarIcon = this.add.image(12, 10, 'healthIcon');
+        this.manabarIcon = this.add.image(12, 20, 'manaIcon');
+        this.xpbarIcon = this.add.image(12, 29, 'xpIcon');
         this.xpbar.setCrop(0, 0, 0, this.xpbar.height);
         this.healthbarMaxWidth = this.healthbar.width;
         var check = true;

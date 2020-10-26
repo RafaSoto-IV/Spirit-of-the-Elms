@@ -9,9 +9,18 @@ class Scene1 extends Phaser.Scene{
       frameHeight: 100
     });
     this.load.image("pauseScreen", "assets/images/spritesheets/pause1.png");
-    this.load.image('healthbar', 'healthbar.png');
-    this.load.image('manabar', 'manabar.png');
-    this.load.image('xpbar', 'xpbar.png');
+    // this.load.image('healthbar', 'healthbar.png');
+    // this.load.image('manabar', 'manabar.png');
+    // this.load.image('xpbar', 'xpbar.png');
+    this.load.image('healthbar1', 'assets/images/spritesheets/health_bar1.png');
+    this.load.image('manabar1', 'assets/images/spritesheets/mana_bar1.png');
+    this.load.image('xpbar1', 'assets/images/spritesheets/xp_bar1.png');
+    this.load.image('healthbar2', 'assets/images/spritesheets/health_bar2.png');
+    this.load.image('manabar2', 'assets/images/spritesheets/mana_bar2.png');
+    this.load.image('xpbar2', 'assets/images/spritesheets/xp_bar2.png');
+    this.load.image('healthIcon', 'assets/images/spritesheets/health_icon.png');
+    this.load.image('manaIcon', 'assets/images/spritesheets/mana_icon.png');
+    this.load.image('xpIcon', 'assets/images/spritesheets/xp_icon.png');
     this.load.image('healthPickup', 'healthPickup.png');
     this.load.image('sensei', 'rpg-pack/chars/sensei/sensei.png');
     this.load.image('hatGuy', 'rpg-pack/chars/hat-guy/hat-guy.png');
