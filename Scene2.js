@@ -423,7 +423,7 @@ class Scene2 extends Phaser.Scene{
 
     this.physics.add.collider(this.magic_slime_enemies, envLayer);
     this.physics.add.collider(this.magic_slime_enemies, treeLayer);
-    this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
+    //this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
 
     this.physics.add.collider(this.slime_enemies, this.magic_slime_enemies);
 
