@@ -3,13 +3,32 @@ class Scene2 extends Phaser.Scene{
     super("playGame");
   }
 
+  //SEARCH 'PLAYER', 'ENVIRONMENT', 'ENEMY', 'MECHANICAL' TO GET TO FUNCTIONS QUICKER
 
   create(){
-    //Background image here. Will be changed to tileset
-    //this.background = this.add.image(0,0, "background");
-    //this.background.setOrigin(0,0);
-    //this.add.text();
-    //this.cameras.main.centerOn(800, 800);
+
+    //SEARCH 'GLOBAL', 'BACKGROUND', 'TESTING COMMENTS', 'PLAYER', 'CAMERA', 'KEYBOARD', OR 'SETTINGS' TO GET TO VARIABLES
+
+    //GLOBAL VARIABLES
+      //Check which direction player is facing
+    this.test_direction = "player_left";
+    this.magic_direction = "player_left"
+      // this.slime_scale = 2
+    this.direction = "player_left";
+    this.movement = "player_left";
+    this.previous = "player_left";
+    this.cloak = false;
+    this.gameover = false;
+
+    this.slimeRange = 150;
+    this.slimeSpeed = 75;
+
+    //BACKGROUND VARIABLES
+      //Background image here. Will be changed to tileset
+      //this.background = this.add.image(0,0, "background");
+      //this.background.setOrigin(0,0);
+      //this.add.text();
+      //this.cameras.main.centerOn(800, 800);
 
     this.map = this.make.tilemap({ key: 'map' });
     const envtileset = this.map.addTilesetImage('envtileset', 'envtiles', 16, 16, 1, 2);
@@ -25,25 +44,24 @@ class Scene2 extends Phaser.Scene{
     treeLayer.setCollisionByProperty({ collides: true});
 
 
-    // for testing collision
-    // envLayer.setCollisionByProperty({ collides: true});
-    // const debugGraphics = this.add.graphics().setAlpha(0.7)
-    // envLayer.renderDebug(debugGraphics, {
-    //   tileColor: null,
-    //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-    // })
-    // treeLayer.renderDebug(debugGraphics, {
-    //   tileColor: null,
-    //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
-    // })
+    //TESTING COMMENTS, IF NOT OF USE PLEASE DELETE
+      // for testing collision
+      // envLayer.setCollisionByProperty({ collides: true});
+      // const debugGraphics = this.add.graphics().setAlpha(0.7)
+      // envLayer.renderDebug(debugGraphics, {
+      //   tileColor: null,
+      //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+      //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+      // })
+      // treeLayer.renderDebug(debugGraphics, {
+      //   tileColor: null,
+      //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+      //   faceColor: new Phaser.Display.Color(40, 39, 37, 255)
+      // })
 
-    this.vendor = this.physics.add.staticSprite(this.map.widthInPixels - 1080, this.map.heightInPixels - 330, "vendor");
-    this.vendor.setScale(1.3);
-
-    //Player sprite and interactions placed here
-    //this.player = this.physics.add.sprite(120, 120, "player-right");
+    //PLAYER RELATED VARIABLES
+      //Player sprite and interactions placed here
+      //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
     this.player.mana = 2000;
     this.player.maxMana = this.player.mana;
@@ -60,9 +78,22 @@ class Scene2 extends Phaser.Scene{
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
+    this.player.setScale(1.3);
+
+
+    //CAMERA VARIABLES
+      // set camera to follow player and to not show out of bounds
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+    this.cameras.main.startFollow(this.player, true);
+
+    this.cameraRangeX = this.sys.game.config.width / 2;
+    this.cameraRangeY = this.sys.game.config.height / 2;
+
+
+    //KEYBOARD VARIABLES
     this.cursors = this.input.keyboard.createCursorKeys();
-    //this.mouse = this.input.pointer.
-    //this.player.setCollideWorldBounds(true);
+      //this.mouse = this.input.pointer.
+      //this.player.setCollideWorldBounds(true);
     this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.c = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     this.p = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
@@ -71,8 +102,8 @@ class Scene2 extends Phaser.Scene{
     this.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.d = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-    this.player.setScale(1.3);
 
+    //SETTINGS OTHER CHARACTERS
     this.sensei = this.physics.add.staticSprite(this.map.widthInPixels - 420, 130, "sensei");
     this.sensei.setScale(1.3);
     this.physics.add.collider(this.player, this.sensei);
@@ -85,28 +116,11 @@ class Scene2 extends Phaser.Scene{
     this.hatGuy.setScale(1.3);
     this.physics.add.collider(this.player, this.hatGuy);
 
-    // set camera to follow player and to not show out of bounds
-    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-    this.cameras.main.startFollow(this.player, true);
+    this.vendor = this.physics.add.staticSprite(this.map.widthInPixels - 1080, this.map.heightInPixels - 330, "vendor");
+    this.vendor.setScale(1.3);
 
-    this.cameraRangeX = this.sys.game.config.width / 2;
-    this.cameraRangeY = this.sys.game.config.height / 2;
-
-    //Check which direction player is facing
-    this.test_direction = "player_left";
-    this.magic_direction = "player_left"
-    // this.slime_scale = 2
-    this.direction = "player_left";
-    this.movement = "player_left";
-    this.previous = "player_left";
-    this.cloak = false;
-    this.gameover = false;
-
-    this.slimeRange = 150;
-    this.slimeSpeed = 75;
-
-    //collision on the world
-    // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
+      //collision on the world
+      // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
     this.physics.add.collider(this.player, envLayer);
     this.physics.add.collider(this.player, treeLayer);
 
@@ -114,8 +128,8 @@ class Scene2 extends Phaser.Scene{
     this.healthPickups = this.physics.add.group();
     this.physics.add.overlap(this.player, this.healthPickups, this.pickupHealth, null, this);
 
-    //Random enemy sprites input here
-    //1 - 6 Around trees first left path
+      //Random enemy sprites input here
+      //1 - 6 Around trees first left path
     this.slime1 = this.physics.add.sprite(this.map.widthInPixels - 700, 550, "slime_blue");
     this.slime1.setScale(this.slime_scale);
     this.slime1.play("blue_slime_anim")
@@ -141,7 +155,7 @@ class Scene2 extends Phaser.Scene{
     this.slime6.play("blue_slime_anim")
 
 
-    //7 - 15 Downward path
+      //7 - 15 Downward path
     this.slime7 = this.physics.add.sprite(this.map.widthInPixels - 70, 1000, "slime_blue");
     this.slime7.setScale(this.slime_scale);
     this.slime7.play("blue_slime_anim")
@@ -179,7 +193,7 @@ class Scene2 extends Phaser.Scene{
     this.slime15.play("blue_slime_anim")
 
 
-    //16 - 22 After town enemies
+      //16 - 22 After town enemies
     this.slime16 = this.physics.add.sprite(this.map.widthInPixels - 1250, 1700, "slime_blue");
     this.slime16.setScale(this.slime_scale);
     this.slime16.play("red_slime_anim")
@@ -209,7 +223,7 @@ class Scene2 extends Phaser.Scene{
     this.slime22.play("red_slime_anim")
 
 
-    //23 - 36 After town first right (23 - 29 ranged, 30 - 36 melee)
+      //23 - 36 After town first right (23 - 29 ranged, 30 - 36 melee)
     this.slime23 = this.physics.add.sprite(this.map.widthInPixels - 1025, 925, "slime_blue");
     this.slime23.setScale(this.slime_scale);
     this.slime23.play("red_slime_anim")
@@ -263,17 +277,17 @@ class Scene2 extends Phaser.Scene{
     this.slime35.play("blue_slime_anim");
 
 
-    //The big boi left down from the town
+      //The big boi left down from the town
     this.slimeBigBoi = this.physics.add.sprite(this.map.widthInPixels - 1700, 2200, "slime_blue");
     this.slimeBigBoi.setScale(6);
     this.slimeBigBoi.play("blue_slime_anim");
 
-    //Lava big boi up after town second left
+      //Lava big boi up after town second left
     this.flameBigBoi = this.physics.add.sprite(this.map.widthInPixels - 2300, 175, "slime_red");
     this.flameBigBoi.setScale(7);
     this.flameBigBoi.play("red_slime_anim");
 
-    //Lava big boi goons (36 - 43)
+      //Lava big boi goons (36 - 43)
     this.slime36 = this.physics.add.sprite(this.map.widthInPixels - 2200, 300, "slime_blue");
     this.slime36.setScale(this.slime_scale);
     this.slime36.play("blue_slime_anim");
@@ -306,7 +320,7 @@ class Scene2 extends Phaser.Scene{
     this.slime43.setScale(this.slime_scale);
     this.slime43.play("red_slime_anim");
 
-    //Top right after town
+      //Top right after town
     this.slime44 = this.physics.add.sprite(this.map.widthInPixels - 1000, 200, "slime_blue");
     this.slime44.setScale(this.slime_scale);
     this.slime44.play("blue_slime_anim");
@@ -340,7 +354,7 @@ class Scene2 extends Phaser.Scene{
     this.slime51.play("blue_slime_anim");
 
 
-    //slime_enemies put into group
+      //slime_enemies put into group
     this.slime_enemies = this.physics.add.group();
     this.slime_enemies.add(this.slime1);
     this.slime_enemies.add(this.slime2);
@@ -423,16 +437,16 @@ class Scene2 extends Phaser.Scene{
 
     this.physics.add.collider(this.magic_slime_enemies, envLayer);
     this.physics.add.collider(this.magic_slime_enemies, treeLayer);
-    //this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
+      //this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
 
     this.physics.add.collider(this.slime_enemies, this.magic_slime_enemies);
 
 
-    //Projectiles put into group
+      //Projectiles put into group
     this.projectiles = this.add.group();
     this.slime_projectiles = this.add.group();
 
-    //Projectiles
+      //Projectiles
     this.physics.add.collider(this.projectiles, envLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_projectiles, envLayer, this.enviro_hit, null, this);
@@ -442,8 +456,8 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.projectiles, this.vendor, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_projectiles, this.vendor, this.enviro_hit, null, this);
 
-    // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
-    // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
+      // this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
+      // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.magic_slime_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.slime_projectiles, this.projectile_hit, null, this);
@@ -453,9 +467,7 @@ class Scene2 extends Phaser.Scene{
 
   }
 
-    //If player touches enemy
-  //  this.physics.add.overlap(this.player, this.slime_enemies, this.damage, null, this);
-
+//PLAYER RELATED FUNCTIONS:
   projectile_hit(player, projectile){
     projectile.destroy();
     if(this.player.vulnerable){
@@ -522,20 +534,6 @@ class Scene2 extends Phaser.Scene{
     this.player.canShootProjectiles = true;
   }
 
-  enviro_hit(projectile, layer){
-    projectile.destroy();
-  }
-
-  enviro_hug(unit, layer){
-    unit.setVelocityX(0);
-    unit.setVelocityY(0);
-  }
-
-  enemy_hit(projectile, enemy){
-    projectile.destroy();
-    enemy.health -= this.player.projectileDamage;
-  }
-  //accidental function but cloaks player
   cloaking(){
     // var magic = new Magic(this);
     if (this.cloak){
@@ -546,18 +544,174 @@ class Scene2 extends Phaser.Scene{
     }
   }
 
-  //ranged magic attack
+  levelUp(){
+    this.player.level += 1;
+    this.scene.launch('LevelUpScreenScene');
+    this.scene.pause();
+  }
+
+  pickupHealth(player, healthPickup){
+    if(this.player.health < this.player.maxHealth){
+      this.player.health += 50;
+      this.events.emit('playerHit');
+      healthPickup.destroy();
+    }
+  }
+
+  stop(player, obstacle){
+    player.setVelocityX(0);
+    player.setVelocityY(0);
+  }
+
   magic(){
     var magic = new Magic(this);
+  }
+
+  attack(){
+    this.input.mouse.disableContextMenu();
+
+    if(pointer.leftButtonDown()){
+      //attack animation goes here
+    }
+  }
+
+  movePlayer(){
+    this.player.setVelocityX(0);
+    this.player.setVelocityY(0);
+    // this.player.play();
+    if (this.w.isDown || this.s.isDown || this.a.isDown || this.d.isDown){
+      if(this.w.isDown){
+        this.player.setVelocityY(-gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = this.movement;
+        }else{
+          this.direction = 'cloak_anim';
+        }
+        this.test_direction = "player_down";
+        this.animation();
+      }else if(this.s.isDown){
+        this.player.setVelocityY(gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = this.movement;
+        }else{
+          this.direction = 'cloak_anim';
+        }
+        this.test_direction = "player_up";
+        this.animation();
+      }
+
+      if(this.a.isDown){
+        this.player.setVelocityX(-gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = 'player_left';
+          this.movement = 'player_left';
+        }else{
+          this.direction = 'cloak_anim';
+          this.movement = 'player_left';
+        }
+        this.test_direction = "player_left";
+        this.animation();
+      }else if(this.d.isDown){
+        this.player.setVelocityX(gameSettings.playerSpeed);
+        if (!this.cloak){
+          this.direction = 'player_right';
+          this.movement = 'player_right';
+        }else{
+          this.direction = 'cloak_anim';
+          this.movement = 'player_right';
+        }
+        this.test_direction = "player_right";
+        this.animation();
+      }
+    } else {
+        if (!this.cloak){
+          if(this.test_direction == "player_left"){
+            this.direction = 'idle_left_anim';
+            this.animation();
+          } else if (this.test_direction == "player_right"){
+            this.direction = 'idle_right_anim';
+            this.animation();
+          }
+        } else{
+            this.direction = 'cloak_anim';
+            this.animation();
+      }
+    }
+    console.log(this.player.x, this.player.y);
+  }
+
+  //ENVIRONMENT RELATED FUNCTIONS:
+
+  enviro_hit(projectile, layer){
+    projectile.destroy();
+  }
+
+  enviro_hug(unit, layer){
+    unit.setVelocityX(0);
+    unit.setVelocityY(0);
+  }
+
+  //ENEMY RELATED FUNCTIONS:
+
+  enemy_hit(projectile, enemy){
+    projectile.destroy();
+    enemy.health -= this.player.projectileDamage;
   }
 
   slime_magic(magic_slime){
     var slime_magic = new Slime_Magic(this, magic_slime);
   }
 
-  stop(player, obstacle){
-    player.setVelocityX(0);
-    player.setVelocityY(0);
+  destroyEnemy(enemy){
+    if(Phaser.Math.Between(1, 100) <= 20){
+      var healthPickup = this.physics.add.sprite(enemy.x, enemy.y, "healthPickup");
+      healthPickup.setScale(0.02);
+      this.healthPickups.add(healthPickup);
+    }
+    enemy.destroy();
+    this.player.xp += 100;
+    this.events.emit('gainXp');
+    if(this.player.xp >= this.player.xpForNextLevel){
+      this.levelUp();
+    }
+  }
+
+  moveSlimes(slime){
+    var slimeX = this.player.x - slime.x;
+    var slimeY = this.player.y - slime.y;
+    if(Math.abs(slimeX) < this.slimeRange){
+      if (Math.abs(slimeY) < this.slimeRange){
+        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+        slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
+      }
+    }
+    // if (Math.abs(slimeY) < this.slimeRange){
+    //   slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
+    //   slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
+    // }
+  }
+
+  //MECHANICAL RELATED FUNCTIONS:
+  resume() {
+    this.player.setVelocityX(0);
+    this.player.setVelocityY(0);
+    if(this.direction == "player_right" || this.direction == "idle_right_anim"){
+      this.player.play("idle_right_anim");
+    } else {
+      this.player.play("idle_left_anim");
+    }
+    this.cloak = false;
+    this.w.reset();
+    this.a.reset();
+    this.s.reset();
+    this.d.reset();
+  }
+
+  animation(){
+    if (this.previous != this.direction){
+      this.player.play(this.direction);
+      this.previous = this.direction
+    }
   }
 
   update(){
@@ -698,148 +852,5 @@ class Scene2 extends Phaser.Scene{
     //   var magic = this.projectiles.getChildren()[i];
     //   magic.update()
     // }
-  }
-
-  //attack based on what familiars player has
-  attack(){
-    this.input.mouse.disableContextMenu();
-
-    if(pointer.leftButtonDown()){
-      //attack animation goes here
-    }
-  }
-
-  animation(){
-    if (this.previous != this.direction){
-      this.player.play(this.direction);
-      this.previous = this.direction
-    }
-  }
-
-  moveSlimes(slime){
-    var slimeX = this.player.x - slime.x;
-    var slimeY = this.player.y - slime.y;
-    if(Math.abs(slimeX) < this.slimeRange){
-      if (Math.abs(slimeY) < this.slimeRange){
-        slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-        slime.setVelocityY(Math.sign(slimeY)*this.slimeSpeed);
-      }
-    }
-    // if (Math.abs(slimeY) < this.slimeRange){
-    //   slime.setVelocityX(Math.sign(slimeX)*this.slimeSpeed);
-    //   slime.setVelocityY(Math.sign(slimeY)*(this.slimeSpeed));
-    // }
-  }
-
-  //How player is moved
-  movePlayer(){
-    this.player.setVelocityX(0);
-    this.player.setVelocityY(0);
-    // this.player.play();
-    if (this.w.isDown || this.s.isDown || this.a.isDown || this.d.isDown){
-      if(this.w.isDown){
-        this.player.setVelocityY(-gameSettings.playerSpeed);
-        if (!this.cloak){
-          this.direction = this.movement;
-        }else{
-          this.direction = 'cloak_anim';
-        }
-        this.test_direction = "player_down";
-        this.animation();
-      }else if(this.s.isDown){
-        this.player.setVelocityY(gameSettings.playerSpeed);
-        if (!this.cloak){
-          this.direction = this.movement;
-        }else{
-          this.direction = 'cloak_anim';
-        }
-        this.test_direction = "player_up";
-        this.animation();
-      }
-
-      if(this.a.isDown){
-        this.player.setVelocityX(-gameSettings.playerSpeed);
-        if (!this.cloak){
-          this.direction = 'player_left';
-          this.movement = 'player_left';
-        }else{
-          this.direction = 'cloak_anim';
-          this.movement = 'player_left';
-        }
-        this.test_direction = "player_left";
-        this.animation();
-      }else if(this.d.isDown){
-        this.player.setVelocityX(gameSettings.playerSpeed);
-        if (!this.cloak){
-          this.direction = 'player_right';
-          this.movement = 'player_right';
-        }else{
-          this.direction = 'cloak_anim';
-          this.movement = 'player_right';
-        }
-        this.test_direction = "player_right";
-        this.animation();
-      }
-    } else {
-        if (!this.cloak){
-          if(this.test_direction == "player_left"){
-            this.direction = 'idle_left_anim';
-            this.animation();
-          } else if (this.test_direction == "player_right"){
-            this.direction = 'idle_right_anim';
-            this.animation();
-          }
-        } else{
-            this.direction = 'cloak_anim';
-            this.animation();
-      }
-    }
-    console.log(this.player.x, this.player.y);
-  }
-
-
-  destroyEnemy(enemy){
-    if(Phaser.Math.Between(1, 100) <= 20){
-      var healthPickup = this.physics.add.sprite(enemy.x, enemy.y, "healthPickup");
-      healthPickup.setScale(0.02);
-      this.healthPickups.add(healthPickup);
-    }
-    enemy.destroy();
-    this.player.xp += 100;
-    this.events.emit('gainXp');
-    if(this.player.xp >= this.player.xpForNextLevel){
-      this.levelUp();
-    }
-  }
-
-  levelUp(){
-    this.player.level += 1;
-    this.scene.launch('LevelUpScreenScene');
-    this.scene.pause();
-  }
-
-
-
-  pickupHealth(player, healthPickup){
-    if(this.player.health < this.player.maxHealth){
-      this.player.health += 50;
-      this.events.emit('playerHit');
-      healthPickup.destroy();
-    }
-  }
-
-  resume() {
-    this.player.setVelocityX(0);
-    this.player.setVelocityY(0);
-    if(this.direction == "player_right" || this.direction == "idle_right_anim"){
-      this.player.play("idle_right_anim");
-    } else {
-      this.player.play("idle_left_anim");
-    }
-    this.cloak = false;
-    this.w.reset();
-    this.a.reset();
-    this.s.reset();
-    this.d.reset();
   }
 }
