@@ -113,14 +113,13 @@ class Scene2 extends Phaser.Scene{
     this.sensei.setScale(1.3);
     this.physics.add.collider(this.player, this.sensei);
 
-    this.physics.add.collider(this.player, this.vendor);
-
     this.hatGuy = this.physics.add.staticSprite(this.map.widthInPixels- 155, this.map.heightInPixels - 680, "hatGuy");
     this.hatGuy.setScale(1.3);
     this.physics.add.collider(this.player, this.hatGuy);
 
     this.vendor = this.physics.add.staticSprite(this.map.widthInPixels - 1080, this.map.heightInPixels - 330, "vendor");
     this.vendor.setScale(1.3);
+    this.physics.add.collider(this.player, this.vendor);
 
       //collision on the world
       // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
@@ -200,30 +199,37 @@ class Scene2 extends Phaser.Scene{
     this.slime16 = this.physics.add.sprite(this.map.widthInPixels - 1250, 1700, "slime_blue");
     this.slime16.setScale(this.slime_scale);
     this.slime16.play("red_slime_anim")
+    this.slime16.idname = "slime16";
 
     this.slime17 = this.physics.add.sprite(this.map.widthInPixels - 1300, 1675, "slime_blue");
     this.slime17.setScale(this.slime_scale);
     this.slime17.play("red_slime_anim")
+    this.slime17.idname = "slime17";
 
     this.slime18 = this.physics.add.sprite(this.map.widthInPixels - 1350, 1650, "slime_blue");
     this.slime18.setScale(this.slime_scale);
     this.slime18.play("red_slime_anim")
+    this.slime18.idname = "slime18";
 
     this.slime19 = this.physics.add.sprite(this.map.widthInPixels - 1400, 1625, "slime_blue");
     this.slime19.setScale(this.slime_scale);
     this.slime19.play("red_slime_anim")
+    this.slime19.idname = "slime19";
 
     this.slime20 = this.physics.add.sprite(this.map.widthInPixels - 1450, 1650, "slime_blue");
     this.slime20.setScale(this.slime_scale);
     this.slime20.play("red_slime_anim")
+    this.slime20.idname = "slime20";
 
     this.slime21 = this.physics.add.sprite(this.map.widthInPixels - 1500, 1675, "slime_blue");
     this.slime21.setScale(this.slime_scale);
     this.slime21.play("red_slime_anim")
+    this.slime21.idname = "slime21";
 
     this.slime22 = this.physics.add.sprite(this.map.widthInPixels - 1550, 1700, "slime_blue");
     this.slime22.setScale(this.slime_scale);
     this.slime22.play("red_slime_anim")
+    this.slime22.idname = "slime22";
 
 
       //23 - 36 After town first right (23 - 29 ranged, 30 - 36 melee)
@@ -468,6 +474,8 @@ class Scene2 extends Phaser.Scene{
 
     this.sys.events.on('resume', this.resume, this);
 
+    this.checkpoint;
+
   }
 
 //PLAYER RELATED FUNCTIONS:
@@ -480,7 +488,11 @@ class Scene2 extends Phaser.Scene{
         this.player.vulnerable = false;
         if (this.player.health <= 0){
           if (!this.gameover){
-            this.add.text(player.x, player.y, "GAMEOVER");
+            this.scene.launch('GameOverScene');
+            this.scene.pause();
+            this.player.setVelocityX(0);
+            this.player.setVelocityY(0);
+            //this.add.text(player.x, player.y, "GAMEOVER");
             this.gameover = true;
           }
         }
@@ -500,14 +512,22 @@ class Scene2 extends Phaser.Scene{
   hit(player, enemy){
     if(this.player.vulnerable){
       if (this.cloak){
-        enemy.health -= 10
+        enemy.health -= 10;
+        if (enemy.health <= 0 && enemy.active == true){
+          this.destroyEnemy(enemy);
+          //child.destroy();
+        };
       } else{
           this.player.health -= 100;
           this.events.emit('playerHit');
           this.player.vulnerable = false;
           if (this.player.health <= 0){
             if (!this.gameover){
-              this.add.text(player.x, player.y, "GAMEOVER");
+              this.scene.launch('GameOverScene');
+              this.scene.pause();
+              this.player.setVelocityX(0);
+              this.player.setVelocityY(0);
+              //this.add.text(player.x, player.y, "GAMEOVER");
               this.gameover = true;
             }
           }
@@ -659,6 +679,10 @@ class Scene2 extends Phaser.Scene{
   enemy_hit(projectile, enemy){
     projectile.destroy();
     enemy.health -= this.player.projectileDamage;
+    if (enemy.health <= 0 && enemy.active == true){
+      this.destroyEnemy(enemy);
+      //child.destroy();
+    };
   }
 
   slime_magic(magic_slime){
@@ -671,7 +695,8 @@ class Scene2 extends Phaser.Scene{
       healthPickup.setScale(0.02);
       this.healthPickups.add(healthPickup);
     }
-    enemy.destroy();
+    //enemy.destroy();
+    enemy.disableBody(true, true);
     this.player.xp += 100;
     this.events.emit('gainXp');
     if(this.player.xp >= this.player.xpForNextLevel){
@@ -695,6 +720,97 @@ class Scene2 extends Phaser.Scene{
   }
 
   //MECHANICAL RELATED FUNCTIONS:
+  saveCheckpoint() {
+    this.checkpoint = {
+      //"player": Phaser.Utils.Objects.Clone(this.player),
+      "playerX": this.player.x,
+      "playerY": this.player.y,
+      "playerLevel": this.player.level,
+      "playerHealth": this.player.health,
+      "playerMana": this.player.mana,
+      "playerXp": this.player.xp,
+      "playerMaxMana": this.player.maxMana,
+      "playerMaxHealth": this.player.maxHealth,
+      "playerXpForNextLevel": this.player.xpForNextLevel,
+      "playerProjectileDamage": this.player.projectileDamage,
+      "playerVulnerable": this.player.vulnerable,
+      "playerCanShootProjectiles": this.player.canShootProjectiles,
+      "playerProgress": this.player.progress,
+      //"playerProjectileTimer": this.player.projectileTimer,
+      "playerProjectileDelay": this.player.projectileDelay,
+      // "slimeEnemies": Phaser.Utils.Objects.Clone(this.slime_enemies),
+      // "magicSlimeEnemies": Phaser.Utils.Objects.Clone(this.magic_slime_enemies)
+    }
+    var slimeEnemiesList = [];
+    for(var i = 0; i < this.slime_enemies.children.size; i++){
+      var slimeEnemyObj = {};
+      slimeEnemyObj.health = this.slime_enemies.children.entries[i].health;
+      slimeEnemyObj.active = this.slime_enemies.children.entries[i].active;
+      slimeEnemyObj.x = this.slime_enemies.children.entries[i].x;
+      slimeEnemyObj.y = this.slime_enemies.children.entries[i].y;
+      slimeEnemiesList.push(slimeEnemyObj);
+    }
+    this.checkpoint.slimeEnemies = slimeEnemiesList;
+    var slimeEnemiesList = [];
+    for(var i = 0; i < this.magic_slime_enemies.children.size; i++){
+      var slimeEnemyObj = {};
+      slimeEnemyObj.health = this.magic_slime_enemies.children.entries[i].health;
+      slimeEnemyObj.active = this.magic_slime_enemies.children.entries[i].active;
+      slimeEnemyObj.mana = this.magic_slime_enemies.children.entries[i].mana;
+      slimeEnemyObj.x = this.magic_slime_enemies.children.entries[i].x;
+      slimeEnemyObj.y = this.magic_slime_enemies.children.entries[i].y;
+      slimeEnemiesList.push(slimeEnemyObj);
+    }
+    this.checkpoint.magicSlimeEnemies = slimeEnemiesList;
+  }
+
+  loadCheckpoint() {
+
+    this.player.x = this.checkpoint.playerX;
+    this.player.y = this.checkpoint.playerY;
+    this.player.health = this.checkpoint.playerHealth;
+    this.player.mana = this.checkpoint.playerMana;
+    this.player.level = this.checkpoint.playerLevel;
+    this.player.xp = this.checkpoint.playerXp;
+    this.player.maxMana = this.checkpoint.playerMaxMana;
+    this.player.maxHealth = this.checkpoint.playerMaxHealth;
+    this.player.xpForNextLevel = this.checkpoint.playerXpForNextLevel;
+    this.player.projectileDamage = this.checkpoint.playerProjectileDamage;
+    this.player.vulnerable = this.checkpoint.playerVulnerable;
+    this.player.canShootProjectiles = true;
+    this.player.progress = this.checkpoint.playerProgress;
+    this.player.projectileDelay = this.checkpoint.playerProjectileDelay;
+    this.events.emit('playerUseMagic');
+    this.events.emit('playerHit');
+    this.events.emit('gainXp');
+
+    for(var i = 0; i < this.slime_enemies.children.size; i++){
+      this.slime_enemies.children.entries[i].health = this.checkpoint.slimeEnemies[i].health;
+      if(this.slime_enemies.children.entries[i].active == false && this.checkpoint.slimeEnemies[i].active == true){
+        this.slime_enemies.children.entries[i].enableBody(true, this.checkpoint.slimeEnemies[i].x, this.checkpoint.slimeEnemies[i].y, true, true);
+        this.slime_enemies.children.entries[i].refreshBody();
+      }
+    }
+    for(var i = 0; i < this.magic_slime_enemies.children.size; i++){
+      this.magic_slime_enemies.children.entries[i].health = this.checkpoint.magicSlimeEnemies[i].health;
+      this.magic_slime_enemies.children.entries[i].mana = this.checkpoint.magicSlimeEnemies[i].mana;
+      if(this.magic_slime_enemies.children.entries[i].active == false && this.checkpoint.magicSlimeEnemies[i].active == true){
+        this.magic_slime_enemies.children.entries[i].enableBody(true, this.checkpoint.magicSlimeEnemies[i].x, this.checkpoint.magicSlimeEnemies[i].y, true, true);
+        this.magic_slime_enemies.children.entries[i].refreshBody();
+      }
+    }
+
+    this.projectiles.children.iterate((child) => {
+      //child.destroy();
+      //console.log(child);
+    });
+    for(var i = 0; i < this.slime_projectiles.children.size; i++){
+      console.log(this.slime_projectiles.children.entries[i])
+      this.slime_projectiles.children.entries[i].destroy();
+    }
+    this.gameover = false;
+  }
+
   resume() {
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
@@ -731,12 +847,7 @@ class Scene2 extends Phaser.Scene{
     // this.cameras.main.startFollow(this.player);
 
     //Let's player move
-    if(!this.gameover){
-      this.movePlayer();
-    } else {
-      this.player.setVelocityX(0);
-      this.player.setVelocityY(0);
-    }
+    this.movePlayer();
 
     if(this.player.progress == 1 && this.player.x > this.map.widthInPixels- 155  && this.player.y > this.map.heightInPixels - 690){
       this.scene.launch('VillageCutScene');
@@ -830,25 +941,27 @@ class Scene2 extends Phaser.Scene{
     }
 
     this.slime_enemies.children.each(child => {
-      if (child.health <= 0){
-        this.destroyEnemy(child);
+      if (child.health <= 0 && child.active == true){
+        //this.destroyEnemy(child);
         //child.destroy();
       };
     });
 
     this.magic_slime_enemies.children.each(child => {
-      if (child.health <= 0){
-        this.destroyEnemy(child);
-        //child.destroy();
-      } else {
-        if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
-          this.slime_magic(child);
-          child.mana = 0;
-        } else{
-          child.mana += .25;
+      if(child.active == true){
+        if (child.health <= 0){
+          //this.destroyEnemy(child);
+          //child.destroy();
+        } else {
+          if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
+            this.slime_magic(child);
+            child.mana = 0;
+          } else{
+            child.mana += .25;
+          }
+          child.setVelocityX(0);
+          child.setVelocityY(0);
         }
-        child.setVelocityX(0);
-        child.setVelocityY(0);
       }
     })
     this.slimeBigBoi.health += this.slimeBigBoiHealthRegen;
@@ -856,7 +969,9 @@ class Scene2 extends Phaser.Scene{
     this.flameBigBoi.mana += 1.5;
 
     this.slime_enemies.children.each(child => {
-      this.moveSlimes(child);
+      if(child.active == true){
+        this.moveSlimes(child);
+      }
     });
 
 
