@@ -20,7 +20,7 @@ class Scene2 extends Phaser.Scene{
     this.cloak = false;
     this.gameover = false;
 
-    this.slimeRange = 150;
+    this.slimeRange = 200;
     this.slimeSpeed = 75;
 
     //BACKGROUND VARIABLES
@@ -289,11 +289,13 @@ class Scene2 extends Phaser.Scene{
       //The big boi left down from the town
     this.slimeBigBoi = this.physics.add.sprite(this.map.widthInPixels - 1700, 2200, "slime_blue");
     this.slimeBigBoi.setScale(6);
+    this.slimeBigBoi.setSize(10, 10);
     this.slimeBigBoi.play("blue_slime_anim");
 
       //Lava big boi up after town second left
     this.flameBigBoi = this.physics.add.sprite(this.map.widthInPixels - 2300, 175, "slime_red");
     this.flameBigBoi.setScale(7);
+    this.flameBigBoi.setSize(10, 10);
     this.flameBigBoi.play("red_slime_anim");
 
       //Lava big boi goons (36 - 43)

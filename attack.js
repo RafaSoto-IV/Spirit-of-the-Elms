@@ -22,7 +22,7 @@ class Attack extends Phaser.GameObjects.Sprite{
             callback: scene.allowPlayerAttack,
             callbackScope: scene,
             loop: false,
-            repeat: 0
+            repeat: 0,
         });
       this.hit.destroy();
     } else if (test_direction == "player_right"){
@@ -59,6 +59,7 @@ class Attack extends Phaser.GameObjects.Sprite{
         });
       this.hit.destroy();
     }
+    this.hit.destroy();
     // this.body.velocity.x = - 250;
 
   }
