@@ -183,6 +183,9 @@ class VillageCutScene extends Phaser.Scene {
       //console.log(ourGame.player);
       ourGame.player.x = this.player.x;
       ourGame.player.y = this.player.y;
+      ourGame.player.body.velocity.x = 0;
+      ourGame.player.body.velocity.y = 0;
+      ourGame.saveCheckpoint();
       this.scene.resume('playGame');
       this.scene.stop();
     }
