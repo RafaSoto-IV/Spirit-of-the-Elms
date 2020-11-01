@@ -8,7 +8,7 @@ class Attack extends Phaser.GameObjects.Sprite{
     super(scene, x, y, "attack");
     scene.add.existing(this);
 
-    this.load.image('attack', 'hit1.png');
+    //this.load.image('attack', 'hit1.png');
 
     scene.projectiles.add(this);
 
