@@ -75,11 +75,15 @@ class Scene2 extends Phaser.Scene{
     this.player.vulnerable = true;
     this.player.canShootProjectiles = true;
     this.player.canAttack = true;
+    this.player.canRemove = true;
     this.player.progress = 1;
     this.player.projectileTimer;
     this.player.attackTimer;
+    this.player.attackRemoval;
     this.player.projectileDelay = 750;
-    this.player.attackDelay = 750
+    this.player.attackDelay = 750;
+    this.player.counter = 0;
+    this.player.attackRemovalDelay = 200;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -563,6 +567,10 @@ class Scene2 extends Phaser.Scene{
     this.player.canAttack = true;
   }
 
+  allowPlayerRemove(){
+    this.player.canRemove = true;
+  }
+
   cloaking(){
     // var magic = new Magic(this);
     if (this.cloak){
@@ -662,7 +670,11 @@ class Scene2 extends Phaser.Scene{
             this.animation();
       }
     }
-    console.log(this.player.x, this.player.y);
+    //console.log(this.player.x, this.player.y);
+  }
+
+  melee(attack){
+    attack.destroy();
   }
 
   //ENVIRONMENT RELATED FUNCTIONS:
@@ -928,7 +940,17 @@ class Scene2 extends Phaser.Scene{
     }
 
     if (this.spacebar.isDown){
-      this.attack();
+      if(this.player.canAttack){
+        this.attack();
+        this.player.canAttack = false;
+        this.player.attackTimer = this.time.addEvent({
+              delay: this.player.attackDelay,
+              callback: this.allowPlayerAttack,
+              callbackScope: this,
+              loop: false,
+              repeat: 0,
+        });
+      }
     }
 
     if(this.cloak){

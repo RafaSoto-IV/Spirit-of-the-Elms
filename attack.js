@@ -3,79 +3,37 @@ class Attack extends Phaser.GameObjects.Sprite{
 
     var x = scene.player.x;
     var y = scene.player.y;
+    var counter = 0;
     var test_direction = scene.test_direction;
 
-    super(scene, x, y, "attack");
+    if (test_direction == "player_left"){
+      x -= 20
+    }else if (test_direction == "player_right"){
+      x += 20
+    }else if (test_direction == "player_up"){
+      y += 20
+    }else if (test_direction == "player_down"){
+      y -= 20
+    }
+    super(scene, x, y);
     scene.add.existing(this);
 
     //this.load.image('attack', 'hit1.png');
 
     scene.projectiles.add(this);
-
+    this.hit = scene.physics.add.staticSprite(x, y, "attack")
     //this.setScale(.3);
     scene.physics.world.enableBody(this);
-    if (test_direction == "player_left"){
-      this.hit = scene.physics.add.staticSprite(x - 20, y, "attack");
-      scene.player.canAttack = false;
-      scene.player.attackTimer = scene.time.addEvent({
-            delay: scene.player.attackDelay,
-            callback: scene.allowPlayerAttack,
-            callbackScope: scene,
-            loop: false,
-            repeat: 0,
-        });
-      this.hit.destroy();
-    } else if (test_direction == "player_right"){
-      this.hit = scene.physics.add.staticSprite(x + 20, y, "attack");
-      scene.player.canAttack = false;
-      scene.player.attackTimer = scene.time.addEvent({
-            delay: scene.player.attackDelay,
-            callback: scene.allowPlayerAttack,
-            callbackScope: scene,
-            loop: false,
-            repeat: 0
-        });
-      this.hit.destroy();
-    } else if (test_direction == "player_up"){
-      this.hit = scene.physics.add.staticSprite(x, y - 20, "attack");
-      scene.player.canAttack = false;
-      scene.player.attackTimer = scene.time.addEvent({
-            delay: scene.player.attackDelay,
-            callback: scene.allowPlayerAttack,
-            callbackScope: scene,
-            loop: false,
-            repeat: 0
-        });
-      this.hit.destroy();
-    } else if (test_direction == "player_down"){
-      this.hit = scene.physics.add.staticSprite(x, y + 20, "attack");
-      scene.player.canAttack = false;
-      scene.player.attackTimer = scene.time.addEvent({
-            delay: scene.player.attackDelay,
-            callback: scene.allowPlayerAttack,
-            callbackScope: scene,
-            loop: false,
-            repeat: 0
-        });
-      this.hit.destroy();
-    }
-    this.hit.destroy();
-    // this.body.velocity.x = - 250;
-
   }
 
   update(){
-    if(this.x < -20){
+    console.log('?')
+    if (this.counter >= scene.player.attackRemovalDelay){
+      console.log("wtf");
       this.destroy();
-    }
-    if(this.y < -20){
-      this.destroy();
-    }
-    if (this.x > 2000){
-      this.destroy();
-    }
-    if (this.y > 2000){
-      this.destroy();
+    } else{
+      scene.counter += 1;
+      console.log(scene.player.counter);
     }
   }
 }
