@@ -84,7 +84,7 @@ class Scene2 extends Phaser.Scene{
     this.player.projectileDelay = 750;
     this.player.attackDelay = 750;
     this.player.counter = 0;
-    this.player.attackRemovalDelay = 200;
+    this.player.attackRemovalDelay = 15;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -1028,6 +1028,10 @@ class Scene2 extends Phaser.Scene{
         });
       }
     }
+
+    this.melee_attacks.children.each(child => {
+      child.update(this);
+    })
 
     if(this.cloak){
       this.events.emit('playerUseMagic');

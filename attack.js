@@ -31,14 +31,12 @@ class Attack extends Phaser.GameObjects.Sprite{
     scene.physics.world.enableBody(this);
   }
 
-  update(){
-    console.log('?')
-    if (this.counter >= scene.player.attackRemovalDelay){
-      console.log("wtf");
+  update(scene){
+    if (scene.player.counter >= scene.player.attackRemovalDelay){
       this.destroy();
+      scene.player.counter = 0;
     } else{
-      scene.counter += 1;
-      console.log(scene.player.counter);
+      scene.player.counter += 1;
     }
   }
 }
