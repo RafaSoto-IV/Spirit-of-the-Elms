@@ -597,7 +597,8 @@ class Scene2 extends Phaser.Scene{
     if(this.player.health < this.player.maxHealth){
       this.player.health += 50;
       this.events.emit('playerHit');
-      healthPickup.destroy();
+      healthPickup.disableBody(true, true);
+      //healthPickup.destroy();
     }
   }
 
@@ -766,6 +767,14 @@ class Scene2 extends Phaser.Scene{
       "playerProgress": this.player.progress,
       //"playerProjectileTimer": this.player.projectileTimer,
       "playerProjectileDelay": this.player.projectileDelay,
+      "playerManaRegen" : this.player.manaRegen,
+      "playerMeleeDamage": this.player.meleeDamage,
+      "playercanAttack": this.player.canAttack,
+      "playerCanRemove": this.player.canRemove,
+      "playerAttackRemoval": this.player.attackRemoval,
+      "playerAttackDelay": this.player.attackDelay,
+      "playerCounter": this.player.counter,
+      "playerAttackRemovalDelay": this.player.attackRemovalDelay
       // "slimeEnemies": Phaser.Utils.Objects.Clone(this.slime_enemies),
       // "magicSlimeEnemies": Phaser.Utils.Objects.Clone(this.magic_slime_enemies)
     }
@@ -790,6 +799,20 @@ class Scene2 extends Phaser.Scene{
       slimeEnemiesList.push(slimeEnemyObj);
     }
     this.checkpoint.magicSlimeEnemies = slimeEnemiesList;
+    var healthPickupList = [];
+    for(var i = 0; i < this.healthPickups.children.size; i++){
+      if(!this.healthPickups.children.entries[i].active){
+        this.healthPickups.children.entries[i].destroy();
+        i--;
+      } else {
+        var healthPickupObj = {};
+        healthPickupObj.x = this.healthPickups.children.entries[i].x;
+        healthPickupObj.y = this.healthPickups.children.entries[i].y;
+        healthPickupObj.active = this.healthPickups.children.entries[i].active;
+        healthPickupList.push(healthPickupObj);
+      }
+    }
+    this.checkpoint.healthPickupList = healthPickupList;
   }
 
   loadCheckpoint() {
@@ -808,6 +831,14 @@ class Scene2 extends Phaser.Scene{
     this.player.canShootProjectiles = true;
     this.player.progress = this.checkpoint.playerProgress;
     this.player.projectileDelay = this.checkpoint.playerProjectileDelay;
+    this.player.manaRegen = this.checkpoint.playerManaRegen;
+    this.player.meleeDamage = this.checkpoint.playerMeleeDamage;
+    this.player.canAttack = true;
+    this.player.canRemove = this.checkpoint.playerCanRemove;
+    this.player.attackRemoval = this.checkpoint.playerAttackRemoval;
+    this.player.attackDelay = this.checkpoint.playerAttackDelay;
+    this.player.counter = this.checkpoint.playerCounter;
+    this.player.attackRemovalDelay = this.checkpoint.playerAttackRemovalDelay;
     this.events.emit('playerUseMagic');
     this.events.emit('playerHit');
     this.events.emit('gainXp');
@@ -817,6 +848,10 @@ class Scene2 extends Phaser.Scene{
       if(this.slime_enemies.children.entries[i].active == false && this.checkpoint.slimeEnemies[i].active == true){
         this.slime_enemies.children.entries[i].enableBody(true, this.checkpoint.slimeEnemies[i].x, this.checkpoint.slimeEnemies[i].y, true, true);
         this.slime_enemies.children.entries[i].refreshBody();
+      } else if(this.slime_enemies.children.entries[i].active == true){
+        this.slime_enemies.children.entries[i].x = this.checkpoint.slimeEnemies[i].x;
+        this.slime_enemies.children.entries[i].y = this.checkpoint.slimeEnemies[i].y;
+        this.slime_enemies.children.entries[i].refreshBody();
       }
     }
     for(var i = 0; i < this.magic_slime_enemies.children.size; i++){
@@ -825,17 +860,27 @@ class Scene2 extends Phaser.Scene{
       if(this.magic_slime_enemies.children.entries[i].active == false && this.checkpoint.magicSlimeEnemies[i].active == true){
         this.magic_slime_enemies.children.entries[i].enableBody(true, this.checkpoint.magicSlimeEnemies[i].x, this.checkpoint.magicSlimeEnemies[i].y, true, true);
         this.magic_slime_enemies.children.entries[i].refreshBody();
+      } else if(this.magic_slime_enemies.children.entries[i].active == true){
+        this.magic_slime_enemies.children.entries[i].x = this.checkpoint.magicSlimeEnemies[i].x;
+        this.magic_slime_enemies.children.entries[i].y = this.checkpoint.magicSlimeEnemies[i].y;
+        this.magic_slime_enemies.children.entries[i].refreshBody();
       }
     }
 
-    this.projectiles.children.iterate((child) => {
-      //child.destroy();
-      //console.log(child);
-    });
-    for(var i = 0; i < this.slime_projectiles.children.size; i++){
-      console.log(this.slime_projectiles.children.entries[i])
-      this.slime_projectiles.children.entries[i].destroy();
+    for(var i = 0; i < this.checkpoint.healthPickupList.length; i++){
+      if(this.healthPickups.children.entries[i].active == false && this.checkpoint.healthPickupList[i].active == true){
+        this.healthPickups.children.entries[i].enableBody(true, this.checkpoint.healthPickupList[i].x, this.checkpoint.healthPickupList[i].y, true, true);
+        this.healthPickups.children.entries[i].refreshBody();
+      }
     }
+    // this.projectiles.children.iterate((child) => {
+    //   //child.destroy();
+    //   //console.log(child);
+    // });
+    // for(var i = 0; i < this.slime_projectiles.children.size; i++){
+    //   console.log(this.slime_projectiles.children.entries[i])
+    //   this.slime_projectiles.children.entries[i].destroy();
+    // }
     this.gameover = false;
   }
 
