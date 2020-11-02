@@ -12,6 +12,9 @@ class GameOverScene extends Phaser.Scene {
           while(this.ourGame.slime_projectiles.children.size !=0){
             this.ourGame.slime_projectiles.children.entries[0].destroy();
           }
+          while(this.ourGame.projectiles.children.size !=0){
+            this.ourGame.projectiles.children.entries[0].destroy();
+          }
           // for(var i = 0; i < this.ourGame.slime_projectiles.children.size; i++){
           //   console.log("destroy slime projectile " + i);
           //   console.log(this.ourGame.slime_projectiles.children.entries[i])
