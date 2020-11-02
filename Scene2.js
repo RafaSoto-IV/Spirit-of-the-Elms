@@ -914,6 +914,7 @@ class Scene2 extends Phaser.Scene{
     this.cursors.down.reset();
     this.cursors.left.reset();
     this.cursors.right.reset();
+    this.spacebar.reset();
 
   }
 

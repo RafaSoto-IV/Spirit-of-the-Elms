@@ -42,6 +42,8 @@ class GameOverScene extends Phaser.Scene {
       } else {
         this.scene.stop('playGame');
         this.scene.start('playGame');
+        this.scene.launch("uiScene");
+        this.scene.bringToTop("uiScene");
       }
       this.scene.stop();
     }
