@@ -25,7 +25,7 @@ class Attack extends Phaser.GameObjects.Sprite{
 
     //this.load.image('attack', 'hit1.png');
 
-    scene.projectiles.add(this);
+    scene.melee_attacks.add(this);
     scene.player.play(animation);
     //this.setScale(.3);
     scene.physics.world.enableBody(this);

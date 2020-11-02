@@ -72,6 +72,7 @@ class Scene2 extends Phaser.Scene{
     this.player.xp = 0;
     this.player.xpForNextLevel = 1000;
     this.player.projectileDamage = 100;
+    this.player.meleeDamage = 200;
     this.player.vulnerable = true;
     this.player.canShootProjectiles = true;
     this.player.canAttack = true;
@@ -429,6 +430,8 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime42);
     this.magic_slime_enemies.add(this.slime43);
 
+    this.melee_attacks = this.physics.add.group();
+
 
     this.magic_slime_enemies.children.each(child => {
       child.mana = 50;
@@ -477,6 +480,9 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.overlap(this.player, this.magic_slime_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.slime_projectiles, this.projectile_hit, null, this);
     this.hitTimer;
+
+    this.physics.add.overlap(this.melee_attacks, this.slime_enemies, this.enemy_hit_melee, null, this);
+    this.physics.add.overlap(this.melee_attacks, this.magic_slime_enemies, this.enemy_hit_melee, null, this);
 
     this.sys.events.on('resume', this.resume, this);
 
@@ -696,6 +702,14 @@ class Scene2 extends Phaser.Scene{
     if (enemy.health <= 0 && enemy.active == true){
       this.destroyEnemy(enemy);
       //child.destroy();
+    };
+  }
+
+  enemy_hit_melee(melee, enemy){
+    melee.destroy();
+    enemy.health -= this.player.meleeDamage;
+    if (enemy.health <= 0 && enemy.active == true){
+      this.destroyEnemy(enemy);
     };
   }
 

@@ -179,28 +179,28 @@ class Scene1 extends Phaser.Scene{
     this.anims.create({
       key: "melee-left",
       frames: this.anims.generateFrameNumbers("melee-left"),
-      frameRate: 4,
+      frameRate: 8,
       repeat: 0
     })
 
     this.anims.create({
       key: "melee-right",
       frames: this.anims.generateFrameNumbers("melee-right"),
-      frameRate: 4,
+      frameRate: 8,
       repeat: 0
     })
 
     this.anims.create({
       key: "melee-up",
       frames: this.anims.generateFrameNumbers("melee-up"),
-      frameRate: 4,
+      frameRate: 8,
       repeat: 0
     })
 
     this.anims.create({
       key: "melee-down",
       frames: this.anims.generateFrameNumbers("melee-down"),
-      frameRate: 4,
+      frameRate: 8,
       repeat: 0
     })
     this.input.keyboard.on('keydown', function () {
