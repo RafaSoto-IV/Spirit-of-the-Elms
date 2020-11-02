@@ -4,16 +4,21 @@ class Attack extends Phaser.GameObjects.Sprite{
     var x = scene.player.x;
     var y = scene.player.y;
     var counter = 0;
+    var animation = '';
     var test_direction = scene.test_direction;
 
     if (test_direction == "player_left"){
       x -= 20
+      animation = 'melee-left';
     }else if (test_direction == "player_right"){
       x += 20
+      animation = 'melee-right';
     }else if (test_direction == "player_up"){
       y += 20
+      animation = 'melee-down';
     }else if (test_direction == "player_down"){
       y -= 20
+      animation = 'melee-up';
     }
     super(scene, x, y);
     scene.add.existing(this);
@@ -21,7 +26,7 @@ class Attack extends Phaser.GameObjects.Sprite{
     //this.load.image('attack', 'hit1.png');
 
     scene.projectiles.add(this);
-    this.hit = scene.physics.add.staticSprite(x, y, "attack")
+    scene.player.play(animation);
     //this.setScale(.3);
     scene.physics.world.enableBody(this);
   }

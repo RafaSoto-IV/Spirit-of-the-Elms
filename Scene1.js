@@ -75,6 +75,26 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 72/3,
       frameHeight: 24
     })
+
+    this.load.spritesheet("melee-left", "assets/images/spritesheets/witch-melee-left-Sheet.png",{
+      frameWidth: 96/4,
+      frameHeight: 24
+    })
+
+    this.load.spritesheet("melee-right", "assets/images/spritesheets/witch-melee-right-Sheet.png",{
+      frameWidth: 96/4,
+      frameHeight: 24
+    })
+
+    this.load.spritesheet("melee-up", "assets/images/spritesheets/witch-melee-up-Sheet.png",{
+      frameWidth: 96/4,
+      frameHeight: 24
+    })
+
+    this.load.spritesheet("melee-down", "assets/images/spritesheets/witch-melee-down-Sheet.png",{
+      frameWidth: 96/4,
+      frameHeight: 24
+    })
   }
 
   create(){
@@ -155,6 +175,34 @@ class Scene1 extends Phaser.Scene{
       frameRate: 4,
       repeat: -1
     });
+
+    this.anims.create({
+      key: "melee-left",
+      frames: this.anims.generateFrameNumbers("melee-left"),
+      frameRate: 4,
+      repeat: 0
+    })
+
+    this.anims.create({
+      key: "melee-right",
+      frames: this.anims.generateFrameNumbers("melee-right"),
+      frameRate: 4,
+      repeat: 0
+    })
+
+    this.anims.create({
+      key: "melee-up",
+      frames: this.anims.generateFrameNumbers("melee-up"),
+      frameRate: 4,
+      repeat: 0
+    })
+
+    this.anims.create({
+      key: "melee-down",
+      frames: this.anims.generateFrameNumbers("melee-down"),
+      frameRate: 4,
+      repeat: 0
+    })
     this.input.keyboard.on('keydown', function () {
       this.scene.start("startingCutScene");
     }, this);
