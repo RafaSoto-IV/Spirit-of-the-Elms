@@ -4,6 +4,12 @@ class Scene1 extends Phaser.Scene{
   }
 
   preload(){
+    //Sounds
+    this.load.audio("healSound", "assets/sounds/heal.wav");
+    this.load.audio("fireballSound", "assets/sounds/fireball.wav");
+    this.load.audio("slimeSound", "assets/sounds/slime.wav");
+    this.load.audio("playerProjectileSound", "assets/sounds/playerProjectile.wav");
+
     this.load.spritesheet("titleScreen", "assets/images/spritesheets/title_screen-Sheet.png", {
       frameWidth: 200,
       frameHeight: 100
