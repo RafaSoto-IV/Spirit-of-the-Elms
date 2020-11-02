@@ -919,9 +919,9 @@ class Scene2 extends Phaser.Scene{
   }
 
   animation(){
-    if (this.previous != this.direction){
+    if (this.previous != this.test_direction){
       this.player.play(this.direction);
-      this.previous = this.direction
+      this.previous = this.test_direction;
     }
   }
 
