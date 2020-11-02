@@ -537,7 +537,7 @@ class Scene2 extends Phaser.Scene{
       } else{
           this.player.health -= 100;
           this.events.emit('playerHit');
-          this.sound.play("slimeSound");
+          this.sound.play("slimeSound", {volume: 0.1});
           this.player.vulnerable = false;
           if (this.player.health <= 0){
             if (!this.gameover){
@@ -603,7 +603,7 @@ class Scene2 extends Phaser.Scene{
     if(this.player.health < this.player.maxHealth){
       this.player.health += 50;
       this.events.emit('playerHit');
-      this.sound.play("healSound");
+      this.sound.play("healSound", {volume: 0.1});
       //this.sounds.healSound.play();
       healthPickup.disableBody(true, true);
       //healthPickup.destroy();
@@ -723,7 +723,7 @@ class Scene2 extends Phaser.Scene{
   }
 
   slime_magic(magic_slime){
-    this.sound.play("fireballSound", {volume: 0.5})
+    this.sound.play("fireballSound", {volume: 0.1})
     var slime_magic = new Slime_Magic(this, magic_slime);
   }
 
@@ -955,7 +955,7 @@ class Scene2 extends Phaser.Scene{
         this.magic();
         this.player.mana -= 50;
         this.events.emit('playerUseMagic');
-        this.sound.play("playerProjectileSound");
+        this.sound.play("playerProjectileSound", {volume: 0.1});
         this.player.canShootProjectiles = false;
         this.player.projectileTimer = this.time.addEvent({
               delay: this.player.projectileDelay,
@@ -971,7 +971,7 @@ class Scene2 extends Phaser.Scene{
           this.magic();
           this.player.mana -= 50;
           this.events.emit('playerUseMagic');
-          this.sound.play("playerProjectileSound");
+          this.sound.play("playerProjectileSound", {volume: 0.1});
           this.player.canShootProjectiles = false;
           this.player.projectileTimer = this.time.addEvent({
                 delay: this.player.projectileDelay,
@@ -987,7 +987,7 @@ class Scene2 extends Phaser.Scene{
           this.magic();
           this.player.mana -= 50;
           this.events.emit('playerUseMagic');
-          this.sound.play("playerProjectileSound");
+          this.sound.play("playerProjectileSound", {volume: 0.1});
           this.player.canShootProjectiles = false;
           this.player.projectileTimer = this.time.addEvent({
                 delay: this.player.projectileDelay,
@@ -1003,7 +1003,7 @@ class Scene2 extends Phaser.Scene{
           this.magic();
           this.player.mana -= 50;
           this.events.emit('playerUseMagic');
-          this.sound.play("playerProjectileSound");
+          this.sound.play("playerProjectileSound", {volume: 0.1});
           this.player.canShootProjectiles = false;
           this.player.projectileTimer = this.time.addEvent({
                 delay: this.player.projectileDelay,
