@@ -862,8 +862,6 @@ class Scene2 extends Phaser.Scene{
       if(this.magic_slime_enemies.children.entries[i].active == false && this.checkpoint.magicSlimeEnemies[i].active == true){
         this.magic_slime_enemies.children.entries[i].enableBody(true, this.checkpoint.magicSlimeEnemies[i].x, this.checkpoint.magicSlimeEnemies[i].y, true, true);
         this.magic_slime_enemies.children.entries[i].refreshBody();
-        ///
-        /// SET VELOCITIES TO 0 to stop them from moving and check if this fixes it
       } else if(this.magic_slime_enemies.children.entries[i].active == true){
         this.magic_slime_enemies.children.entries[i].x = this.checkpoint.magicSlimeEnemies[i].x;
         this.magic_slime_enemies.children.entries[i].y = this.checkpoint.magicSlimeEnemies[i].y;
