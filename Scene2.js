@@ -139,6 +139,8 @@ class Scene2 extends Phaser.Scene{
       //collision on the world
       // this.physics.overlap(this.player, this.treeLayer, this.stop, null, this);
     this.physics.add.collider(this.player, envLayer);
+    this.physics.add.collider(this.player, envLayer2);
+    this.physics.add.collider(this.player, groundLayer);
     this.physics.add.collider(this.player, treeLayer);
 
 
@@ -572,10 +574,14 @@ class Scene2 extends Phaser.Scene{
 
 
     this.physics.add.collider(this.slime_enemies, envLayer);
+    this.physics.add.collider(this.slime_enemies, envLayer2);
+    this.physics.add.collider(this.slime_enemies, groundLayer);
     this.physics.add.collider(this.slime_enemies, treeLayer);
     this.physics.add.collider(this.slime_enemies, this.slime_enemies);
 
     this.physics.add.collider(this.magic_slime_enemies, envLayer);
+    this.physics.add.collider(this.magic_slime_enemies, envLayer2);
+    this.physics.add.collider(this.magic_slime_enemies, groundLayer);
     this.physics.add.collider(this.magic_slime_enemies, treeLayer);
       //this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
 
