@@ -36,10 +36,11 @@ class Scene2 extends Phaser.Scene{
     const tileset = this.map.addTilesetImage('tileset', 'tiles', 16, 16, 1, 2);
 
 
-    this.map.createStaticLayer('ground', tileset);
+    const groundLayer = this.map.createStaticLayer('ground', tileset);
     const treeLayer = this.map.createStaticLayer('trees', envtileset)
     const envLayer = this.map.createStaticLayer('environment', envtileset);
     const envLayer2 = this.map.createStaticLayer('environment2', envtileset);
+    groundLayer.setCollisionByProperty({ collides: true});
     envLayer.setCollisionByProperty({ collides: true});
     envLayer2.setCollisionByProperty({ collides: true});
     treeLayer.setCollisionByProperty({ collides: true});
@@ -1189,14 +1190,9 @@ class Scene2 extends Phaser.Scene{
     //Timer needed for this to work. Not sure where it needs to be.
     if(Phaser.Input.Keyboard.JustDown(this.e)){
       console.log('STUN')
-<<<<<<< Updated upstream
-      if(this.player.mana >= 100 && this.player.canShootProjectiles){
-        this.player.mana -= 100;
-        this.events.emit('playerUseMagic');
-=======
       if(this.player.mana >= 500 && this.player.canShootProjectiles){
         this.player.mana -= 500;
->>>>>>> Stashed changes
+        this.events.emit('playerUseMagic');
         this.normal_enemies.children.each(child => {
           var distanceX = this.player.x - child.x;
           var distanceY = this.player.y - child.y;
