@@ -31,6 +31,7 @@ class StartGameCutScene extends Phaser.Scene{
     this.sensei.setSize(.1, .1);
     this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.cameras.main.centerOn(this.map.widthInPixels - 380, 130);
+    this.progress = 0;
 
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     //this.dialogBox = this.add.image(1220, 230, 'dialogBox').setScale(2);
@@ -43,8 +44,8 @@ class StartGameCutScene extends Phaser.Scene{
     // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '264px', fill: '#000' }).setScale(0.05);
     // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '100px', fill: '#000' }).setScale(0.1);
 
-    this.dialogText = this.add.text(this.map.widthInPixels - 490, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-    this.dialogTextInstructions = this.add.text(this.map.widthInPixels - 455, 250, '(Press Enter to progress dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+    this.dialogText = this.add.text(this.map.widthInPixels - 490, 200, "Monsters are attacking the elm\ngrove and the village. They're going\nto destroy the elms there!", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+    this.dialogTextInstructions = this.add.text(this.map.widthInPixels - 455, 248, '(Press Enter to progress dialogue)', { fontFamily: "Verdana", fontSize: '9px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
     // this.dialogText = this.add.text(1110, 200, 'Monsters are attacking\nthe elm grove to the south.\nGo stop them!', { fontSize: '12px', fill: '#000' });
     // this.dialogTextInstructions = this.add.text(1140, 250, '(Press Enter to exit dialogue)', { fontSize: '8px', fill: '#000' });
@@ -59,13 +60,30 @@ class StartGameCutScene extends Phaser.Scene{
 
   update(){
     if (Phaser.Input.Keyboard.JustDown(this.enterKey)){
-      this.dialogTextInstructions.destroy(true)
-      this.dialogText.destroy(true);
-      this.dialogBox.destroy(true);
-      this.scene.start("playGame");
-      this.scene.launch("uiScene");
-      this.scene.bringToTop("uiScene");
-      }
+      this.progress += 1;
+    }
+    if(this.progress == 1){
+      this.dialogText.setText("They're doing this all over!\nIf the destruction of the elms isn't\nstopped, all the land will be\n   corrupted.");
+      this.dialogTextInstructions.destroy(true);
+    } else if(this.progress == 2){
+      this.dialogText.setText("No nature will be able to live or\ngrow here. We'll be left to wither\naway in a barren land.");
+    } else if(this.progress == 3){
+      this.dialogText.setText("Save our home. Please.\nYou're the only one who can.");
+    }else if(this.progress == 4){
+      this.dialogText.setText("Follow the road south from your\nhome and take the first path to the\nwest to get to the elm grove. To\n   get to the village go south.");
+    } else if(this.progress == 5){
+      this.dialogText.setText("Press WASD to move. Press the\ncursor keys to shoot a projectile.\nPress spacebar to melee attack.\n   Press p to pause.");
+    } else if(this.progress == 6){
+      this.startGame();
+    }
+  }
+
+  startGame(){
+    this.dialogText.destroy(true);
+    this.dialogBox.destroy(true);
+    this.scene.start("playGame");
+    this.scene.launch("uiScene");
+    this.scene.bringToTop("uiScene");
   }
 
 }
