@@ -15,6 +15,7 @@ class Scene1 extends Phaser.Scene{
       frameHeight: 100
     });
     this.load.image("pauseScreen", "assets/images/spritesheets/pause1.png");
+    this.load.image("levelUpUi", "assets/images/spritesheets/level_up_ui.png")
     // this.load.image('healthbar', 'healthbar.png');
     // this.load.image('manabar', 'manabar.png');
     // this.load.image('xpbar', 'xpbar.png');
