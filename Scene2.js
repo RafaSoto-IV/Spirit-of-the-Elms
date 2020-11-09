@@ -612,11 +612,19 @@ class Scene2 extends Phaser.Scene{
     //set resume event function to handle when scene is unpaused
     this.sys.events.on('resume', this.resume, this);
 
+    //set pause event function to handle when scene is paused
+    this.sys.events.on('pause', this.pause, this);
+
     // object to hold all info needed for checkpoint saving/loading
     this.checkpoint;
 
     //Sound Objects
     //this.sounds.healSound = this.add.sound("healSound");
+    this.mainTheme = this.sound.add("mainTheme", {
+      volume: 0.1,
+      loop: true,
+    });
+    this.mainTheme.play();
 
   }
 
@@ -880,7 +888,6 @@ class Scene2 extends Phaser.Scene{
           loop: false,
           repeat: 0
       });
-    this.events.emit('playerUseMagic');
     if (enemy.health <= 0 && enemy.active == true){
       console.log('aoe completed')
       this.destroyEnemy(enemy);
@@ -983,6 +990,11 @@ class Scene2 extends Phaser.Scene{
       "playerAttackDelay": this.player.attackDelay,
       "playerCounter": this.player.counter,
       "playerAttackRemovalDelay": this.player.attackRemovalDelay
+      // this.player.reflect = true;
+      // this.player.aoe = true;
+      // this.player.aoeRange = 100;
+      // this.player.thunderwave = true;
+      // this.player.stunTime = 1000;
       // "slimeEnemies": Phaser.Utils.Objects.Clone(this.slime_enemies),
       // "magicSlimeEnemies": Phaser.Utils.Objects.Clone(this.magic_slime_enemies)
     }
@@ -1096,6 +1108,10 @@ class Scene2 extends Phaser.Scene{
     this.gameover = false;
   }
 
+  pause(){
+    this.mainTheme.pause();
+  }
+
   resume() {
     this.player.setVelocityX(0);
     this.player.setVelocityY(0);
@@ -1114,7 +1130,7 @@ class Scene2 extends Phaser.Scene{
     this.cursors.left.reset();
     this.cursors.right.reset();
     this.spacebar.reset();
-
+    this.mainTheme.resume();
   }
 
   animation(){
@@ -1174,7 +1190,8 @@ class Scene2 extends Phaser.Scene{
     if(Phaser.Input.Keyboard.JustDown(this.e)){
       console.log('STUN')
       if(this.player.mana >= 100 && this.player.canShootProjectiles){
-        this.player.mana -= 100
+        this.player.mana -= 100;
+        this.events.emit('playerUseMagic');
         this.normal_enemies.children.each(child => {
           var distanceX = this.player.x - child.x;
           var distanceY = this.player.y - child.y;

@@ -9,6 +9,9 @@ class Scene1 extends Phaser.Scene{
     this.load.audio("fireballSound", "assets/sounds/fireball.wav");
     this.load.audio("slimeSound", "assets/sounds/slime.wav");
     this.load.audio("playerProjectileSound", "assets/sounds/playerProjectile.wav");
+    this.load.audio("titleTheme", "assets/sounds/titletheme.mp3");
+    this.load.audio("mainTheme", "assets/sounds/maintheme.mp3");
+    this.load.audio("villageTheme", "assets/sounds/villagetheme.mp3");
 
     this.load.spritesheet("titleScreen", "assets/images/spritesheets/title_screen-Sheet.png", {
       frameWidth: 200,
@@ -215,6 +218,44 @@ class Scene1 extends Phaser.Scene{
       this.scene.start("startingCutScene");
     }, this);
 
+    this.input.keyboard.on('keydown', function () {
+      this.scene.start("startingCutScene");
+      this.titleTheme.stop();
+    }, this);
+
+    this.input.on('pointermove', function(){
+      if (game.sound.context.state === 'suspended') {
+  					game.sound.context.resume();
+  		}
+    });
+
+    this.titleTheme = this.sound.add("titleTheme", {
+      volume: 0.1,
+      loop: true,
+    });
     const titleScreen = this.add.sprite(200, 150, "titleScreen").setScale(2);
+    // this.input.addDownCallback(function() {
+    //
+		// 		if (game.sound.context.state === 'suspended') {
+		// 			game.sound.context.resume();
+		// 		}
+    //
+		// 	});
+
+    this.titleTheme.play();
+    // game.input.onDown.addOnce(() => {
+    //     game.sound.context.resume();
+    //     });
+    // if (game.sound.context.state === 'suspended') {
+		// 			game.sound.context.resume();
+		// }
   }
+
+  // update(){
+  //   if (game.sound.context.state === 'suspended') {
+	// 				game.sound.context.resume();
+	// 	}
+  //   // this.titleTheme.play();
+  //   // getAudioContext().resume();
+  // }
 }

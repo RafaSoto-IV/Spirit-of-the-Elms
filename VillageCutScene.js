@@ -50,7 +50,13 @@ class VillageCutScene extends Phaser.Scene {
         this.progress = -1;
         this.readyToMove = false;
         this.player.play("idle_left_anim");
-        console.log(ourGame.player.body.velocity.x)
+        console.log(ourGame.player.body.velocity.x);
+
+        this.villageTheme = this.sound.add("villageTheme", {
+          volume: 0.1,
+          loop: true,
+        });
+        this.villageTheme.play();
     }
 
     update(){
@@ -194,6 +200,7 @@ class VillageCutScene extends Phaser.Scene {
       ourGame.player.body.velocity.x = 0;
       ourGame.player.body.velocity.y = 0;
       ourGame.saveCheckpoint();
+      this.villageTheme.stop();
       this.scene.resume('playGame');
       this.scene.stop();
     }
