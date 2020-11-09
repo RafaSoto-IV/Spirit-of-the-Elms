@@ -464,12 +464,6 @@ class Scene2 extends Phaser.Scene{
     this.normal_enemies.add(this.slime41);
     this.normal_enemies.add(this.slime42);
     this.normal_enemies.add(this.slime43);
-    this.normal_enemies.add(this.slimeg1);
-    this.normal_enemies.add(this.slimeg2);
-    this.normal_enemies.add(this.slimeg3);
-    this.normal_enemies.add(this.slimeg4);
-    this.normal_enemies.add(this.slimeg5);
-    this.normal_enemies.add(this.slimeg6);
 
       //slime_enemies put into group
     this.slime_enemies = this.physics.add.group();
@@ -494,7 +488,7 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime33);
     this.slime_enemies.add(this.slime34);
     this.slime_enemies.add(this.slime35);
-    //this.slime_enemies.add(this.slimeBigBoi);
+    this.slime_enemies.add(this.slimeBigBoi);
     this.slime_enemies.add(this.slime36);
     this.slime_enemies.add(this.slime37);
     this.slime_enemies.add(this.slime38);
@@ -861,7 +855,6 @@ class Scene2 extends Phaser.Scene{
 //Needs animation
   aoe(player, enemy){
     enemy.health -= this.player.meleeDamage;
-    this.player.health -= 100
     if (this.player.health < 1){
       this.player.health = 1;
     }
@@ -876,7 +869,6 @@ class Scene2 extends Phaser.Scene{
   stun(player, enemy){
     console.log("inside stun func");
     enemy.health -= this.player.projectileDamage;
-    this.player.mana -= 100
     enemy.setVelocityX(0);
     enemy.setVelocityY(0);
     enemy.canMove = false;
@@ -1166,6 +1158,7 @@ class Scene2 extends Phaser.Scene{
     if(Phaser.Input.Keyboard.JustDown(this.q)){
       console.log('AOE')
       var counterr = 0
+      this.player.health -= 100;
       this.normal_enemies.children.each(child => {
         var distanceX = this.player.x - child.x;
         var distanceY = this.player.y - child.y;
@@ -1180,15 +1173,18 @@ class Scene2 extends Phaser.Scene{
     //Timer needed for this to work. Not sure where it needs to be.
     if(Phaser.Input.Keyboard.JustDown(this.e)){
       console.log('STUN')
-      this.normal_enemies.children.each(child => {
-        var distanceX = this.player.x - child.x;
-        var distanceY = this.player.y - child.y;
-        if(Math.abs(distanceX) < this.player.aoeRange){
-          if (Math.abs(distanceY) < this.player.aoeRange){
-            this.stun(this.player, child);
+      if(this.player.mana >= 100 && this.player.canShootProjectiles){
+        this.player.mana -= 100
+        this.normal_enemies.children.each(child => {
+          var distanceX = this.player.x - child.x;
+          var distanceY = this.player.y - child.y;
+          if(Math.abs(distanceX) < this.player.aoeRange){
+            if (Math.abs(distanceY) < this.player.aoeRange){
+              this.stun(this.player, child);
+            }
           }
-        }
-      });
+        });
+      }
     }
 
     if (this.cursors.left.isDown){
@@ -1284,6 +1280,9 @@ class Scene2 extends Phaser.Scene{
     } else{
       this.events.emit('playerUseMagic');
       this.player.mana += this.player.manaRegen;
+      if (this.player.mana > this.player.maxMana){
+        this.player.mana = this.player.maxMana;
+      }
     }
 
     this.slime_enemies.children.each(child => {
