@@ -135,6 +135,9 @@ class Scene2 extends Phaser.Scene{
     this.healthPickups = this.physics.add.group();
     this.physics.add.overlap(this.player, this.healthPickups, this.pickupHealth, null, this);
 
+    this.powerUpPickups = this.physics.add.group();
+    this.physics.add.overlap(this.player, this.powerUpPickups, this.pickupPowerUp, null, this);
+
       //Random enemy sprites input here
       //1 - 6 Around trees first left path
     this.slime1 = this.physics.add.sprite(this.map.widthInPixels - 700, 550, "slime_blue");
@@ -610,6 +613,11 @@ class Scene2 extends Phaser.Scene{
     }
   }
 
+  pickupPowerUp(player, powerUpPickup){
+    console.log("pick up power");
+    powerUpPickup.disableBody(true, true);
+  }
+
   stop(player, obstacle){
     player.setVelocityX(0);
     player.setVelocityY(0);
@@ -728,17 +736,30 @@ class Scene2 extends Phaser.Scene{
   }
 
   destroyEnemy(enemy){
-    if(Phaser.Math.Between(1, 100) <= 20){
-      var healthPickup = this.physics.add.sprite(enemy.x, enemy.y, "healthPickup");
-      healthPickup.setScale(0.02);
-      this.healthPickups.add(healthPickup);
-    }
-    //enemy.destroy();
-    enemy.disableBody(true, true);
-    this.player.xp += 100;
-    this.events.emit('gainXp');
-    if(this.player.xp >= this.player.xpForNextLevel){
-      this.levelUp();
+    if(enemy == this.flameBigBoi || enemy == this.slimeBigBoi){
+      console.log("drop pick up power");
+      var powerUpPickup = this.physics.add.sprite(enemy.x, enemy.y, "powerUpPickup");
+      powerUpPickup.setScale(0.02);
+      this.powerUpPickups.add(powerUpPickup);
+      enemy.disableBody(true, true);
+      this.player.xp += 500;
+      this.events.emit('gainXp');
+      if(this.player.xp >= this.player.xpForNextLevel){
+        this.levelUp();
+      }
+    } else {
+      if(Phaser.Math.Between(1, 100) <= 20){
+        var healthPickup = this.physics.add.sprite(enemy.x, enemy.y, "healthPickup");
+        healthPickup.setScale(0.02);
+        this.healthPickups.add(healthPickup);
+      }
+      //enemy.destroy();
+      enemy.disableBody(true, true);
+      this.player.xp += 100;
+      this.events.emit('gainXp');
+      if(this.player.xp >= this.player.xpForNextLevel){
+        this.levelUp();
+      }
     }
   }
 
