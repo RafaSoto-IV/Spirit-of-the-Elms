@@ -396,7 +396,7 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime33);
     this.slime_enemies.add(this.slime34);
     this.slime_enemies.add(this.slime35);
-    this.slime_enemies.add(this.slimeBigBoi);
+    //this.slime_enemies.add(this.slimeBigBoi);
     this.slime_enemies.add(this.slime36);
     this.slime_enemies.add(this.slime37);
     this.slime_enemies.add(this.slime38);
@@ -432,6 +432,13 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime41);
     this.magic_slime_enemies.add(this.slime42);
     this.magic_slime_enemies.add(this.slime43);
+
+    this.generating_enemies = this.physics.add.group();
+    this.generating_enemies.add(this.slimeBigBoi);
+
+    this.generating_enemies.children.each(child => {
+      this.generating_enemy(child);
+    })
 
     this.melee_attacks = this.physics.add.group();
 
@@ -778,6 +785,10 @@ class Scene2 extends Phaser.Scene{
     // }
   }
 
+  generating_enemy(enemy){
+    var generatingEnemy = new GeneratingEnemy(this, enemy);
+  }
+
   //MECHANICAL RELATED FUNCTIONS:
   saveCheckpoint() {
     this.checkpoint = {
@@ -987,7 +998,7 @@ class Scene2 extends Phaser.Scene{
               repeat: 0
           });
       }
-    }else if (this.cursors.right.isDown){
+    } else if (this.cursors.right.isDown){
         if(this.player.mana >= 50 && this.player.canShootProjectiles){
           this.magic_direction = "player_right";
           this.magic();
@@ -1098,6 +1109,11 @@ class Scene2 extends Phaser.Scene{
       if(child.active == true){
         this.moveSlimes(child);
       }
+    });
+
+    this.generating_enemies.children.each(child => {
+      child.update(this);
+      console.log('updated');
     });
 
 
