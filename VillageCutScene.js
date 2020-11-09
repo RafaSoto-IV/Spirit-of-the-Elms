@@ -30,7 +30,7 @@ class VillageCutScene extends Phaser.Scene {
         // moveText.on('pointerdown', this.unPause, this);
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.dialogBox = this.add.sprite(this.map.widthInPixels - 180, this.map.heightInPixels - 600, 'dialogBox').setScale(2);
-        this.dialogText = this.add.text(this.map.widthInPixels - 285, this.map.heightInPixels - 630, "You're a sight for sore eyes.\nI wasn't sure I'd see\nanything besides these slimes.\n We could really use your help.", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+        this.dialogText = this.add.text(this.map.widthInPixels - 289, this.map.heightInPixels - 630, "You're a sight for sore eyes.\nI wasn't sure I'd see anything\nbesides these slimes.\n   We could really use your help.", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
         // this.dialogBox = this.add.sprite(200, 250, 'dialogBox').setScale(2);
         // this.dialogText = this.add.text(92, 220, 'Welcome to village, save us!', { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
@@ -54,10 +54,12 @@ class VillageCutScene extends Phaser.Scene {
     }
 
     update(){
-      if(this.progress == -1 || this.progress == 5){
+      if(this.progress <= 0 || this.progress >= 6){
         if (Phaser.Input.Keyboard.JustDown(this.enterKey)){
-          this.dialogText.destroy(true);
-          this.dialogBox.destroy(true);
+          if(this.progress == 0){
+            this.dialogText.destroy(true);
+            this.dialogBox.destroy(true);
+          }
           this.progress+=1;
           this.readyToMove = true;
           //this.unPause();
@@ -78,12 +80,14 @@ class VillageCutScene extends Phaser.Scene {
       if(this.readyToMove){
         // console.log("readyToMove true")
         if(this.progress == 0){
+          this.dialogText.setText("You won't see many others out.\nEveryone's holed up inside cause of\nall the slimes. Some have even\n   fallen sick, just like the land has.");
+        } else if(this.progress == 1){
           // console.log("progress=0")
           this.player.play("player_left");
           console.log("player x: " + this.player.x);
           console.log("player y: " + this.player.y);
           this.player.setVelocityY(100);
-          this.progress = 1;
+          this.progress += 1;
           this.readyToMove = false;
           this.time.addEvent({
                 delay: 3050,
@@ -92,33 +96,17 @@ class VillageCutScene extends Phaser.Scene {
                 loop: false,
                 repeat: 0
           });
-        } else if(this.progress ==1){
+        } else if(this.progress == 2){
           console.log("progress=1")
           this.player.play("player_left");
           console.log("player x: " + this.player.x);
           console.log("player y: " + this.player.y);
           this.player.setVelocityX(-100);
           this.player.setVelocityY(0);
-          this.progress = 2;
+          this.progress += 1;
           this.readyToMove = false;
           this.time.addEvent({
                 delay: 7100,
-                callback: () => {this.readyToMove = true},
-                callbackScope: this,
-                loop: false,
-                repeat: 0
-          });
-        } else if(this.progress == 2){
-          console.log("progress=3")
-          this.player.play("player_left");
-          console.log("player x: " + this.player.x);
-          console.log("player y: " + this.player.y);
-          this.player.setVelocityX(0);
-          this.player.setVelocityY(100);
-          this.progress = 3;
-          this.readyToMove = false;
-          this.time.addEvent({
-                delay: 1500,
                 callback: () => {this.readyToMove = true},
                 callbackScope: this,
                 loop: false,
@@ -129,9 +117,25 @@ class VillageCutScene extends Phaser.Scene {
           this.player.play("player_left");
           console.log("player x: " + this.player.x);
           console.log("player y: " + this.player.y);
+          this.player.setVelocityX(0);
+          this.player.setVelocityY(100);
+          this.progress += 1;
+          this.readyToMove = false;
+          this.time.addEvent({
+                delay: 1500,
+                callback: () => {this.readyToMove = true},
+                callbackScope: this,
+                loop: false,
+                repeat: 0
+          });
+        } else if(this.progress == 4){
+          console.log("progress=3")
+          this.player.play("player_left");
+          console.log("player x: " + this.player.x);
+          console.log("player y: " + this.player.y);
           this.player.setVelocityX(-100);
           this.player.setVelocityY(0);
-          this.progress = 4;
+          this.progress += 1;
           this.readyToMove = false;
           this.time.addEvent({
                 delay: 2200,
@@ -140,14 +144,14 @@ class VillageCutScene extends Phaser.Scene {
                 loop: false,
                 repeat: 0
           });
-        } else if(this.progress == 4){
+        } else if(this.progress == 5){
           console.log("progress=4")
           this.player.play("player_up");
           console.log("player x: " + this.player.x);
           console.log("player y: " + this.player.y);
           this.player.setVelocityX(0);
           this.player.setVelocityY(-100);
-          this.progress = 5;
+          this.progress += 1;
           this.readyToMove = false;
           this.time.addEvent({
                 delay: 600,
@@ -156,6 +160,10 @@ class VillageCutScene extends Phaser.Scene {
                 loop: false,
                 repeat: 0
           });
+        } else if(this.progress == 7){
+          this.dialogText.setText("We really need your help. We\nneed you stop them from taking\nover, otherwise we'll all starve.");
+        } else if(this.progress == 8){
+          this.dialogText.setText("If you follow the road west and\nthen north. It'll take you out of the\nvillage and into the forest. It's filled\n    with slimes and much worse.");
         } else {
           // this.player.setVelocityX(0);
           // this.player.setVelocityY(0);
@@ -173,7 +181,7 @@ class VillageCutScene extends Phaser.Scene {
       console.log("player y: " + this.player.y);
       //this.readyToMove = true;
       this.dialogBox = this.add.sprite(this.map.widthInPixels - 1050, this.map.heightInPixels - 180, 'dialogBox').setScale(2);
-      this.dialogText = this.add.text(this.map.widthInPixels - 1155, this.map.heightInPixels - 210, "We don't have much to eat with\nthe slimes poisoning the land.\nPlease help us or we'll starve.", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+      this.dialogText = this.add.text(this.map.widthInPixels - 1159, this.map.heightInPixels - 210, "Hey, it's good to see you. I wish\nthe circumstances were better. We\ndon't have much to eat with the\n   slimes corrupting the land.", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
     }
 
     unPause(){
