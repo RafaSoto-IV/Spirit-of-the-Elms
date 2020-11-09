@@ -8,16 +8,16 @@ class Attack extends Phaser.GameObjects.Sprite{
     var test_direction = scene.test_direction;
 
     if (test_direction == "player_left"){
-      x -= 20
+      x -= 30
       animation = 'melee-left';
     }else if (test_direction == "player_right"){
-      x += 20
+      x += 30
       animation = 'melee-right';
     }else if (test_direction == "player_up"){
-      y += 20
+      y += 30
       animation = 'melee-down';
     }else if (test_direction == "player_down"){
-      y -= 20
+      y -= 30
       animation = 'melee-up';
     }
     super(scene, x, y);
