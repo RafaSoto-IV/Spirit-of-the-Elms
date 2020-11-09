@@ -90,6 +90,7 @@ class Scene2 extends Phaser.Scene{
     this.player.aoe = true;
     this.player.aoeRange = 100;
     this.player.thunderwave = true;
+    this.player.stunTime = 1000;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -864,6 +865,7 @@ class Scene2 extends Phaser.Scene{
     if (this.player.health < 1){
       this.player.health = 1;
     }
+    this.events.emit('playerHit');
     if (enemy.health <= 0 && enemy.active == true){
       console.log('aoe completed')
       this.destroyEnemy(enemy);
@@ -872,10 +874,21 @@ class Scene2 extends Phaser.Scene{
 
 //Needs timer
   stun(player, enemy){
+    console.log("inside stun func");
     enemy.health -= this.player.projectileDamage;
     this.player.mana -= 100
     enemy.setVelocityX(0);
     enemy.setVelocityY(0);
+    enemy.canMove = false;
+    this.time.addEvent({
+          delay: this.player.stunTime,
+          callback: this.removeStunEffect,
+          callbackScope: this,
+          args: [enemy],
+          loop: false,
+          repeat: 0
+      });
+    this.events.emit('playerUseMagic');
     if (enemy.health <= 0 && enemy.active == true){
       console.log('aoe completed')
       this.destroyEnemy(enemy);
@@ -922,13 +935,23 @@ class Scene2 extends Phaser.Scene{
     }
   }
 
+  removeStunEffect(enemy){
+    //console.log(enemy);
+    enemy.canMove = true;
+    // if(enemy.active == true){
+    //   enemy
+    // }
+  }
+
   moveSlimes(slime){
-    var slimeX = this.player.x - slime.x;
-    var slimeY = this.player.y - slime.y;
-    if(Math.abs(slimeX) < this.slimeRange){
-      if (Math.abs(slimeY) < this.slimeRange){
-        slime.setVelocityX(Math.sign(slimeX)*slime.slimeSpeed);
-        slime.setVelocityY(Math.sign(slimeY)*slime.slimeSpeed);
+    if(slime.canMove == null || slime.canMove == true){
+      var slimeX = this.player.x - slime.x;
+      var slimeY = this.player.y - slime.y;
+      if(Math.abs(slimeX) < this.slimeRange){
+        if (Math.abs(slimeY) < this.slimeRange){
+          slime.setVelocityX(Math.sign(slimeX)*slime.slimeSpeed);
+          slime.setVelocityY(Math.sign(slimeY)*slime.slimeSpeed);
+        }
       }
     }
     // if (Math.abs(slimeY) < this.slimeRange){
@@ -1159,9 +1182,9 @@ class Scene2 extends Phaser.Scene{
       console.log('STUN')
       this.normal_enemies.children.each(child => {
         var distanceX = this.player.x - child.x;
-        var discanceY = this.player.y - child.y;
-        if(Math.abs(distanceX) < this.aoeRange){
-          if (Math.abs(distanceY) < this.aoeRange){
+        var distanceY = this.player.y - child.y;
+        if(Math.abs(distanceX) < this.player.aoeRange){
+          if (Math.abs(distanceY) < this.player.aoeRange){
             this.stun(this.player, child);
           }
         }
