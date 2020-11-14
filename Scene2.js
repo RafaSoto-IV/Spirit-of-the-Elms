@@ -156,9 +156,13 @@ class Scene2 extends Phaser.Scene{
     this.slime1.setScale(this.slime_scale);
     this.slime1.play("blue_slime_anim")
 
+    // this.addSlime(700, 550);
+
     this.slime2 = this.physics.add.sprite(this.map.widthInPixels - 650, 500, "slime_blue");
     this.slime2.setScale(this.slime_scale);
     this.slime2.play("blue_slime_anim")
+
+    // this.addSlime(650, 500);
 
     this.slime3 = this.physics.add.sprite(this.map.widthInPixels - 700, 415, "slime_blue");
     this.slime3.setScale(this.slime_scale);
@@ -410,7 +414,7 @@ class Scene2 extends Phaser.Scene{
     this.slimeg6.play("blue_slime_anim");
 
     this.normal_enemies = this.physics.add.group();
-    this.normal_enemies.add(this.slime1);
+    // this.normal_enemies.add(this.s1);
     this.normal_enemies.add(this.slime2);
     this.normal_enemies.add(this.slime3);
     this.normal_enemies.add(this.slime4);
@@ -425,6 +429,24 @@ class Scene2 extends Phaser.Scene{
     this.normal_enemies.add(this.slime13);
     this.normal_enemies.add(this.slime14);
     this.normal_enemies.add(this.slime15);
+    this.normal_enemies.add(this.slime16);
+    this.normal_enemies.add(this.slime17);
+    this.normal_enemies.add(this.slime18);
+    this.normal_enemies.add(this.slime19);
+    this.normal_enemies.add(this.slime20);
+    this.normal_enemies.add(this.slime21);
+    this.normal_enemies.add(this.slime22);
+    this.normal_enemies.add(this.slime23);
+    this.normal_enemies.add(this.slime24);
+    this.normal_enemies.add(this.slime25);
+    this.normal_enemies.add(this.slime26);
+    this.normal_enemies.add(this.slime27);
+    this.normal_enemies.add(this.slime28);
+    this.normal_enemies.add(this.slime29);
+    this.normal_enemies.add(this.slime40);
+    this.normal_enemies.add(this.slime41);
+    this.normal_enemies.add(this.slime42);
+    this.normal_enemies.add(this.slime43);
     this.normal_enemies.add(this.slime30);
     this.normal_enemies.add(this.slime31);
     this.normal_enemies.add(this.slime32);
@@ -449,28 +471,10 @@ class Scene2 extends Phaser.Scene{
     this.normal_enemies.add(this.slimeg4);
     this.normal_enemies.add(this.slimeg5);
     this.normal_enemies.add(this.slimeg6);
-    this.normal_enemies.add(this.slime16);
-    this.normal_enemies.add(this.slime17);
-    this.normal_enemies.add(this.slime18);
-    this.normal_enemies.add(this.slime19);
-    this.normal_enemies.add(this.slime20);
-    this.normal_enemies.add(this.slime21);
-    this.normal_enemies.add(this.slime22);
-    this.normal_enemies.add(this.slime23);
-    this.normal_enemies.add(this.slime24);
-    this.normal_enemies.add(this.slime25);
-    this.normal_enemies.add(this.slime26);
-    this.normal_enemies.add(this.slime27);
-    this.normal_enemies.add(this.slime28);
-    this.normal_enemies.add(this.slime29);
-    this.normal_enemies.add(this.slime40);
-    this.normal_enemies.add(this.slime41);
-    this.normal_enemies.add(this.slime42);
-    this.normal_enemies.add(this.slime43);
 
       //slime_enemies put into group
     this.slime_enemies = this.physics.add.group();
-    this.slime_enemies.add(this.slime1);
+    // this.slime_enemies.add(this.s1);
     this.slime_enemies.add(this.slime2);
     this.slime_enemies.add(this.slime3);
     this.slime_enemies.add(this.slime4);
@@ -491,7 +495,7 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slime33);
     this.slime_enemies.add(this.slime34);
     this.slime_enemies.add(this.slime35);
-    this.slime_enemies.add(this.slimeBigBoi);
+    //this.slime_enemies.add(this.slimeBigBoi);
     this.slime_enemies.add(this.slime36);
     this.slime_enemies.add(this.slime37);
     this.slime_enemies.add(this.slime38);
@@ -535,8 +539,8 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime42);
     this.magic_slime_enemies.add(this.slime43);
 
-    this.generating_enemies = this.physics.add.group();
-    this.generating_enemies.add(this.slimeBigBoi);
+    //this.generating_enemies = this.physics.add.group();
+    //this.generating_enemies.add(this.slimeBigBoi);
 
     this.generatedEnemies = this.physics.add.group();
     this.generatedEnemies.add(this.slimeg1);
@@ -546,22 +550,24 @@ class Scene2 extends Phaser.Scene{
     this.generatedEnemies.add(this.slimeg5);
     this.generatedEnemies.add(this.slimeg6);
 
-    this.generating_enemies.children.each(child => {
-      this.generating_enemy(child);
-    });
+    // this.generating_enemies.children.each(child => {
+    //   this.generating_enemy(child);
+    // });
 
     this.melee_attacks = this.physics.add.group();
 
+    this.normal_enemies.children.each(child => {
+      child.health = 200;
+    });
 
     this.magic_slime_enemies.children.each(child => {
       child.mana = 50;
-      child.health = 300;
     });
 
     this.slime_enemies.children.each(child => {
-      child.health = 200;
       child.slimeSpeed = this.slimeSpeed;
     });
+
 
     this.slimeBigBoi.slimeSpeed = this.bossSpeed;
     this.flameBigBoi.slimeSpeed = this.bossSpeed;
@@ -573,19 +579,19 @@ class Scene2 extends Phaser.Scene{
     this.flameBigBoiHealthRegen = .75;
 
 
-    this.physics.add.collider(this.slime_enemies, envLayer);
-    this.physics.add.collider(this.slime_enemies, envLayer2);
-    this.physics.add.collider(this.slime_enemies, groundLayer);
-    this.physics.add.collider(this.slime_enemies, treeLayer);
-    this.physics.add.collider(this.slime_enemies, this.slime_enemies);
+    this.physics.add.collider(this.normal_enemies, envLayer);
+    this.physics.add.collider(this.normal_enemies, envLayer2);
+    this.physics.add.collider(this.normal_enemies, groundLayer);
+    this.physics.add.collider(this.normal_enemies, treeLayer);
+    this.physics.add.collider(this.normal_enemies, this.slime_enemies);
 
-    this.physics.add.collider(this.magic_slime_enemies, envLayer);
-    this.physics.add.collider(this.magic_slime_enemies, envLayer2);
-    this.physics.add.collider(this.magic_slime_enemies, groundLayer);
-    this.physics.add.collider(this.magic_slime_enemies, treeLayer);
+    // this.physics.add.collider(this.magic_slime_enemies, envLayer);
+    // this.physics.add.collider(this.magic_slime_enemies, envLayer2);
+    // this.physics.add.collider(this.magic_slime_enemies, groundLayer);
+    // this.physics.add.collider(this.magic_slime_enemies, treeLayer);
       //this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
 
-    this.physics.add.collider(this.slime_enemies, this.magic_slime_enemies);
+    this.physics.add.collider(this.normal_enemies, this.normal_enemies);
 
 
       //Projectiles put into group
@@ -599,7 +605,7 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.slime_projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.slime_enemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.magic_slime_enemies, this.enemy_hit, null, this);
-    this.physics.add.collider(this.projectiles, this.generating_enemies, this.enemy_hit, null, this);
+    // this.physics.add.collider(this.projectiles, this.generating_enemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.vendor, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_projectiles, this.vendor, this.enviro_hit, null, this);
 
@@ -607,13 +613,13 @@ class Scene2 extends Phaser.Scene{
       // this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.slime_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.magic_slime_enemies, this.hit, null, this);
-    this.physics.add.overlap(this.player, this.generating_enemies, this.hit, null, this);
+    // this.physics.add.overlap(this.player, this.generating_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.slime_projectiles, this.projectile_hit, null, this);
     this.hitTimer;
 
     this.physics.add.overlap(this.melee_attacks, this.slime_enemies, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.melee_attacks, this.magic_slime_enemies, this.enemy_hit_melee, null, this);
-    this.physics.add.overlap(this.melee_attacks, this.generating_enemies, this.enemy_hit_melee, null, this);
+    // this.physics.add.overlap(this.melee_attacks, this.generating_enemies, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.slime_projectiles, this.melee_attacks, this.reflect_projectiles, null, this);
 
     //set resume event function to handle when scene is unpaused
@@ -966,9 +972,9 @@ class Scene2 extends Phaser.Scene{
     // }
   }
 
-  generating_enemy(enemy){
-    var generating_enemy = new GeneratingEnemy(this, enemy);
-  }
+  // generating_enemy(enemy){
+  //   var generating_enemy = new GeneratingEnemy(this, enemy);
+  // }
 
   //MECHANICAL RELATED FUNCTIONS:
   saveCheckpoint() {
@@ -1145,6 +1151,12 @@ class Scene2 extends Phaser.Scene{
       this.player.play(this.direction);
       this.previous = this.test_direction;
     }
+  }
+
+  addSlime(x, y){
+    var slime = new Slime(this);
+    this.normal_enemies.add(slime);
+    this.slime_enemies.add(slime);
   }
 
   update(){
@@ -1343,9 +1355,14 @@ class Scene2 extends Phaser.Scene{
       }
     });
 
-    var generatedEnemy_Counter = 1;
+    var generatedEnemy_Counter = 0;
     this.generatedEnemies.children.each(child => {
-      //generatedEnemy_Counter += 1;
+      if (child.health > 0){
+        generatedEnemy_Counter += 1;
+      } else {
+        this.generatedEnemies.remove(child);
+        this.slime_enemies.remove(child);
+      }
     });
     console.log(generatedEnemy_Counter);
     if (generatedEnemy_Counter == 0){
@@ -1386,6 +1403,11 @@ class Scene2 extends Phaser.Scene{
       this.generatedEnemies.add(this.slimeg4);
       this.generatedEnemies.add(this.slimeg5);
       this.generatedEnemies.add(this.slimeg6);
+
+      this.generatedEnemies.children.each(child => {
+        child.health = 200;
+        child.play("blue_slime_anim");
+      });
     }
 
     // for(var i = 0; i < this.projectiles.getChildren().length; i++){
