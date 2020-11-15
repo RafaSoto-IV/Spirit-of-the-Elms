@@ -1,4 +1,4 @@
-class Slime extends Phaser.GameObjects.Sprite{
+class Slime extends Phaser.Physics.Arcade.Sprite{
   constructor(scene, id, x, y){
 
     var x = x;
@@ -6,7 +6,8 @@ class Slime extends Phaser.GameObjects.Sprite{
     var id = id;
     var slimeRange = 200;
     var slimeSpeed = 75
-    var canMove = null;
+    var canMove = true;
+    var generated = true;
     //this.slime_scale =
     super(scene, x, y, "slime");
 
@@ -17,7 +18,7 @@ class Slime extends Phaser.GameObjects.Sprite{
 
     scene.add.existing(this);
 
-    scene.normal_enemies.add(this);
+    // scene.normal_enemies.add(this);
     // scene.slime_enemies.add(this);
     scene.generatedEnemies.add(this);
 
@@ -37,10 +38,13 @@ class Slime extends Phaser.GameObjects.Sprite{
     if(this.canMove == null || this.canMove == true){
       var slimeX = scene.player.x - this.x;
       var slimeY = scene.player.y - this.y;
-      if(Math.abs(slimeX) < this.slimeRange){
-        if (Math.abs(slimeY) < this.slimeRange){
-          this.body.velocity.x = Math.sign(slimeX)*this.slimeSpeed;
-          this.body.velocity.y = Math.sign(slimeY)*this.slimeSpeed;
+      if(Math.abs(slimeX) < 200){
+        // console.log("passed through first test");
+        if (Math.abs(slimeY) < 200){
+          // console.log("passed through second test");
+          this.body.velocity.x = Math.sign(slimeX)*75;
+          this.body.velocity.y = Math.sign(slimeY)*75;
+          console.log("X: " + this.body.velocity.x + " Y: " + this.body.velocity.y);
         }
       }
     }

@@ -598,15 +598,15 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.normal_enemies, envLayer2);
     this.physics.add.collider(this.normal_enemies, groundLayer);
     this.physics.add.collider(this.normal_enemies, treeLayer);
-    // this.physics.add.collider(this.normal_enemies, this.slime_enemies);
-
-    // this.physics.add.collider(this.magic_slime_enemies, envLayer);
-    // this.physics.add.collider(this.magic_slime_enemies, envLayer2);
-    // this.physics.add.collider(this.magic_slime_enemies, groundLayer);
-    // this.physics.add.collider(this.magic_slime_enemies, treeLayer);
-    // this.physics.add.collider(this.magic_slime_enemies, this.magic_slime_enemies);
-
     this.physics.add.collider(this.normal_enemies, this.normal_enemies);
+
+    this.physics.add.collider(this.generatedEnemies, envLayer);
+    this.physics.add.collider(this.generatedEnemies, envLayer2);
+    this.physics.add.collider(this.generatedEnemies, groundLayer);
+    this.physics.add.collider(this.generatedEnemies, treeLayer);
+    this.physics.add.collider(this.generatedEnemies, this.generatedEnemies);
+    this.physics.add.collider(this.generatedEnemies, this.slimeBigBoi);
+
 
 
     //Projectiles put into group
@@ -620,7 +620,7 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.slime_projectiles, treeLayer, this.enviro_hit, null, this);
     this.physics.add.collider(this.projectiles, this.normal_enemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.magic_slime_enemies, this.enemy_hit, null, this);
-    this.physics.add.collider(this.projectiles, this.generating_enemies, this.enemy_hit, null, this);
+    this.physics.add.collider(this.projectiles, this.generatedEnemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.vendor, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_projectiles, this.vendor, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_enemies, envLayer, this.enviro_hug, null, this);
@@ -633,7 +633,7 @@ class Scene2 extends Phaser.Scene{
 
     this.physics.add.overlap(this.melee_attacks, this.normal_enemies, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.melee_attacks, this.magic_slime_enemies, this.enemy_hit_melee, null, this);
-    this.physics.add.overlap(this.melee_attacks, this.generating_enemies, this.enemy_hit_melee, null, this);
+    this.physics.add.overlap(this.melee_attacks, this.generatedEnemies, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.slime_projectiles, this.melee_attacks, this.reflect_projectiles, null, this);
 
     //set resume event function to handle when scene is unpaused
