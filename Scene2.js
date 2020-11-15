@@ -5,6 +5,16 @@ class Scene2 extends Phaser.Scene{
 
 //SEARCH 'PLAYER', 'ENVIRONMENT', 'ENEMY', 'MECHANICAL' TO GET TO FUNCTIONS QUICKER
 
+  //pass in data from StartGameCutScene
+  init(data){
+    console.log('init', data);
+    this.mainThemeTime = data.mainThemeTime;
+    this.mainTheme = this.sound.add("mainTheme", {
+      volume: 0.1,
+      loop: true,
+    });
+    this.mainTheme.play({seek: this.mainThemeTime});
+  }
   create(){
 
   //SEARCH 'GLOBAL', 'BACKGROUND', 'TESTING COMMENTS', 'PLAYER', 'CAMERA', 'KEYBOARD', OR 'SETTINGS' TO GET TO VARIABLES
@@ -633,12 +643,11 @@ class Scene2 extends Phaser.Scene{
 
     //Sound Objects
     //this.sounds.healSound = this.add.sound("healSound");
-    this.mainTheme = this.sound.add("mainTheme", {
-      volume: 0.1,
-      loop: true,
-    });
-    this.mainTheme.play();
-
+    // this.mainTheme = this.sound.add("mainTheme", {
+    //   volume: 0.1,
+    //   loop: true,
+    // });
+    // this.mainTheme.play({seek: this.mainThemeTime});
   }
 
 //PLAYER RELATED FUNCTIONS:
@@ -1122,7 +1131,7 @@ class Scene2 extends Phaser.Scene{
   }
 
   pause(){
-    this.mainTheme.pause();
+    //this.mainTheme.pause();
   }
 
   resume() {
@@ -1143,7 +1152,7 @@ class Scene2 extends Phaser.Scene{
     this.cursors.left.reset();
     this.cursors.right.reset();
     this.spacebar.reset();
-    this.mainTheme.resume();
+    //this.mainTheme.resume();
   }
 
   animation(){

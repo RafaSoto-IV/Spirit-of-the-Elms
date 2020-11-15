@@ -56,6 +56,11 @@ class StartGameCutScene extends Phaser.Scene{
     // var fontInfo = this.dialogTextInstructions.style.fontSize.split('px');
     // this.dialogTextInstructions.style.font = fontInfo[0]*this.sys.game.config.resolution + 'px' + fontInfo[1];
     // this.dialogTextInstructions.setScale(1/this.sys.game.config.resolution)
+    this.mainTheme = this.sound.add("mainTheme", {
+      volume: 0.1,
+      loop: true,
+    });
+    this.mainTheme.play();
   }
 
   update(){
@@ -81,7 +86,10 @@ class StartGameCutScene extends Phaser.Scene{
   startGame(){
     this.dialogText.destroy(true);
     this.dialogBox.destroy(true);
-    this.scene.start("playGame");
+    var time = this.mainTheme.seek;
+    this.mainTheme.stop();
+    this.mainTheme.destroy();
+    this.scene.start("playGame", {mainThemeTime: time});
     this.scene.launch("uiScene");
     this.scene.bringToTop("uiScene");
   }

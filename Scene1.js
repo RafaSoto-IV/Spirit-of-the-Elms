@@ -214,13 +214,14 @@ class Scene1 extends Phaser.Scene{
       frameRate: 8,
       repeat: 0
     })
-    this.input.keyboard.on('keydown', function () {
-      this.scene.start("startingCutScene");
-    }, this);
+    // this.input.keyboard.on('keydown', function () {
+    //   this.scene.start("startingCutScene");
+    // }, this);
 
     this.input.keyboard.on('keydown', function () {
       this.scene.start("startingCutScene");
       this.titleTheme.stop();
+      this.titleTheme.destroy();
     }, this);
 
     this.input.on('pointermove', function(){

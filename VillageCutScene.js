@@ -9,6 +9,7 @@ class VillageCutScene extends Phaser.Scene {
 
     create(){
       let ourGame = this.scene.get('playGame');
+      ourGame.mainTheme.pause();
 
       this.map = this.make.tilemap({ key: 'map' });
       const envtileset = this.map.addTilesetImage('envtileset', 'envtiles', 16, 16, 1, 2);
@@ -201,6 +202,7 @@ class VillageCutScene extends Phaser.Scene {
       ourGame.player.body.velocity.y = 0;
       ourGame.saveCheckpoint();
       this.villageTheme.stop();
+      ourGame.mainTheme.resume();
       this.scene.resume('playGame');
       this.scene.stop();
     }
