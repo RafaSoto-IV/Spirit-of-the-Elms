@@ -44,8 +44,8 @@ class Slime extends Phaser.Physics.Arcade.Sprite{
       var slimeY = scene.player.y - this.y;
       if(Math.abs(slimeX) < scene.slimeRange){
         if (Math.abs(slimeY) < scene.slimeRange){
-          this.body.velocity.x = Math.sign(slimeX)*scene.slimeSpeed;
-          this.body.velocity.y = Math.sign(slimeY)*scene.slimeSpeed;
+          this.body.velocity.x = Math.sign(slimeX)*scene.minionSpeed;
+          this.body.velocity.y = Math.sign(slimeY)*scene.minionSpeed;
         }
       }
     }

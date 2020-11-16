@@ -33,8 +33,9 @@ class Scene2 extends Phaser.Scene{
     this.finalFirst = true;
     this.slime_id = 0;
 
-    this.slimeRange = 200;
+    this.slimeRange = 300;
     this.slimeSpeed = 75;
+    this.minionSpeed = 115;
     this.bossSpeed = 25;
     this.generatingBossDead = false;
     this.finalBossDead = false;
@@ -415,63 +416,63 @@ class Scene2 extends Phaser.Scene{
     this.finalBoss.setSize(20, 20);
     this.finalBoss.play("final_boss");
 
-    //Respawning Enemies
-    this.slimeg1 = this.physics.add.sprite(this.generatingBoss.x + 50, this.generatingBoss.y, "slime_blue");
-    this.slimeg1.setScale(this.slime_scale);
-    this.slimeg1.play("blue_slime_anim");
-
-    this.slimeg2 = this.physics.add.sprite(this.generatingBoss.x - 50, this.generatingBoss.y, "slime_blue");
-    this.slimeg2.setScale(this.slime_scale);
-    this.slimeg2.play("blue_slime_anim");
-
-    this.slimeg3 = this.physics.add.sprite(this.generatingBoss.x + 25, this.generatingBoss.y + 25, "slime_blue");
-    this.slimeg3.setScale(this.slime_scale);
-    this.slimeg3.play("blue_slime_anim");
-
-    this.slimeg4 = this.physics.add.sprite(this.generatingBoss.x - 25, this.generatingBoss.y + 25, "slime_blue");
-    this.slimeg4.setScale(this.slime_scale);
-    this.slimeg4.play("blue_slime_anim");
-
-    this.slimeg5 = this.physics.add.sprite(this.generatingBoss.x - 25, this.generatingBoss.y - 25, "slime_blue");
-    this.slimeg5.setScale(this.slime_scale);
-    this.slimeg5.play("blue_slime_anim");
-
-    this.slimeg6 = this.physics.add.sprite(this.generatingBoss.x + 25, this.generatingBoss.y - 25, "slime_blue");
-    this.slimeg6.setScale(this.slime_scale);
-    this.slimeg6.play("blue_slime_anim");
-
-
-    this.bossm1 = this.physics.add.sprite(this.finalBoss.x + 50, this.finalBoss.y, "bossminions");
-    this.bossm1.setScale(this.slime_scale);
-    this.bossm1.play("boss_minions");
-
-    this.bossm2 = this.physics.add.sprite(this.finalBoss.x - 50, this.finalBoss.y, "bossminions");
-    this.bossm2.setScale(this.slime_scale);
-    this.bossm2.play("boss_minions");
-
-    this.bossm3 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y + 25, "bossminions");
-    this.bossm3.setScale(this.slime_scale);
-    this.bossm3.play("boss_minions");
-
-    this.bossm4 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y + 25, "bossminions");
-    this.bossm4.setScale(this.slime_scale);
-    this.bossm4.play("boss_minions");
-
-    this.bossm5 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y - 25, "bossminions");
-    this.bossm5.setScale(this.slime_scale);
-    this.bossm5.play("boss_minions");
-
-    this.bossm6 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
-    this.bossm6.setScale(this.slime_scale);
-    this.bossm6.play("boss_minions");
-
-    this.bossm7 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
-    this.bossm7.setScale(this.slime_scale);
-    this.bossm7.play("boss_minions");
-
-    this.bossm8 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
-    this.bossm8.setScale(this.slime_scale);
-    this.bossm8.play("boss_minions");
+    // //Respawning Enemies
+    // this.slimeg1 = this.physics.add.sprite(this.generatingBoss.x + 50, this.generatingBoss.y, "slime_blue");
+    // this.slimeg1.setScale(this.slime_scale);
+    // this.slimeg1.play("blue_slime_anim");
+    //
+    // this.slimeg2 = this.physics.add.sprite(this.generatingBoss.x - 50, this.generatingBoss.y, "slime_blue");
+    // this.slimeg2.setScale(this.slime_scale);
+    // this.slimeg2.play("blue_slime_anim");
+    //
+    // this.slimeg3 = this.physics.add.sprite(this.generatingBoss.x + 25, this.generatingBoss.y + 25, "slime_blue");
+    // this.slimeg3.setScale(this.slime_scale);
+    // this.slimeg3.play("blue_slime_anim");
+    //
+    // this.slimeg4 = this.physics.add.sprite(this.generatingBoss.x - 25, this.generatingBoss.y + 25, "slime_blue");
+    // this.slimeg4.setScale(this.slime_scale);
+    // this.slimeg4.play("blue_slime_anim");
+    //
+    // this.slimeg5 = this.physics.add.sprite(this.generatingBoss.x - 25, this.generatingBoss.y - 25, "slime_blue");
+    // this.slimeg5.setScale(this.slime_scale);
+    // this.slimeg5.play("blue_slime_anim");
+    //
+    // this.slimeg6 = this.physics.add.sprite(this.generatingBoss.x + 25, this.generatingBoss.y - 25, "slime_blue");
+    // this.slimeg6.setScale(this.slime_scale);
+    // this.slimeg6.play("blue_slime_anim");
+    //
+    //
+    // this.bossm1 = this.physics.add.sprite(this.finalBoss.x + 50, this.finalBoss.y, "bossminions");
+    // this.bossm1.setScale(this.slime_scale);
+    // this.bossm1.play("boss_minions");
+    //
+    // this.bossm2 = this.physics.add.sprite(this.finalBoss.x - 50, this.finalBoss.y, "bossminions");
+    // this.bossm2.setScale(this.slime_scale);
+    // this.bossm2.play("boss_minions");
+    //
+    // this.bossm3 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y + 25, "bossminions");
+    // this.bossm3.setScale(this.slime_scale);
+    // this.bossm3.play("boss_minions");
+    //
+    // this.bossm4 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y + 25, "bossminions");
+    // this.bossm4.setScale(this.slime_scale);
+    // this.bossm4.play("boss_minions");
+    //
+    // this.bossm5 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y - 25, "bossminions");
+    // this.bossm5.setScale(this.slime_scale);
+    // this.bossm5.play("boss_minions");
+    //
+    // this.bossm6 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
+    // this.bossm6.setScale(this.slime_scale);
+    // this.bossm6.play("boss_minions");
+    //
+    // this.bossm7 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
+    // this.bossm7.setScale(this.slime_scale);
+    // this.bossm7.play("boss_minions");
+    //
+    // this.bossm8 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
+    // this.bossm8.setScale(this.slime_scale);
+    // this.bossm8.play("boss_minions");
 
     this.normal_enemies = this.physics.add.group();
     this.normal_enemies.add(this.slime1);
@@ -525,20 +526,20 @@ class Scene2 extends Phaser.Scene{
     this.normal_enemies.add(this.slime49);
     this.normal_enemies.add(this.slime50);
     this.normal_enemies.add(this.slime51);
-    this.normal_enemies.add(this.slimeg1);
-    this.normal_enemies.add(this.slimeg2);
-    this.normal_enemies.add(this.slimeg3);
-    this.normal_enemies.add(this.slimeg4);
-    this.normal_enemies.add(this.slimeg5);
-    this.normal_enemies.add(this.slimeg6);
-    this.normal_enemies.add(this.bossm1);
-    this.normal_enemies.add(this.bossm2);
-    this.normal_enemies.add(this.bossm3);
-    this.normal_enemies.add(this.bossm4);
-    this.normal_enemies.add(this.bossm5);
-    this.normal_enemies.add(this.bossm6);
-    this.normal_enemies.add(this.bossm7);
-    this.normal_enemies.add(this.bossm8);
+    // this.normal_enemies.add(this.slimeg1);
+    // this.normal_enemies.add(this.slimeg2);
+    // this.normal_enemies.add(this.slimeg3);
+    // this.normal_enemies.add(this.slimeg4);
+    // this.normal_enemies.add(this.slimeg5);
+    // this.normal_enemies.add(this.slimeg6);
+    // this.normal_enemies.add(this.bossm1);
+    // this.normal_enemies.add(this.bossm2);
+    // this.normal_enemies.add(this.bossm3);
+    // this.normal_enemies.add(this.bossm4);
+    // this.normal_enemies.add(this.bossm5);
+    // this.normal_enemies.add(this.bossm6);
+    // this.normal_enemies.add(this.bossm7);
+    // this.normal_enemies.add(this.bossm8);
 
     this.normal_enemies.add(this.slimeBigBoi);
     this.normal_enemies.add(this.flameBigBoi);
@@ -586,22 +587,22 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slimeBigBoi);
     this.slime_enemies.add(this.flameBigBoi);
     this.slime_enemies.add(this.finalBoss);
-
-    this.slime_enemies.add(this.slimeg1);
-    this.slime_enemies.add(this.slimeg2);
-    this.slime_enemies.add(this.slimeg3);
-    this.slime_enemies.add(this.slimeg4);
-    this.slime_enemies.add(this.slimeg5);
-    this.slime_enemies.add(this.slimeg6);
-
-    this.slime_enemies.add(this.bossm1);
-    this.slime_enemies.add(this.bossm2);
-    this.slime_enemies.add(this.bossm3);
-    this.slime_enemies.add(this.bossm4);
-    this.slime_enemies.add(this.bossm5);
-    this.slime_enemies.add(this.bossm6);
-    this.slime_enemies.add(this.bossm7);
-    this.slime_enemies.add(this.bossm8);
+    //
+    // this.slime_enemies.add(this.slimeg1);
+    // this.slime_enemies.add(this.slimeg2);
+    // this.slime_enemies.add(this.slimeg3);
+    // this.slime_enemies.add(this.slimeg4);
+    // this.slime_enemies.add(this.slimeg5);
+    // this.slime_enemies.add(this.slimeg6);
+    //
+    // this.slime_enemies.add(this.bossm1);
+    // this.slime_enemies.add(this.bossm2);
+    // this.slime_enemies.add(this.bossm3);
+    // this.slime_enemies.add(this.bossm4);
+    // this.slime_enemies.add(this.bossm5);
+    // this.slime_enemies.add(this.bossm6);
+    // this.slime_enemies.add(this.bossm7);
+    // this.slime_enemies.add(this.bossm8);
 
 
     this.magic_slime_enemies = this.physics.add.group();
@@ -626,35 +627,35 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime42);
     this.magic_slime_enemies.add(this.slime43);
 
-    this.magic_slime_enemies.add(this.bossm1);
-    this.magic_slime_enemies.add(this.bossm2);
-    this.magic_slime_enemies.add(this.bossm3);
-    this.magic_slime_enemies.add(this.bossm4);
-    this.magic_slime_enemies.add(this.bossm5);
-    this.magic_slime_enemies.add(this.bossm6);
-    this.magic_slime_enemies.add(this.bossm7);
-    this.magic_slime_enemies.add(this.bossm8);
+    // this.magic_slime_enemies.add(this.bossm1);
+    // this.magic_slime_enemies.add(this.bossm2);
+    // this.magic_slime_enemies.add(this.bossm3);
+    // this.magic_slime_enemies.add(this.bossm4);
+    // this.magic_slime_enemies.add(this.bossm5);
+    // this.magic_slime_enemies.add(this.bossm6);
+    // this.magic_slime_enemies.add(this.bossm7);
+    // this.magic_slime_enemies.add(this.bossm8);
 
     //this.generating_enemies = this.physics.add.group();
     //this.generating_enemies.add(this.slimeBigBoi);
 
     this.generatedEnemies = this.physics.add.group();
-    this.generatedEnemies.add(this.slimeg1);
-    this.generatedEnemies.add(this.slimeg2);
-    this.generatedEnemies.add(this.slimeg3);
-    this.generatedEnemies.add(this.slimeg4);
-    this.generatedEnemies.add(this.slimeg5);
-    this.generatedEnemies.add(this.slimeg6);
+    // this.generatedEnemies.add(this.slimeg1);
+    // this.generatedEnemies.add(this.slimeg2);
+    // this.generatedEnemies.add(this.slimeg3);
+    // this.generatedEnemies.add(this.slimeg4);
+    // this.generatedEnemies.add(this.slimeg5);
+    // this.generatedEnemies.add(this.slimeg6);
 
     this.finalBossMinions = this.physics.add.group();
-    this.finalBossMinions.add(this.bossm1);
-    this.finalBossMinions.add(this.bossm2);
-    this.finalBossMinions.add(this.bossm3);
-    this.finalBossMinions.add(this.bossm4);
-    this.finalBossMinions.add(this.bossm5);
-    this.finalBossMinions.add(this.bossm6);
-    this.finalBossMinions.add(this.bossm7);
-    this.finalBossMinions.add(this.bossm8);
+    // this.finalBossMinions.add(this.bossm1);
+    // this.finalBossMinions.add(this.bossm2);
+    // this.finalBossMinions.add(this.bossm3);
+    // this.finalBossMinions.add(this.bossm4);
+    // this.finalBossMinions.add(this.bossm5);
+    // this.finalBossMinions.add(this.bossm6);
+    // this.finalBossMinions.add(this.bossm7);
+    // this.finalBossMinions.add(this.bossm8);
 
     // this.generating_enemies.children.each(child => {
     //   this.generating_enemy(child);
@@ -1623,13 +1624,20 @@ class Scene2 extends Phaser.Scene{
       }
     })
 
-    this.slimeBigBoi.health += this.BossHealthRegen;
-    this.flameBigBoi.health += this.BossHealthRegen;
-    this.generatingBoss.health += this.BossHealthRegen;
-    this.finalBoss.health += this.BossHealthRegen;
-
-    this.flameBigBoi.mana += 1.5;
-    this.finalBoss.mana += 2;
+    if (this.generatingBoss.health < 3000){
+      this.generatingBoss.health += this.BossHealthRegen;
+    }
+    if (this.slimeBigBoi.health < 3000){
+      this.slimeBigBoi.health += this.BossHealthRegen;
+    }
+    if (this.flameBigBoi.health < 3000){
+      this.flameBigBoi.health += this.BossHealthRegen;
+    }
+    if (this.finalBoss.health < 5000){
+      this.finalBoss.health += this.BossHealthRegen;
+    }
+    this.flameBigBoi.mana += 2;
+    this.finalBoss.mana += 3;
 
     this.slime_enemies.children.each(child => {
       if(child.active == true){
