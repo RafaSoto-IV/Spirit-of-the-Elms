@@ -20,7 +20,7 @@ class Slime extends Phaser.Physics.Arcade.Sprite{
     scene.add.existing(this);
   //  scene.physics.add.existing(this);
 
-    // scene.normal_enemies.add(this);
+    scene.normal_enemies.add(this);
     // scene.slime_enemies.add(this);
     scene.generatedEnemies.add(this);
 
