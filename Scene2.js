@@ -859,11 +859,13 @@ class Scene2 extends Phaser.Scene{
 
   cloaking(){
     // var magic = new Magic(this);
-    if (this.cloak){
-      this.cloak = false
-    }else{
-      this.cloak = true
-      // this.player.play("magic_anim");
+    if (this.player.reflect == true){
+      if (this.cloak){
+        this.cloak = false
+      }else{
+        this.cloak = true
+        // this.player.play("magic_anim");
+      }
     }
   }
 
