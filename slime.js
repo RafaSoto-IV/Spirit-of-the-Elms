@@ -9,7 +9,8 @@ class Slime extends Phaser.Physics.Arcade.Sprite{
     var canMove = true;
     var generated = true;
     //this.slime_scale =
-    super(scene, x, y, "slime");
+    super(scene, x, y, "slime_blue");
+    //super(scene, x, y, "slime");
 
     //IT WON'T READ SLIME FOR SOME REASON
 
@@ -17,6 +18,7 @@ class Slime extends Phaser.Physics.Arcade.Sprite{
     // this.slime.setScale(this.slime_scale);
 
     scene.add.existing(this);
+  //  scene.physics.add.existing(this);
 
     // scene.normal_enemies.add(this);
     // scene.slime_enemies.add(this);
@@ -27,6 +29,8 @@ class Slime extends Phaser.Physics.Arcade.Sprite{
 
     this.health = 200
     scene.physics.world.enableBody(this);
+    // this.enableBody(true, x, y, true, true);
+    // this.refreshBody();
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 
@@ -38,13 +42,10 @@ class Slime extends Phaser.Physics.Arcade.Sprite{
     if(this.canMove == null || this.canMove == true){
       var slimeX = scene.player.x - this.x;
       var slimeY = scene.player.y - this.y;
-      if(Math.abs(slimeX) < 200){
-        // console.log("passed through first test");
-        if (Math.abs(slimeY) < 200){
-          // console.log("passed through second test");
-          this.body.velocity.x = Math.sign(slimeX)*75;
-          this.body.velocity.y = Math.sign(slimeY)*75;
-          console.log("X: " + this.body.velocity.x + " Y: " + this.body.velocity.y);
+      if(Math.abs(slimeX) < scene.slimeRange){
+        if (Math.abs(slimeY) < scene.slimeRange){
+          this.body.velocity.x = Math.sign(slimeX)*scene.slimeSpeed;
+          this.body.velocity.y = Math.sign(slimeY)*scene.slimeSpeed;
         }
       }
     }
