@@ -408,10 +408,10 @@ class Scene2 extends Phaser.Scene{
     this.flameBigBoi.setSize(10, 10);
     this.flameBigBoi.play("red_slime_anim");
 
-    this.finalBoss = this.physics.add.sprite(this.map.widthInPixels - 3250, 1450, "slime_red");
-    this.finalBoss.setScale(10);
+    this.finalBoss = this.physics.add.sprite(this.map.widthInPixels - 3250, 1450, "finalboss");
+    this.finalBoss.setScale(7);
     this.finalBoss.setSize(10, 10);
-    this.finalBoss.play("red_slime_anim");
+    this.finalBoss.play("final_boss");
 
     //Respawning Enemies
     this.slimeg1 = this.physics.add.sprite(this.generatingBoss.x + 50, this.generatingBoss.y, "slime_blue");
@@ -439,37 +439,37 @@ class Scene2 extends Phaser.Scene{
     this.slimeg6.play("blue_slime_anim");
 
 
-    this.bossm1 = this.physics.add.sprite(this.finalBoss.x + 50, this.finalBoss.y, "slime_red");
+    this.bossm1 = this.physics.add.sprite(this.finalBoss.x + 50, this.finalBoss.y, "bossminions");
     this.bossm1.setScale(this.slime_scale);
-    this.bossm1.play("red_slime_anim");
+    this.bossm1.play("boss_minions");
 
-    this.bossm2 = this.physics.add.sprite(this.finalBoss.x - 50, this.finalBoss.y, "slime_red");
+    this.bossm2 = this.physics.add.sprite(this.finalBoss.x - 50, this.finalBoss.y, "bossminions");
     this.bossm2.setScale(this.slime_scale);
-    this.bossm2.play("red_slime_anim");
+    this.bossm2.play("boss_minions");
 
-    this.bossm3 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y + 25, "slime_red");
+    this.bossm3 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y + 25, "bossminions");
     this.bossm3.setScale(this.slime_scale);
-    this.bossm3.play("red_slime_anim");
+    this.bossm3.play("boss_minions");
 
-    this.bossm4 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y + 25, "slime_red");
+    this.bossm4 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y + 25, "bossminions");
     this.bossm4.setScale(this.slime_scale);
-    this.bossm4.play("red_slime_anim");
+    this.bossm4.play("boss_minions");
 
-    this.bossm5 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y - 25, "slime_red");
+    this.bossm5 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y - 25, "bossminions");
     this.bossm5.setScale(this.slime_scale);
-    this.bossm5.play("red_slime_anim");
+    this.bossm5.play("boss_minions");
 
-    this.bossm6 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "slime_red");
+    this.bossm6 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
     this.bossm6.setScale(this.slime_scale);
-    this.bossm6.play("red_slime_anim");
+    this.bossm6.play("boss_minions");
 
-    this.bossm7 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "slime_red");
+    this.bossm7 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
     this.bossm7.setScale(this.slime_scale);
-    this.bossm7.play("red_slime_anim");
+    this.bossm7.play("boss_minions");
 
-    this.bossm8 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "slime_red");
+    this.bossm8 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
     this.bossm8.setScale(this.slime_scale);
-    this.bossm8.play("red_slime_anim");
+    this.bossm8.play("boss_minions");
 
     this.normal_enemies = this.physics.add.group();
     this.normal_enemies.add(this.slime1);
@@ -1023,30 +1023,19 @@ class Scene2 extends Phaser.Scene{
 
 //Needs animation
   aoe(player, enemy){
-    enemy.health -= 999999999999999;
-    enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
-    this.time.addEvent({
-          delay: 150,
-          callback: this.removeEnemyHitSprite,
-          callbackScope: this,
-          args: [enemy],
-          loop: false,
-          repeat: 0
-    });
-    //enemy.health -= this.player.meleeDamage;
+    //enemy.play('attack')
+    enemy.health -= this.player.meleeDamage;
     if (this.player.health < 1){
       this.player.health = 1;
     }
     this.events.emit('playerHit');
     if (enemy.health <= 0 && enemy.active == true){
-      console.log('aoe completed')
       this.destroyEnemy(enemy);
     };
   }
 
 //Needs timer
   stun(player, enemy){
-    console.log("inside stun func");
     enemy.health -= this.player.projectileDamage;
     enemy.setVelocityX(0);
     enemy.setVelocityY(0);
@@ -1060,7 +1049,6 @@ class Scene2 extends Phaser.Scene{
           repeat: 0
       });
     if (enemy.health <= 0 && enemy.active == true){
-      console.log('aoe completed')
       this.destroyEnemy(enemy);
     };
   }
@@ -1068,7 +1056,6 @@ class Scene2 extends Phaser.Scene{
   reflect_projectiles(projectile, melee){
     if (this.player.reflect == true){
       projectile.destroy();
-      console.log('HIT');
     }
   }
 
@@ -1565,13 +1552,6 @@ class Scene2 extends Phaser.Scene{
       }
     }
 
-    this.slime_enemies.children.each(child => {
-      if (child.health <= 0 && child.active == true){
-        //this.destroyEnemy(child);
-        //child.destroy();
-      };
-    });
-
     this.magic_slime_enemies.children.each(child => {
       if(child.active == true){
         if (child.health <= 0){
@@ -1590,29 +1570,13 @@ class Scene2 extends Phaser.Scene{
       }
     })
 
-    // this.finalBossMinions.children.each(child => {
-    //   if(child.active == true){
-    //     if (child.health <= 0){
-    //       //this.destroyEnemy(child);
-    //       //child.destroy();
-    //     } else {
-    //       if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
-    //         this.slime_magic(child);
-    //         child.mana = 0;
-    //       } else{
-    //         child.mana += .25;
-    //       }
-    //       child.setVelocityX(0);
-    //       child.setVelocityY(0);
-    //     }
-    //   }
-    // })
     this.slimeBigBoi.health += this.BossHealthRegen;
     this.flameBigBoi.health += this.BossHealthRegen;
     this.generatingBoss.health += this.BossHealthRegen;
     this.finalBoss.health += this.BossHealthRegen;
 
     this.flameBigBoi.mana += 1.5;
+    this.finalBoss.mana += 2;
 
     this.slime_enemies.children.each(child => {
       if(child.active == true){

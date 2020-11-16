@@ -107,11 +107,35 @@ class Scene1 extends Phaser.Scene{
       frameWidth: 96/4,
       frameHeight: 24
     })
+
+    this.load.spritesheet("finalboss", "assets/images/spritesheets/spider_boss-Sheet.png",{
+      frameWidth: 144/3,
+      frameHeight: 48
+    })
+
+    this.load.spritesheet("bossminions", "assets/images/spritesheets/spider-Sheet.png",{
+      frameWidth: 72/3,
+      frameHeight: 24
+    })
   }
 
   create(){
 
     //Animate walking here
+    this.anims.create({
+      key: "boss_minions",
+      frames: this.anims.generateFrameNumbers("bossminions"),
+      frameRate: 1,
+      repeat: -1
+    })
+
+    this.anims.create({
+      key: "final_boss",
+      frames: this.anims.generateFrameNumbers("finalboss"),
+      frameRate: 1,
+      repeat: -1
+    })
+
     this.anims.create({
       key: "player_hit",
       frames: this.anims.generateFrameNumbers("player-hit"),

@@ -9,7 +9,7 @@ class Minion extends Phaser.Physics.Arcade.Sprite{
     var canMove = true;
     var generated = true;
     //this.slime_scale =
-    super(scene, x, y, "slime_red");
+    super(scene, x, y, "bossminions");
     //super(scene, x, y, "slime");
 
     //IT WON'T READ SLIME FOR SOME REASON
@@ -36,7 +36,7 @@ class Minion extends Phaser.Physics.Arcade.Sprite{
     this.body.velocity.y = 0;
 
 
-    this.play("red_slime_anim");
+    this.play("boss_minions");
   }
 
   update(scene){
