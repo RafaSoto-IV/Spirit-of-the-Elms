@@ -110,6 +110,7 @@ class LevelUpScreenScene extends Phaser.Scene {
     levelUpHealth(){
       this.ourGame.player.maxHealth += 200;
       this.ourGame.player.health = this.ourGame.player.maxHealth;
+      this.ourGame.player.healthregen += .2;
       this.ourGame.events.emit('playerHit');
       this.unPause();
     }

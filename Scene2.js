@@ -85,6 +85,7 @@ class Scene2 extends Phaser.Scene{
     this.player.manaRegen = 1;
     this.player.health = 1000;
     this.player.maxHealth = this.player.health;
+    this.player.healthregen = .2;
     this.player.level = 1;
     this.player.xp = 0;
     this.player.xpForNextLevel = 1000;
@@ -410,7 +411,7 @@ class Scene2 extends Phaser.Scene{
 
     this.finalBoss = this.physics.add.sprite(this.map.widthInPixels - 3250, 1450, "finalboss");
     this.finalBoss.setScale(7);
-    this.finalBoss.setSize(10, 10);
+    this.finalBoss.setSize(20, 20);
     this.finalBoss.play("final_boss");
 
     //Respawning Enemies
@@ -1026,6 +1027,17 @@ class Scene2 extends Phaser.Scene{
   aoe(player, enemy){
     //enemy.play('attack')
     enemy.health -= this.player.meleeDamage;
+    if (enemy.active == true) {
+      enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
+      this.time.addEvent({
+            delay: 10,
+            callback: this.removeEnemyHitSprite,
+            callbackScope: this,
+            args: [enemy],
+            loop: false,
+            repeat: 0
+      });
+    }
     if (this.player.health < 1){
       this.player.health = 1;
     }
@@ -1038,6 +1050,17 @@ class Scene2 extends Phaser.Scene{
 //Needs timer
   stun(player, enemy){
     enemy.health -= this.player.projectileDamage;
+    if (enemy.active == true) {
+      enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
+      this.time.addEvent({
+            delay: 10,
+            callback: this.removeEnemyHitSprite,
+            callbackScope: this,
+            args: [enemy],
+            loop: false,
+            repeat: 0
+      });
+    }
     enemy.setVelocityX(0);
     enemy.setVelocityY(0);
     enemy.canMove = false;
@@ -1624,5 +1647,9 @@ class Scene2 extends Phaser.Scene{
     console.log(this.player.x, this.player.y);
     this.generatingBoss.setVelocityX(0);
     this.generatingBoss.setVelocityY(0);
+    if (this.player.health < this.player.maxHealth){
+      this.player.health += this.player.healthregen
+      this.events.emit('playerHit');
+    }
   }
 }
