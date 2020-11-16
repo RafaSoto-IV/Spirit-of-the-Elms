@@ -9,6 +9,7 @@ class LevelUpScreenScene extends Phaser.Scene {
         //  Grab a reference to the Game Scene
         this.ourGame = this.scene.get('playGame');
         var levelUpImg = this.add.image(200, 150, "levelUpUi").setScale(2);
+        this.descText = this.add.text(140, 250, "", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
         // const levelText = this.add.text(170, 20, "Level " + this.ourGame.player.level, { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
         // const instructionText = this.add.text(70, 50, "Click on the following text to increase your", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
         // const instructionText2 = this.add.text(90, 70, "health, mana, or projectile damage.", { fontFamily: "Verdana", fontSize: '12px', fill: '#FFF' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
@@ -44,7 +45,36 @@ class LevelUpScreenScene extends Phaser.Scene {
         // var rect = new Phaser.Geom.Rectangle(237, 151, 45, 45);
         // var graphics = this.add.graphics({ fillStyle: { color: 0x0000ff } });
         // graphics.fillRectShape(rect);
+        this.pointer = this.input.activePointer;
 
+    }
+
+    update(){
+      if((this.pointer.x <= 113 + this.buttonWidth && this.pointer.x >= 113) && (this.pointer.y <= 100 + this.buttonWidth && this.pointer.y >= 100)){
+        // console.log("level up health desc");
+        this.descText.setText("Increase health");
+        this.descText.x = 150;
+      } else if((this.pointer.x <= 175 + this.buttonWidth && this.pointer.x >= 175) && (this.pointer.y <= 100 + this.buttonWidth && this.pointer.y >= 100)){
+        // console.log("level up melee damage desc");
+        this.descText.setText("Increase melee damage");
+        this.descText.x = 130;
+      } else if((this.pointer.x <= 237 + this.buttonWidth && this.pointer.x >= 237) && (this.pointer.y <= 100 + this.buttonWidth && this.pointer.y >= 100)){
+        // console.log("level up projectile damage desc");
+        this.descText.setText("Increase projectile damage");
+        this.descText.x = 120;
+      } else if((this.pointer.x <= 113 + this.buttonWidth && this.pointer.x >= 113) && (this.pointer.y <= 151 + this.buttonWidth && this.pointer.y >= 151)){
+        // console.log("level up mana desc")
+        this.descText.setText("Increase mana");
+        this.descText.x = 150;
+      } else if((this.pointer.x <= 175 + this.buttonWidth && this.pointer.x >= 175) && (this.pointer.y <= 151 + this.buttonWidth && this.pointer.y >= 151)){
+        // console.log("level up melee delay desc")
+        this.descText.setText("Decrease melee attack delay");
+        this.descText.x = 120;
+      } else if((this.pointer.x <= 237 + this.buttonWidth && this.pointer.x >= 237) && (this.pointer.y <= 151 + this.buttonWidth && this.pointer.y >= 151)){
+        // console.log("level up projectile delay desc");
+        this.descText.setText("Decrease projectile attack delay");
+        this.descText.x = 110;
+      }
     }
 
     imgClicked(event){
