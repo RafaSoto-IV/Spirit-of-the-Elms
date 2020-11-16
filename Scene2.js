@@ -1024,6 +1024,15 @@ class Scene2 extends Phaser.Scene{
 //Needs animation
   aoe(player, enemy){
     enemy.health -= 999999999999999;
+    enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
+    this.time.addEvent({
+          delay: 150,
+          callback: this.removeEnemyHitSprite,
+          callbackScope: this,
+          args: [enemy],
+          loop: false,
+          repeat: 0
+    });
     //enemy.health -= this.player.meleeDamage;
     if (this.player.health < 1){
       this.player.health = 1;
