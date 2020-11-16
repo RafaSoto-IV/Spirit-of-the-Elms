@@ -103,11 +103,12 @@ class Scene2 extends Phaser.Scene{
     this.player.attackDelay = 750;
     this.player.counter = 0;
     this.player.attackRemovalDelay = 15;
-    this.player.reflect = true;
-    this.player.aoe = true;
+    this.player.reflect = false;
+    this.player.aoe = false;
     this.player.aoeRange = 100;
     this.player.thunderwave = true;
     this.player.stunTime = 1000;
+    this.player.stun = false;
     //this.player = this.physics.add.sprite(config.width/2 + 680, config.height/2 - 700, "player-right");
     //this.player.setSize(100,100);
     this.player.play("player_left")
@@ -799,7 +800,7 @@ class Scene2 extends Phaser.Scene{
               delay: 10,
               callback: this.removeEnemyHitSprite,
               callbackScope: this,
-              args: [enemy],
+              args: [enemy.hitSprite],
               loop: false,
               repeat: 0
         });
@@ -885,7 +886,22 @@ class Scene2 extends Phaser.Scene{
 
   pickupPowerUp(player, powerUpPickup){
     console.log("pick up power");
+    this.player.body.velocity.x = 0;
+    this.player.body.velocity.y = 0;
     //powerUpPickup.disableBody(true, true);
+    if(powerUpPickup.id == 0){
+      console.log("unlock aoe")
+      this.player.aoe = true;
+      this.saveCheckpoint();
+    } else if(powerUpPickup.id == 1){
+      console.log("unlock reflect")
+      this.player.reflect = true;
+      this.saveCheckpoint();
+    } else if(powerUpPickup.id == 2){
+      console.log("unlock stun")
+      this.player.stun = true;
+      this.saveCheckpoint();
+    }
     powerUpPickup.destroy();
   }
 
@@ -984,8 +1000,8 @@ class Scene2 extends Phaser.Scene{
 
   //ENEMY RELATED FUNCTIONS:
 
-  removeEnemyHitSprite(enemy){
-    enemy.hitSprite.destroy();
+  removeEnemyHitSprite(hitSprite){
+    hitSprite.destroy();
   }
 
   enemy_hit(projectile, enemy){
@@ -996,7 +1012,7 @@ class Scene2 extends Phaser.Scene{
           delay: 150,
           callback: this.removeEnemyHitSprite,
           callbackScope: this,
-          args: [enemy],
+          args: [enemy.hitSprite],
           loop: false,
           repeat: 0
     });
@@ -1014,7 +1030,7 @@ class Scene2 extends Phaser.Scene{
           delay: 150,
           callback: this.removeEnemyHitSprite,
           callbackScope: this,
-          args: [enemy],
+          args: [enemy.hitSprite],
           loop: false,
           repeat: 0
     });
@@ -1033,7 +1049,7 @@ class Scene2 extends Phaser.Scene{
             delay: 10,
             callback: this.removeEnemyHitSprite,
             callbackScope: this,
-            args: [enemy],
+            args: [enemy.hitSprite],
             loop: false,
             repeat: 0
       });
@@ -1056,7 +1072,7 @@ class Scene2 extends Phaser.Scene{
             delay: 10,
             callback: this.removeEnemyHitSprite,
             callbackScope: this,
-            args: [enemy],
+            args: [enemy.hitSprite],
             loop: false,
             repeat: 0
       });
@@ -1079,6 +1095,7 @@ class Scene2 extends Phaser.Scene{
 
   reflect_projectiles(projectile, melee){
     if (this.player.reflect == true){
+      console.log("REFLECT");
       projectile.destroy();
     }
   }
@@ -1093,6 +1110,13 @@ class Scene2 extends Phaser.Scene{
       console.log("drop pick up power");
       var powerUpPickup = this.physics.add.sprite(enemy.x, enemy.y, "powerUpPickup");
       powerUpPickup.setScale(0.02);
+      if(enemy == this.slimeBigBoi){
+        powerUpPickup.id = 0;
+      } else if(enemy == this.generatingBoss){
+        powerUpPickup.id = 1;
+      } else if(enemy == this.flameBigBoi){
+        powerUpPickup.id = 2;
+      }
       this.powerUpPickups.add(powerUpPickup);
       enemy.disableBody(true, true);
       this.player.xp += 500;
@@ -1195,7 +1219,8 @@ class Scene2 extends Phaser.Scene{
       "playerAoe": this.player.aoe,
       "playerAoeRange": this.player.aoeRange,
       "playerThunderwave": this.player.thunderwave,
-      "playerStuntime": this.player.stunTime
+      "playerStuntime": this.player.stunTime,
+      "playerStun": this.player.stun
       // this.player.reflect = true;
       // this.player.aoe = true;
       // this.player.aoeRange = 100;
@@ -1270,6 +1295,7 @@ class Scene2 extends Phaser.Scene{
     this.player.aoeRange = this.checkpoint.playerAoeRange;
     this.player.thunderwave = this.checkpoint.playerThunderwave;
     this.player.stunTime = this.checkpoint.playerStuntime;
+    this.player.stun = this.checkpoint.playerStun;
     this.events.emit('playerUseMagic');
     this.events.emit('playerHit');
     this.events.emit('gainXp');
@@ -1446,8 +1472,9 @@ class Scene2 extends Phaser.Scene{
     }
 
     //aoe melee damage
-    if(Phaser.Input.Keyboard.JustDown(this.q)){
+    if(Phaser.Input.Keyboard.JustDown(this.q) && this.player.aoe == true){
       // var counterr = 0
+      console.log('AOE attempt');
       this.player.health -= 100;
       this.normal_enemies.children.each(child => {
         var distanceX = this.player.x - child.x;
@@ -1461,8 +1488,8 @@ class Scene2 extends Phaser.Scene{
     }
 
     //aoe magic damage and stun
-    if(Phaser.Input.Keyboard.JustDown(this.e)){
-      console.log('STUN')
+    if(Phaser.Input.Keyboard.JustDown(this.e) && this.player.stun == true){
+      console.log('STUN');
       if(this.player.mana >= 500 && this.player.canShootProjectiles){
         this.player.mana -= 500;
         this.events.emit('playerUseMagic');
