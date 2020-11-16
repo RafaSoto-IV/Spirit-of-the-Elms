@@ -793,6 +793,15 @@ class Scene2 extends Phaser.Scene{
     if(this.player.vulnerable){
       if (this.cloak){
         enemy.health -= 10;
+        enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
+        this.time.addEvent({
+              delay: 10,
+              callback: this.removeEnemyHitSprite,
+              callbackScope: this,
+              args: [enemy],
+              loop: false,
+              repeat: 0
+        });
         if (enemy.health <= 0 && enemy.active == true){
           this.destroyEnemy(enemy);
           //child.destroy();
