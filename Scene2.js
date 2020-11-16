@@ -973,9 +973,22 @@ class Scene2 extends Phaser.Scene{
 
   //ENEMY RELATED FUNCTIONS:
 
+  removeEnemyHitSprite(enemy){
+    enemy.hitSprite.destroy();
+  }
+
   enemy_hit(projectile, enemy){
     projectile.destroy();
     enemy.health -= this.player.projectileDamage;
+    enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
+    this.time.addEvent({
+          delay: 150,
+          callback: this.removeEnemyHitSprite,
+          callbackScope: this,
+          args: [enemy],
+          loop: false,
+          repeat: 0
+    });
     if (enemy.health <= 0 && enemy.active == true){
       this.destroyEnemy(enemy);
       //child.destroy();
@@ -985,6 +998,15 @@ class Scene2 extends Phaser.Scene{
   enemy_hit_melee(melee, enemy){
     melee.destroy();
     enemy.health -= this.player.meleeDamage;
+    enemy.hitSprite = this.add.sprite(enemy.x, enemy.y, "hit1");
+    this.time.addEvent({
+          delay: 150,
+          callback: this.removeEnemyHitSprite,
+          callbackScope: this,
+          args: [enemy],
+          loop: false,
+          repeat: 0
+    });
     if (enemy.health <= 0 && enemy.active == true){
       this.destroyEnemy(enemy);
     };
