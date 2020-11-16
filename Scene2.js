@@ -884,7 +884,8 @@ class Scene2 extends Phaser.Scene{
 
   pickupPowerUp(player, powerUpPickup){
     console.log("pick up power");
-    powerUpPickup.disableBody(true, true);
+    //powerUpPickup.disableBody(true, true);
+    powerUpPickup.destroy();
   }
 
   stop(player, obstacle){

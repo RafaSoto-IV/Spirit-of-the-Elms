@@ -50,6 +50,7 @@ class VillageCutScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player, true);
         this.progress = -1;
         this.readyToMove = false;
+        this.canPressEnter = true;
         this.player.play("idle_left_anim");
         console.log(ourGame.player.body.velocity.x);
 
@@ -61,7 +62,7 @@ class VillageCutScene extends Phaser.Scene {
     }
 
     update(){
-      if(this.progress <= 0 || this.progress >= 6){
+      if(this.canPressEnter && (this.progress <= 0 || this.progress >= 6)){
         if (Phaser.Input.Keyboard.JustDown(this.enterKey)){
           if(this.progress == 0){
             this.dialogText.destroy(true);
@@ -160,6 +161,7 @@ class VillageCutScene extends Phaser.Scene {
           this.player.setVelocityY(-100);
           this.progress += 1;
           this.readyToMove = false;
+          this.canPressEnter = false;
           this.time.addEvent({
                 delay: 600,
                 callback: this.vendorText,
@@ -191,6 +193,7 @@ class VillageCutScene extends Phaser.Scene {
       //this.readyToMove = true;
       this.dialogBox = this.add.sprite(this.map.widthInPixels - 1050, this.map.heightInPixels - 180, 'dialogBox').setScale(2);
       this.dialogText = this.add.text(this.map.widthInPixels - 1159, this.map.heightInPixels - 210, "Hey, it's good to see you. I wish\nthe circumstances were better. We\ndon't have much to eat with the\n   slimes corrupting the land.", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+      this.canPressEnter = true;
     }
 
     unPause(){
