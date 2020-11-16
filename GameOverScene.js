@@ -38,8 +38,11 @@ class GameOverScene extends Phaser.Scene {
     restartGame() {
       if(this.ourGame.player.progress > 1){
         this.ourGame.loadCheckpoint();
+        this.ourGame.mainTheme.play({seek: 0});
         this.scene.resume('playGame');
       } else {
+        this.ourGame.mainTheme.stop();
+        this.ourGame.mainTheme.destroy();
         this.scene.stop('playGame');
         this.scene.stop('uiScene');
         this.scene.start('playGame');

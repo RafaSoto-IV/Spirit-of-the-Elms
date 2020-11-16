@@ -1129,7 +1129,12 @@ class Scene2 extends Phaser.Scene{
       "playerAttackRemoval": this.player.attackRemoval,
       "playerAttackDelay": this.player.attackDelay,
       "playerCounter": this.player.counter,
-      "playerAttackRemovalDelay": this.player.attackRemovalDelay
+      "playerAttackRemovalDelay": this.player.attackRemovalDelay,
+      "playerReflect": this.player.reflect,
+      "playerAoe": this.player.aoe,
+      "playerAoeRange": this.player.aoeRange,
+      "playerThunderwave": this.player.thunderwave,
+      "playerStuntime": this.player.stunTime
       // this.player.reflect = true;
       // this.player.aoe = true;
       // this.player.aoeRange = 100;
@@ -1199,6 +1204,11 @@ class Scene2 extends Phaser.Scene{
     this.player.attackDelay = this.checkpoint.playerAttackDelay;
     this.player.counter = this.checkpoint.playerCounter;
     this.player.attackRemovalDelay = this.checkpoint.playerAttackRemovalDelay;
+    this.player.reflect = this.checkpoint.playerReflect;
+    this.player.aoe = this.checkpoint.playerAoe;
+    this.player.aoeRange = this.checkpoint.playerAoeRange;
+    this.player.thunderwave = this.checkpoint.playerThunderwave;
+    this.player.stunTime = this.checkpoint.playerStuntime;
     this.events.emit('playerUseMagic');
     this.events.emit('playerHit');
     this.events.emit('gainXp');
@@ -1229,6 +1239,11 @@ class Scene2 extends Phaser.Scene{
         this.magic_slime_enemies.children.entries[i].setVelocityY(0);
         this.magic_slime_enemies.children.entries[i].refreshBody();
       }
+    }
+
+    for(var i = 0; i < this.generatedEnemies.children.size; i++){
+      this.generatedEnemies.children.entries[i].destroy();
+      i--;
     }
 
     for(var i = 0; i < this.checkpoint.healthPickupList.length; i++){

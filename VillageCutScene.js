@@ -171,7 +171,9 @@ class VillageCutScene extends Phaser.Scene {
           this.dialogText.setText("We really need your help. We\nneed you stop them from taking\nover, otherwise we'll all starve.");
         } else if(this.progress == 8){
           this.dialogText.setText("If you follow the road west and\nthen north. It'll take you out of the\nvillage and into the forest. It's filled\n    with slimes and much worse.");
-        } else {
+        } else if(this.progress == 9){
+          this.dialogText.setText("So be careful. I'll give you a\nhealth potion to heal you before\nyou go out. I'm sorry I can't offer\n   more, it's all we got.");
+        }else {
           // this.player.setVelocityX(0);
           // this.player.setVelocityY(0);
           this.unPause();
@@ -198,11 +200,13 @@ class VillageCutScene extends Phaser.Scene {
       //console.log(ourGame.player);
       ourGame.player.x = this.player.x;
       ourGame.player.y = this.player.y;
+      ourGame.player.health =   ourGame.player.maxHealth;
+      ourGame.events.emit('playerHit');
       ourGame.player.body.velocity.x = 0;
       ourGame.player.body.velocity.y = 0;
       ourGame.saveCheckpoint();
       this.villageTheme.stop();
-      ourGame.mainTheme.resume();
+      ourGame.mainTheme.play({seek: 0});
       this.scene.resume('playGame');
       this.scene.stop();
     }
