@@ -694,7 +694,14 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.generatedEnemies, groundLayer);
     this.physics.add.collider(this.generatedEnemies, treeLayer);
     this.physics.add.collider(this.generatedEnemies, this.generatedEnemies);
-    this.physics.add.collider(this.generatedEnemies, this.slimeBigBoi);
+    this.physics.add.collider(this.generatedEnemies, this.generatingBoss);
+
+    this.physics.add.collider(this.finalBossMinions, envLayer);
+    this.physics.add.collider(this.finalBossMinions, envLayer2);
+    this.physics.add.collider(this.finalBossMinions, groundLayer);
+    this.physics.add.collider(this.finalBossMinions, treeLayer);
+    this.physics.add.collider(this.finalBossMinions, this.finalBossMinions);
+    this.physics.add.collider(this.finalBossMinions, this.finalBoss);
 
 
 
@@ -710,6 +717,7 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.projectiles, this.normal_enemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.magic_slime_enemies, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.generatedEnemies, this.enemy_hit, null, this);
+    this.physics.add.collider(this.projectiles, this.finalBossMinions, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.generatingBoss, this.enemy_hit, null, this);
     this.physics.add.collider(this.projectiles, this.vendor, this.enviro_hit, null, this);
     this.physics.add.collider(this.slime_projectiles, this.vendor, this.enviro_hit, null, this);
@@ -717,6 +725,7 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.slime_enemies, treeLayer, this.enviro_hug, null, this);
     this.physics.add.overlap(this.player, this.normal_enemies, this.hit, null, this);
     this.physics.add.overlap(this.player, this.generatedEnemies, this.hit, null, this);
+    this.physics.add.overlap(this.player, this.finalBossMinions, this.hit, null, this);
     this.physics.add.overlap(this.player, this.generatingBoss, this.hit, null, this);
 
     // this.physics.add.overlap(this.player, this.magic_slime_enemies, this.hit, null, this);
@@ -727,6 +736,7 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.overlap(this.melee_attacks, this.normal_enemies, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.melee_attacks, this.magic_slime_enemies, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.melee_attacks, this.generatedEnemies, this.enemy_hit_melee, null, this);
+    this.physics.add.overlap(this.melee_attacks, this.finalBossMinions, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.melee_attacks, this.generatingBoss, this.enemy_hit_melee, null, this);
     this.physics.add.overlap(this.slime_projectiles, this.melee_attacks, this.reflect_projectiles, null, this);
 
@@ -1299,6 +1309,10 @@ class Scene2 extends Phaser.Scene{
     var slime = new Slime(this, id, x, y);
   }
 
+  addMinions(id, x, y){
+    var minion = new Minion(this, id, x , y);
+  }
+
   minionsDead(){
     // this.slimeg7 = this.physics.add.sprite(this.slimeBigBoi.x + 50, this.slimeBigBoi.y, "slime_blue");
     // this.slimeg7.setScale(this.slime_scale);
@@ -1319,6 +1333,31 @@ class Scene2 extends Phaser.Scene{
 
     this.generatedEnemies.children.each(child => {
       child.health = 200;
+      // child.enableBody(true, true);
+    });
+  }
+
+  finalMinionsDead(){
+    // this.slimeg7 = this.physics.add.sprite(this.slimeBigBoi.x + 50, this.slimeBigBoi.y, "slime_blue");
+    // this.slimeg7.setScale(this.slime_scale);
+    // this.slimeg7.play("blue_slime_anim");
+
+    var xList = [this.finalBoss.x + 50, this.finalBoss.x - 50 ,this.finalBoss.x + 25, this.finalBoss.x - 25, this.finalBoss.x - 25, this.finalBoss.x + 25]
+    var yList = [this.finalBoss.y, this.finalBoss.y, this.finalBoss.y + 25, this.finalBoss.y + 25, this.finalBoss.y - 25, this.finalBoss.y - 25]
+    var counting = 0
+    while (counting < 6){
+      this.addMinions(this.slime_id, xList[counting], yList[counting]);
+      this.slime_id += 1
+      counting += 1
+    }
+
+    //this.slime_enemies.add(this.slimeg7);
+
+    //this.generatedEnemies.add(this.slimeg7);
+
+    this.finalBossMinions.children.each(child => {
+      child.health = 200;
+      this.slime_magic(child);
       // child.enableBody(true, true);
     });
   }
@@ -1510,6 +1549,24 @@ class Scene2 extends Phaser.Scene{
         }
       }
     })
+
+    // this.finalBossMinions.children.each(child => {
+    //   if(child.active == true){
+    //     if (child.health <= 0){
+    //       //this.destroyEnemy(child);
+    //       //child.destroy();
+    //     } else {
+    //       if (child.mana >= 50 && (Math.abs(this.player.x - child.x) <= this.cameraRangeX && Math.abs(this.player.y - child.y) <= this.cameraRangeY)){
+    //         this.slime_magic(child);
+    //         child.mana = 0;
+    //       } else{
+    //         child.mana += .25;
+    //       }
+    //       child.setVelocityX(0);
+    //       child.setVelocityY(0);
+    //     }
+    //   }
+    // })
     this.slimeBigBoi.health += this.BossHealthRegen;
     this.flameBigBoi.health += this.BossHealthRegen;
     this.generatingBoss.health += this.BossHealthRegen;
@@ -1528,7 +1585,6 @@ class Scene2 extends Phaser.Scene{
       // this.moveGeneratedSlimes(child)
       if (this.first == false){
         child.update(this);
-        console.log("UPDATED");
       }
       if (child.health > 0){
         generatedEnemy_Counter += 1;
@@ -1537,7 +1593,7 @@ class Scene2 extends Phaser.Scene{
         child.destroy();
       }
     });
-    console.log(generatedEnemy_Counter);
+
     if (generatedEnemy_Counter == 0 && this.generatingBossDead == false){
       this.minionsDead();
       this.first = false;
@@ -1556,11 +1612,12 @@ class Scene2 extends Phaser.Scene{
         child.destroy();
       }
     });
-    console.log(generatedEnemy_Counter);
     if (finalEnemy_Counter == 0 && this.finalBossDead == false){
-      this.minionsDead();
+      this.finalMinionsDead();
       this.finalFirst = false;
     }
     console.log(this.player.x, this.player.y);
+    this.generatingBoss.setVelocityX(0);
+    this.generatingBoss.setVelocityY(0);
   }
 }
