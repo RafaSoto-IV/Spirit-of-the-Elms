@@ -852,6 +852,19 @@ class Scene2 extends Phaser.Scene{
   }
 
   allowPlayerAttack(){
+    if(this.direction == 'idle_right_anim'){
+      console.log("ilde right fuck me")
+      this.previous = "melee-right";
+      this.test_direction = 'idle_right_anim';
+      this.animation();
+    } else if(this.direction == 'idle_left_anim'){
+      console.log("ilde left fuck me");
+      this.previous = "melee-left";
+      this.test_direction = 'idle_left_anim';
+      this.animation();
+    } else{
+      this.previous = "melee-right";
+    }
     this.player.canAttack = true;
   }
 

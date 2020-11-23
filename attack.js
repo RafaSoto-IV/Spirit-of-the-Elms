@@ -19,7 +19,14 @@ class Attack extends Phaser.GameObjects.Sprite{
     }else if (test_direction == "player_down"){
       y -= 30
       animation = 'melee-up';
+    } else if (test_direction == "idle_left_anim"){
+      x -= 30
+      animation = 'melee-left';
+    } else if (test_direction == "idle_right_anim"){
+      x += 30
+      animation = 'melee-right';
     }
+
     super(scene, x, y);
     scene.add.existing(this);
 
