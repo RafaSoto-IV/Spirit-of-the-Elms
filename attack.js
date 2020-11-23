@@ -6,25 +6,47 @@ class Attack extends Phaser.GameObjects.Sprite{
     var counter = 0;
     var animation = '';
     var test_direction = scene.test_direction;
-
+    var direction = scene.direction;
+    console.log("test_direction: " + test_direction)
+    console.log("direction: " + direction)
     if (test_direction == "player_left"){
-      x -= 30
+      x -= 30;
       animation = 'melee-left';
     }else if (test_direction == "player_right"){
-      x += 30
+      x += 30;
       animation = 'melee-right';
     }else if (test_direction == "player_up"){
-      y += 30
+      y += 30;
       animation = 'melee-down';
     }else if (test_direction == "player_down"){
-      y -= 30
+      y -= 30;
       animation = 'melee-up';
     } else if (test_direction == "idle_left_anim"){
-      x -= 30
-      animation = 'melee-left';
+      if(direction == "player_up"){
+        console.log("attack up idle left")
+        y -= 30;
+        animation = 'melee-down';
+      } else if(direction == "player_down"){
+        console.log("attack down idle left")
+        y += 30;
+        animation = 'melee-up';
+      } else {
+        x -= 30;
+        animation = 'melee-left';
+      }
     } else if (test_direction == "idle_right_anim"){
-      x += 30
-      animation = 'melee-right';
+      if(direction == "player_up"){
+        console.log("up idle right")
+        y -= 30;
+        animation = 'melee-down';
+      } else if(direction == "player_down"){
+        console.log("down idle right")
+        y += 30;
+        animation = 'melee-up';
+      } else {
+        x += 30;
+        animation = 'melee-right';
+      }
     }
 
     super(scene, x, y);

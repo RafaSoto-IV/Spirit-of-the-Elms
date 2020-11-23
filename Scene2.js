@@ -853,14 +853,24 @@ class Scene2 extends Phaser.Scene{
 
   allowPlayerAttack(){
     if(this.direction == 'idle_right_anim'){
-      console.log("ilde right fuck me")
       this.previous = "melee-right";
       this.test_direction = 'idle_right_anim';
       this.animation();
     } else if(this.direction == 'idle_left_anim'){
-      console.log("ilde left fuck me");
       this.previous = "melee-left";
       this.test_direction = 'idle_left_anim';
+      this.animation();
+    } else if(this.direction == "player_up"){
+      this.previous = "melee-left";
+      //this.test_direction = 'idle_left_anim';
+      this.direction = this.test_direction;
+      this.test_direction = "player_up";
+      this.animation();
+    } else if(this.direction == "player_down"){
+      this.previous = "melee-left";
+      this.direction = this.test_direction;
+      this.test_direction = "player_down";
+      //this.test_direction = 'idle_left_anim';
       this.animation();
     } else{
       this.previous = "melee-right";
@@ -1026,7 +1036,23 @@ class Scene2 extends Phaser.Scene{
       this.animation();
     } else {
         if (!this.cloak){
-          if(this.test_direction == "player_left" || this.direction == "player_left"){
+          if(this.test_direction == "player_up" ){
+            if(this.direction == "player_left" || this.direction == "idle_left_anim"){
+              this.direction = "player_up";
+              this.test_direction = 'idle_left_anim';
+            } else {
+              this.direction = "player_up";
+              this.test_direction = 'idle_right_anim';
+            }
+          } else if(this.test_direction == "player_down"){
+            if(this.direction == "player_left" || this.direction == "idle_left_anim"){
+              this.test_direction = 'idle_left_anim';
+              this.direction = "player_down";
+            } else {
+              this.test_direction = 'idle_right_anim';
+              this.direction = "player_down";
+            }
+          } else if(this.test_direction == "player_left" || this.direction == "player_left"){
             this.direction = 'idle_left_anim';
             this.test_direction = 'idle_left_anim';
             this.animation();
