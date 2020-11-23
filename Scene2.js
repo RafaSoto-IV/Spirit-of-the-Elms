@@ -935,7 +935,7 @@ class Scene2 extends Phaser.Scene{
           this.direction = 'cloak_anim';
         }
         this.test_direction = "player_down";
-        this.animation();
+        // this.animation();
       }else if(this.s.isDown){
         this.player.setVelocityY(gameSettings.playerSpeed);
         if (!this.cloak){
@@ -944,7 +944,7 @@ class Scene2 extends Phaser.Scene{
           this.direction = 'cloak_anim';
         }
         this.test_direction = "player_up";
-        this.animation();
+        // this.animation();
       }
 
       if(this.a.isDown){
@@ -957,7 +957,7 @@ class Scene2 extends Phaser.Scene{
           this.movement = 'player_left';
         }
         this.test_direction = "player_left";
-        this.animation();
+        // this.animation();
       }else if(this.d.isDown){
         this.player.setVelocityX(gameSettings.playerSpeed);
         if (!this.cloak){
@@ -968,15 +968,46 @@ class Scene2 extends Phaser.Scene{
           this.movement = 'player_right';
         }
         this.test_direction = "player_right";
-        this.animation();
+        // this.animation();
       }
+      if(this.player.body.velocity.x != 0 && this.player.body.velocity.y != 0 ){
+        var xsign = this.player.body.velocity.x/Math.abs(this.player.body.velocity.x);
+        var ysign = this.player.body.velocity.y/Math.abs(this.player.body.velocity.y);
+        var newVel = Math.sqrt(Math.pow(gameSettings.playerSpeed,2) / 2);
+        this.player.setVelocityX(xsign * newVel);
+        this.player.setVelocityY(ysign * newVel);
+        if(this.cloak){
+          this.direction = 'cloak_anim';
+          if(xsign > 0){
+            this.movement = 'player_right';
+            this.test_direction = "player_right";
+          } else {
+            this.movement = 'player_left';
+            this.test_direction = "player_left";
+          }
+        } else {
+          if(xsign > 0){
+            this.direction = 'player_right';
+            this.movement = 'player_right';
+            this.test_direction = "player_right";
+          } else {
+            this.direction = 'player_left';
+            this.movement = 'player_left';
+            this.test_direction = "player_left";
+          }
+        }
+        // this.animation();
+      }
+      this.animation();
     } else {
         if (!this.cloak){
-          if(this.test_direction == "player_left"){
+          if(this.test_direction == "player_left" || this.direction == "player_left"){
             this.direction = 'idle_left_anim';
+            this.test_direction = 'idle_left_anim';
             this.animation();
-          } else if (this.test_direction == "player_right"){
+          } else if (this.test_direction == "player_right" || this.direction == "player_right"){
             this.direction = 'idle_right_anim';
+            this.test_direction = 'idle_right_anim';
             this.animation();
           }
         } else{
@@ -1699,6 +1730,7 @@ class Scene2 extends Phaser.Scene{
       this.finalFirst = false;
     }
     console.log(this.player.x, this.player.y);
+    // console.log(this.player.body.velocity.x, this.player.body.velocity.y);
     this.generatingBoss.setVelocityX(0);
     this.generatingBoss.setVelocityY(0);
     if (this.player.health < this.player.maxHealth){
