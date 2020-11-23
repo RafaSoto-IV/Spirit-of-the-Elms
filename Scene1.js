@@ -42,6 +42,11 @@ class Scene1 extends Phaser.Scene{
     this.load.image('envtiles', 'envtilesSheetExtruded.png');
     this.load.image('tiles', 'tilesSheetExtruded.png');
     this.load.image('attack', 'assets/images/spritesheets/hit1.png')
+
+    this.load.image('blueFamiliar', 'assets/images/spritesheets/blue_familiar-Sheet.png');
+    this.load.image('redFamiliar', 'assets/images/spritesheets/red_familiar-Sheet.png');
+    this.load.image('yellowFamiliar', 'assets/images/spritesheets/yellow_familiar-Sheet.png');
+
     this.load.tilemapTiledJSON('map', 'tileMap.json');
     //Sprite input here
     this.load.spritesheet("player-hit", "assets/images/spritesheets/witch_ow1.png", {

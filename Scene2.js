@@ -909,7 +909,11 @@ class Scene2 extends Phaser.Scene{
     if(powerUpPickup.id == 0){
       console.log("unlock aoe")
       this.player.aoe = true;
+      this.scene.pause();
+      this.scene.launch('FamiliarSceneOne');
+      this.scene.bringToTop('FamiliarSceneOne');
       this.saveCheckpoint();
+
     } else if(powerUpPickup.id == 1){
       console.log("unlock reflect")
       this.player.reflect = true;
@@ -1160,6 +1164,8 @@ class Scene2 extends Phaser.Scene{
       powerUpPickup.setScale(0.02);
       if(enemy == this.slimeBigBoi){
         powerUpPickup.id = 0;
+
+
       } else if(enemy == this.generatingBoss){
         powerUpPickup.id = 1;
       } else if(enemy == this.flameBigBoi){
