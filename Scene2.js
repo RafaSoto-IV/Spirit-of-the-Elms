@@ -679,10 +679,10 @@ class Scene2 extends Phaser.Scene{
     this.slimeBigBoi.slimeSpeed = this.bossSpeed;
     this.flameBigBoi.slimeSpeed = this.bossSpeed;
 
-    this.slimeBigBoi.health = 10;
-    this.generatingBoss.health = 10;
-    this.flameBigBoi.health = 10;
-    this.finalBoss.health = 10;
+    this.slimeBigBoi.health = 1000;
+    this.generatingBoss.health = 1000;
+    this.flameBigBoi.health = 1000;
+    this.finalBoss.health = 3000;
 
     this.BossHealthRegen = .75;
 
