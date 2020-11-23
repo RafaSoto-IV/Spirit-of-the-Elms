@@ -679,10 +679,10 @@ class Scene2 extends Phaser.Scene{
     this.slimeBigBoi.slimeSpeed = this.bossSpeed;
     this.flameBigBoi.slimeSpeed = this.bossSpeed;
 
-    this.slimeBigBoi.health = 1000;
-    this.generatingBoss.health = 1000;
-    this.flameBigBoi.health = 1000;
-    this.finalBoss.health = 1000;
+    this.slimeBigBoi.health = 10;
+    this.generatingBoss.health = 10;
+    this.flameBigBoi.health = 10;
+    this.finalBoss.health = 10;
 
     this.BossHealthRegen = .75;
 
@@ -917,10 +917,18 @@ class Scene2 extends Phaser.Scene{
     } else if(powerUpPickup.id == 1){
       console.log("unlock reflect")
       this.player.reflect = true;
+
+      this.scene.pause();
+      this.scene.launch('FamiliarSceneTwo');
+      this.scene.bringToTop('FamiliarSceneTwo');
+
       this.saveCheckpoint();
     } else if(powerUpPickup.id == 2){
       console.log("unlock stun")
       this.player.stun = true;
+      this.scene.pause();
+      this.scene.launch('FamiliarSceneThree');
+      this.scene.bringToTop('FamiliarSceneThree');
       this.saveCheckpoint();
     }
     powerUpPickup.destroy();
@@ -1693,16 +1701,16 @@ class Scene2 extends Phaser.Scene{
       }
     })
 
-    if (this.generatingBoss.health < 3000){
+    if (this.generatingBoss.health < 30){
       this.generatingBoss.health += this.BossHealthRegen;
     }
-    if (this.slimeBigBoi.health < 3000){
+    if (this.slimeBigBoi.health < 30){
       this.slimeBigBoi.health += this.BossHealthRegen;
     }
-    if (this.flameBigBoi.health < 3000){
+    if (this.flameBigBoi.health < 30){
       this.flameBigBoi.health += this.BossHealthRegen;
     }
-    if (this.finalBoss.health < 5000){
+    if (this.finalBoss.health < 50){
       this.finalBoss.health += this.BossHealthRegen;
     }
     this.flameBigBoi.mana += 2;
