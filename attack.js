@@ -24,11 +24,11 @@ class Attack extends Phaser.GameObjects.Sprite{
     } else if (test_direction == "idle_left_anim"){
       if(direction == "player_up"){
         console.log("attack up idle left")
-        y -= 30;
+        y += 30;
         animation = 'melee-down';
       } else if(direction == "player_down"){
         console.log("attack down idle left")
-        y += 30;
+        y -= 30;
         animation = 'melee-up';
       } else {
         x -= 30;
@@ -37,11 +37,11 @@ class Attack extends Phaser.GameObjects.Sprite{
     } else if (test_direction == "idle_right_anim"){
       if(direction == "player_up"){
         console.log("up idle right")
-        y -= 30;
+        y += 30;
         animation = 'melee-down';
       } else if(direction == "player_down"){
         console.log("down idle right")
-        y += 30;
+        y -= 30;
         animation = 'melee-up';
       } else {
         x += 30;
