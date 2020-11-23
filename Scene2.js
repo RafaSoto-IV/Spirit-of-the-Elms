@@ -759,6 +759,7 @@ class Scene2 extends Phaser.Scene{
     //   loop: true,
     // });
     // this.mainTheme.play({seek: this.mainThemeTime});
+    this.finalbossThemePlaying = false;
   }
 
 //PLAYER RELATED FUNCTIONS:
@@ -1461,6 +1462,22 @@ class Scene2 extends Phaser.Scene{
     if(this.player.progress == 1 && this.player.x > this.map.widthInPixels- 155  && this.player.y > this.map.heightInPixels - 690){
       this.scene.launch('VillageCutScene');
       this.scene.pause();
+    }
+
+    if((!this.finalbossThemePlaying) && (this.player.x >= this.map.widthInPixels - 3880 && this.player.x <= this.map.widthInPixels - 3780)  && (this.player.y <= this.map.heightInPixels - 880 && this.player.y >= this.map.heightInPixels - 990)){
+      console.log("start final boss theme")
+      this.mainTheme.stop();
+      this.finalbossTheme = this.sound.add("finalbossTheme", {
+        volume: 0.1,
+        loop: true,
+      });
+      this.finalbossTheme.play();
+      this.finalbossThemePlaying = true;
+    } else if(this.finalbossThemePlaying && this.player.x < this.map.widthInPixels - 3880){
+      this.finalbossThemePlaying = false;
+      this.finalbossTheme.stop();
+      this.mainTheme.play();
+      console.log("stop final boss theme")
     }
 
     //pause

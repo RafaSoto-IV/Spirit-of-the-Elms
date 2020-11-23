@@ -12,6 +12,7 @@ class Scene1 extends Phaser.Scene{
     this.load.audio("titleTheme", "assets/sounds/titletheme.mp3");
     this.load.audio("mainTheme", "assets/sounds/maintheme.mp3");
     this.load.audio("villageTheme", "assets/sounds/villagetheme.mp3");
+    this.load.audio("finalbossTheme", "assets/sounds/finalbosstheme.mp3");
 
     this.load.spritesheet("titleScreen", "assets/images/spritesheets/title_screen-Sheet.png", {
       frameWidth: 200,
