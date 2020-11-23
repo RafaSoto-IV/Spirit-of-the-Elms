@@ -46,7 +46,7 @@ class FamiliarSceneOne extends Phaser.Scene {
         ourGame.direction = "idle_left_anim";
 
         ourGame.player.health = ourGame.player.maxHealth;
-        // ourGame.events.emit('playerHit');
+        ourGame.events.emit('playerHit');
         ourGame.mainTheme.play({seek: 0});
         this.scene.resume('playGame');
         this.scene.stop();
