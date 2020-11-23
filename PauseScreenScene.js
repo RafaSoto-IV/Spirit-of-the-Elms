@@ -25,6 +25,15 @@ class PauseScreenScene extends Phaser.Scene {
         // graphics.fillRectShape(rect);
 
         this.p = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+        if(this.ourGame.player.aoe == true){
+          this.blueFamiliar = this.add.sprite(127, 150, 'blueFamiliar');
+        }
+        if(this.ourGame.player.reflect == true){
+          this.yellowFamiliar = this.add.sprite(200, 150, 'redFamiliar');
+        }
+        if(this.ourGame.player.stun == true){
+          this.redFamiliar = this.add.sprite(279, 150, 'yellowFamiliar');
+        }
     }
 
     update(){
