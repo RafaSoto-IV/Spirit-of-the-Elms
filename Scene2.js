@@ -1469,7 +1469,9 @@ class Scene2 extends Phaser.Scene{
 
     this.finalBossMinions.children.each(child => {
       child.health = 200;
-      this.slime_magic(child);
+      if(this.player.progress != 1){
+        this.slime_magic(child);
+      }
       // child.enableBody(true, true);
     });
   }
