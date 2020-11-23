@@ -31,7 +31,7 @@ class FamiliarSceneThree extends Phaser.Scene {
 
         } else if(this.progress == 2){
           console.log("prog2");
-          this.dialogText.setText("You can now stun enemies\n around you with E!");
+          this.dialogText.setText("You can now stun enemies\n around you with E at the\n cost of mana!");
         } else if(this.progress == 3){
           console.log("prog3");
           this.unPause();

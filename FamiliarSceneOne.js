@@ -31,7 +31,7 @@ class FamiliarSceneOne extends Phaser.Scene {
 
         } else if(this.progress == 2){
           console.log("prog2");
-          this.dialogText.setText("You can now perform spin\n attacks using Q!");
+          this.dialogText.setText("You can now perform spin\n attacks using Q at the\n cost of health!");
         } else if(this.progress == 3){
           console.log("prog3");
           this.unPause();
