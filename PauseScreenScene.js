@@ -41,6 +41,12 @@ class PauseScreenScene extends Phaser.Scene {
         console.log("settings");
       } else if((event.downX <= 230 && event.downX >= 170) && (event.downY < 285 && event.downY >= 255) ){
         console.log("quit");
+        this.ourGame.mainTheme.stop();
+        this.ourGame.mainTheme.destroy();
+        this.scene.stop('playGame');
+        this.scene.stop('uiScene');
+        this.scene.start('bootGame');
+        this.scene.stop();
       }
     }
 
