@@ -393,6 +393,109 @@ class Scene2 extends Phaser.Scene{
     this.slime51.setScale(this.slime_scale);
     this.slime51.play("blue_slime_anim");
 
+    this.spider1 = this.physics.add.sprite(4348, 185, "bossminions");
+    this.spider1.play("boss_minions")
+
+    this.spider2 = this.physics.add.sprite(4478, 345, "bossminions");
+    this.spider2.play("boss_minions")
+
+    this.spider3 = this.physics.add.sprite(4634, 313, "bossminions");
+    this.spider3.play("boss_minions")
+
+    this.spider4 = this.physics.add.sprite(4864, 225, "bossminions");
+    this.spider4.play("boss_minions")
+
+    this.spider5 = this.physics.add.sprite(5038, 290, "bossminions");
+    this.spider5.play("boss_minions")
+
+    this.spider6 = this.physics.add.sprite(4753, 425, "bossminions");
+    this.spider6.play("boss_minions")
+
+    this.spider7 = this.physics.add.sprite(4541, 478, "bossminions");
+    this.spider7.play("boss_minions")
+
+    this.spider8 = this.physics.add.sprite(4656, 48, "bossminions");
+    this.spider8.play("boss_minions")
+
+    this.spider9 = this.physics.add.sprite(4869, 144, "bossminions");
+    this.spider9.play("boss_minions")
+
+    this.spider10 = this.physics.add.sprite(4024, 464, "bossminions");
+    this.spider10.play("boss_minions")
+
+    this.spider11 = this.physics.add.sprite(3964, 407, "bossminions");
+    this.spider11.play("boss_minions")
+
+    this.spider12 = this.physics.add.sprite(3929, 460, "bossminions");
+    this.spider12.play("boss_minions")
+
+    this.spider13 = this.physics.add.sprite(3964, 495, "bossminions");
+    this.spider13.play("boss_minions")
+
+    this.spider14 = this.physics.add.sprite(3904, 400, "bossminions");
+    this.spider14.play("boss_minions")
+
+    this.spider15 = this.physics.add.sprite(3808, 430, "bossminions");
+    this.spider15.play("boss_minions")
+
+    this.spider16 = this.physics.add.sprite(4962, 2273, "bossminions");
+    this.spider16.play("boss_minions")
+
+    this.spider17 = this.physics.add.sprite(4815, 2079, "bossminions");
+    this.spider17.play("boss_minions")
+
+    this.spider18 = this.physics.add.sprite(4485, 2229, "bossminions");
+    this.spider18.play("boss_minions")
+
+    this.spider19 = this.physics.add.sprite(4230, 2294, "bossminions");
+    this.spider19.play("boss_minions")
+
+    this.spider20 = this.physics.add.sprite(4059, 2224, "bossminions");
+    this.spider20.play("boss_minions")
+
+    this.spider21 = this.physics.add.sprite(4002, 2034, "bossminions");
+    this.spider21.play("boss_minions")
+
+    this.spider22 = this.physics.add.sprite(3718, 1900, "bossminions");
+    this.spider22.play("boss_minions")
+
+    this.spider24 = this.physics.add.sprite(3677, 2206, "bossminions");
+    this.spider24.play("boss_minions")
+
+    this.spider25 = this.physics.add.sprite(3827, 2323, "bossminions");
+    this.spider25.play("boss_minions")
+
+    this.spider26 = this.physics.add.sprite(3921, 1811, "bossminions");
+    this.spider26.play("boss_minions")
+
+    this.spider27 = this.physics.add.sprite(3994, 1696, "bossminions");
+    this.spider27.play("boss_minions")
+
+    this.spider28 = this.physics.add.sprite(3698, 1542, "bossminions");
+    this.spider28.play("boss_minions")
+
+    this.spider29 = this.physics.add.sprite(3544, 1454, "bossminions");
+    this.spider29.play("boss_minions")
+
+    this.spider30 = this.physics.add.sprite(3906, 1187, "bossminions");
+    this.spider30.play("boss_minions")
+
+    this.spider31 = this.physics.add.sprite(4021, 1124, "bossminions");
+    this.spider31.play("boss_minions")
+
+    this.spider32 = this.physics.add.sprite(3792, 1053, "bossminions");
+    this.spider32.play("boss_minions")
+
+    this.spider33 = this.physics.add.sprite(3715, 927, "bossminions");
+    this.spider33.play("boss_minions")
+
+    this.spider34 = this.physics.add.sprite(3538, 1087, "bossminions");
+    this.spider34.play("boss_minions")
+
+    this.spider35 = this.physics.add.sprite(3724, 382, "bossminions");
+    this.spider35.play("boss_minions")
+
+
     //The big boi left down from the town
     this.slimeBigBoi = this.physics.add.sprite(this.map.widthInPixels - 1700, 2200, "slime_blue");
     this.slimeBigBoi.setScale(6);
@@ -415,64 +518,6 @@ class Scene2 extends Phaser.Scene{
     this.finalBoss.setScale(7);
     this.finalBoss.setSize(20, 20);
     this.finalBoss.play("final_boss");
-
-    // //Respawning Enemies
-    // this.slimeg1 = this.physics.add.sprite(this.generatingBoss.x + 50, this.generatingBoss.y, "slime_blue");
-    // this.slimeg1.setScale(this.slime_scale);
-    // this.slimeg1.play("blue_slime_anim");
-    //
-    // this.slimeg2 = this.physics.add.sprite(this.generatingBoss.x - 50, this.generatingBoss.y, "slime_blue");
-    // this.slimeg2.setScale(this.slime_scale);
-    // this.slimeg2.play("blue_slime_anim");
-    //
-    // this.slimeg3 = this.physics.add.sprite(this.generatingBoss.x + 25, this.generatingBoss.y + 25, "slime_blue");
-    // this.slimeg3.setScale(this.slime_scale);
-    // this.slimeg3.play("blue_slime_anim");
-    //
-    // this.slimeg4 = this.physics.add.sprite(this.generatingBoss.x - 25, this.generatingBoss.y + 25, "slime_blue");
-    // this.slimeg4.setScale(this.slime_scale);
-    // this.slimeg4.play("blue_slime_anim");
-    //
-    // this.slimeg5 = this.physics.add.sprite(this.generatingBoss.x - 25, this.generatingBoss.y - 25, "slime_blue");
-    // this.slimeg5.setScale(this.slime_scale);
-    // this.slimeg5.play("blue_slime_anim");
-    //
-    // this.slimeg6 = this.physics.add.sprite(this.generatingBoss.x + 25, this.generatingBoss.y - 25, "slime_blue");
-    // this.slimeg6.setScale(this.slime_scale);
-    // this.slimeg6.play("blue_slime_anim");
-    //
-    //
-    // this.bossm1 = this.physics.add.sprite(this.finalBoss.x + 50, this.finalBoss.y, "bossminions");
-    // this.bossm1.setScale(this.slime_scale);
-    // this.bossm1.play("boss_minions");
-    //
-    // this.bossm2 = this.physics.add.sprite(this.finalBoss.x - 50, this.finalBoss.y, "bossminions");
-    // this.bossm2.setScale(this.slime_scale);
-    // this.bossm2.play("boss_minions");
-    //
-    // this.bossm3 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y + 25, "bossminions");
-    // this.bossm3.setScale(this.slime_scale);
-    // this.bossm3.play("boss_minions");
-    //
-    // this.bossm4 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y + 25, "bossminions");
-    // this.bossm4.setScale(this.slime_scale);
-    // this.bossm4.play("boss_minions");
-    //
-    // this.bossm5 = this.physics.add.sprite(this.finalBoss.x - 25, this.finalBoss.y - 25, "bossminions");
-    // this.bossm5.setScale(this.slime_scale);
-    // this.bossm5.play("boss_minions");
-    //
-    // this.bossm6 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
-    // this.bossm6.setScale(this.slime_scale);
-    // this.bossm6.play("boss_minions");
-    //
-    // this.bossm7 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
-    // this.bossm7.setScale(this.slime_scale);
-    // this.bossm7.play("boss_minions");
-    //
-    // this.bossm8 = this.physics.add.sprite(this.finalBoss.x + 25, this.finalBoss.y - 25, "bossminions");
-    // this.bossm8.setScale(this.slime_scale);
-    // this.bossm8.play("boss_minions");
 
     this.normal_enemies = this.physics.add.group();
     this.normal_enemies.add(this.slime1);
@@ -526,20 +571,41 @@ class Scene2 extends Phaser.Scene{
     this.normal_enemies.add(this.slime49);
     this.normal_enemies.add(this.slime50);
     this.normal_enemies.add(this.slime51);
-    // this.normal_enemies.add(this.slimeg1);
-    // this.normal_enemies.add(this.slimeg2);
-    // this.normal_enemies.add(this.slimeg3);
-    // this.normal_enemies.add(this.slimeg4);
-    // this.normal_enemies.add(this.slimeg5);
-    // this.normal_enemies.add(this.slimeg6);
-    // this.normal_enemies.add(this.bossm1);
-    // this.normal_enemies.add(this.bossm2);
-    // this.normal_enemies.add(this.bossm3);
-    // this.normal_enemies.add(this.bossm4);
-    // this.normal_enemies.add(this.bossm5);
-    // this.normal_enemies.add(this.bossm6);
-    // this.normal_enemies.add(this.bossm7);
-    // this.normal_enemies.add(this.bossm8);
+    this.normal_enemies.add(this.spider1);
+    this.normal_enemies.add(this.spider2);
+    this.normal_enemies.add(this.spider3);
+    this.normal_enemies.add(this.spider4);
+    this.normal_enemies.add(this.spider5);
+    this.normal_enemies.add(this.spider6);
+    this.normal_enemies.add(this.spider7);
+    this.normal_enemies.add(this.spider8);
+    this.normal_enemies.add(this.spider9);
+    this.normal_enemies.add(this.spider10);
+    this.normal_enemies.add(this.spider11);
+    this.normal_enemies.add(this.spider12);
+    this.normal_enemies.add(this.spider13);
+    this.normal_enemies.add(this.spider14);
+    this.normal_enemies.add(this.spider15);
+    this.normal_enemies.add(this.spider16);
+    this.normal_enemies.add(this.spider17);
+    this.normal_enemies.add(this.spider18);
+    this.normal_enemies.add(this.spider19);
+    this.normal_enemies.add(this.spider20);
+    this.normal_enemies.add(this.spider21);
+    this.normal_enemies.add(this.spider22);
+    //this.normal_enemies.add(this.spider23);
+    this.normal_enemies.add(this.spider24);
+    this.normal_enemies.add(this.spider25);
+    this.normal_enemies.add(this.spider26);
+    this.normal_enemies.add(this.spider27);
+    this.normal_enemies.add(this.spider28);
+    this.normal_enemies.add(this.spider29);
+    this.normal_enemies.add(this.spider30);
+    this.normal_enemies.add(this.spider31);
+    this.normal_enemies.add(this.spider32);
+    this.normal_enemies.add(this.spider33);
+    this.normal_enemies.add(this.spider34);
+    this.normal_enemies.add(this.spider35);
 
     this.normal_enemies.add(this.slimeBigBoi);
     this.normal_enemies.add(this.flameBigBoi);
@@ -587,23 +653,41 @@ class Scene2 extends Phaser.Scene{
     this.slime_enemies.add(this.slimeBigBoi);
     this.slime_enemies.add(this.flameBigBoi);
     this.slime_enemies.add(this.finalBoss);
-    //
-    // this.slime_enemies.add(this.slimeg1);
-    // this.slime_enemies.add(this.slimeg2);
-    // this.slime_enemies.add(this.slimeg3);
-    // this.slime_enemies.add(this.slimeg4);
-    // this.slime_enemies.add(this.slimeg5);
-    // this.slime_enemies.add(this.slimeg6);
-    //
-    // this.slime_enemies.add(this.bossm1);
-    // this.slime_enemies.add(this.bossm2);
-    // this.slime_enemies.add(this.bossm3);
-    // this.slime_enemies.add(this.bossm4);
-    // this.slime_enemies.add(this.bossm5);
-    // this.slime_enemies.add(this.bossm6);
-    // this.slime_enemies.add(this.bossm7);
-    // this.slime_enemies.add(this.bossm8);
-
+    this.slime_enemies.add(this.spider1);
+    this.slime_enemies.add(this.spider2);
+    this.slime_enemies.add(this.spider3);
+    this.slime_enemies.add(this.spider4);
+    this.slime_enemies.add(this.spider5);
+    this.slime_enemies.add(this.spider6);
+    this.slime_enemies.add(this.spider7);
+    this.slime_enemies.add(this.spider8);
+    this.slime_enemies.add(this.spider9);
+    this.slime_enemies.add(this.spider10);
+    this.slime_enemies.add(this.spider11);
+    this.slime_enemies.add(this.spider12);
+    this.slime_enemies.add(this.spider13);
+    this.slime_enemies.add(this.spider14);
+    this.slime_enemies.add(this.spider15);
+    this.slime_enemies.add(this.spider16);
+    this.slime_enemies.add(this.spider17);
+    this.slime_enemies.add(this.spider18);
+    this.slime_enemies.add(this.spider19);
+    this.slime_enemies.add(this.spider20);
+    this.slime_enemies.add(this.spider21);
+    this.slime_enemies.add(this.spider22);
+    //this.slime_enemies.add(this.spider23);
+    this.slime_enemies.add(this.spider24);
+    this.slime_enemies.add(this.spider25);
+    this.slime_enemies.add(this.spider26);
+    this.slime_enemies.add(this.spider27);
+    this.slime_enemies.add(this.spider28);
+    this.slime_enemies.add(this.spider29);
+    this.slime_enemies.add(this.spider30);
+    this.slime_enemies.add(this.spider31);
+    this.slime_enemies.add(this.spider32);
+    this.slime_enemies.add(this.spider33);
+    this.slime_enemies.add(this.spider34);
+    this.slime_enemies.add(this.spider35);
 
     this.magic_slime_enemies = this.physics.add.group();
     this.magic_slime_enemies.add(this.slime16);
@@ -616,7 +700,6 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime23);
     this.magic_slime_enemies.add(this.slime24);
     this.magic_slime_enemies.add(this.slime25);
-    // this.magic_slime_enemies.add(this.slime26);
     this.magic_slime_enemies.add(this.slime27);
     this.magic_slime_enemies.add(this.slime28);
     this.magic_slime_enemies.add(this.slime29);
@@ -626,18 +709,41 @@ class Scene2 extends Phaser.Scene{
     this.magic_slime_enemies.add(this.slime41);
     this.magic_slime_enemies.add(this.slime42);
     this.magic_slime_enemies.add(this.slime43);
-
-    // this.magic_slime_enemies.add(this.bossm1);
-    // this.magic_slime_enemies.add(this.bossm2);
-    // this.magic_slime_enemies.add(this.bossm3);
-    // this.magic_slime_enemies.add(this.bossm4);
-    // this.magic_slime_enemies.add(this.bossm5);
-    // this.magic_slime_enemies.add(this.bossm6);
-    // this.magic_slime_enemies.add(this.bossm7);
-    // this.magic_slime_enemies.add(this.bossm8);
-
-    //this.generating_enemies = this.physics.add.group();
-    //this.generating_enemies.add(this.slimeBigBoi);
+    this.magic_slime_enemies.add(this.spider1);
+    this.magic_slime_enemies.add(this.spider2);
+    this.magic_slime_enemies.add(this.spider3);
+    this.magic_slime_enemies.add(this.spider4);
+    this.magic_slime_enemies.add(this.spider5);
+    this.magic_slime_enemies.add(this.spider6);
+    this.magic_slime_enemies.add(this.spider7);
+    this.magic_slime_enemies.add(this.spider8);
+    this.magic_slime_enemies.add(this.spider9);
+    this.magic_slime_enemies.add(this.spider10);
+    this.magic_slime_enemies.add(this.spider11);
+    this.magic_slime_enemies.add(this.spider12);
+    this.magic_slime_enemies.add(this.spider13);
+    this.magic_slime_enemies.add(this.spider14);
+    this.magic_slime_enemies.add(this.spider15);
+    this.magic_slime_enemies.add(this.spider16);
+    this.magic_slime_enemies.add(this.spider17);
+    this.magic_slime_enemies.add(this.spider18);
+    this.magic_slime_enemies.add(this.spider19);
+    this.magic_slime_enemies.add(this.spider20);
+    this.magic_slime_enemies.add(this.spider21);
+    this.magic_slime_enemies.add(this.spider22);
+    //this.magic_slime_enemies.add(this.spider23);
+    this.magic_slime_enemies.add(this.spider24);
+    this.magic_slime_enemies.add(this.spider25);
+    this.magic_slime_enemies.add(this.spider26);
+    this.magic_slime_enemies.add(this.spider27);
+    this.magic_slime_enemies.add(this.spider28);
+    this.magic_slime_enemies.add(this.spider29);
+    this.magic_slime_enemies.add(this.spider30);
+    this.magic_slime_enemies.add(this.spider31);
+    this.magic_slime_enemies.add(this.spider32);
+    this.magic_slime_enemies.add(this.spider33);
+    this.magic_slime_enemies.add(this.spider34);
+    this.magic_slime_enemies.add(this.spider35);
 
     this.generatedEnemies = this.physics.add.group();
     // this.generatedEnemies.add(this.slimeg1);
@@ -679,10 +785,10 @@ class Scene2 extends Phaser.Scene{
     this.slimeBigBoi.slimeSpeed = this.bossSpeed;
     this.flameBigBoi.slimeSpeed = this.bossSpeed;
 
-    this.slimeBigBoi.health = 1000;
-    this.generatingBoss.health = 1000;
-    this.flameBigBoi.health = 1000;
-    this.finalBoss.health = 3000;
+    this.slimeBigBoi.health = 3000;
+    this.generatingBoss.health = 3000;
+    this.flameBigBoi.health = 3000;
+    this.finalBoss.health = 5000;
 
     this.BossHealthRegen = .75;
 
@@ -691,6 +797,8 @@ class Scene2 extends Phaser.Scene{
     this.physics.add.collider(this.normal_enemies, groundLayer);
     this.physics.add.collider(this.normal_enemies, treeLayer);
     this.physics.add.collider(this.normal_enemies, this.normal_enemies);
+
+    this.physics.add.collider(this.slime_enemies, this.slime_enemies);
 
     this.physics.add.collider(this.generatedEnemies, envLayer);
     this.physics.add.collider(this.generatedEnemies, envLayer2);
