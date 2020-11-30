@@ -52,6 +52,11 @@ class PauseScreenScene extends Phaser.Scene {
         console.log("quit");
         this.ourGame.mainTheme.stop();
         this.ourGame.mainTheme.destroy();
+        if(this.ourGame.finalbossThemePlaying){
+          //console.log("stop final boss theme upon quit")
+          this.ourGame.finalbossTheme.stop();
+          this.ourGame.finalbossTheme.destroy();
+        }
         this.scene.stop('playGame');
         this.scene.stop('uiScene');
         this.scene.start('bootGame');

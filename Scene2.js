@@ -1617,6 +1617,9 @@ class Scene2 extends Phaser.Scene{
     //   this.slime_projectiles.children.entries[i].destroy();
     // }
     this.gameover = false;
+    if(this.finalbossThemePlaying){
+      this.finalbossTheme.stop();
+    }
     this.finalbossThemePlaying = false;
   }
 
