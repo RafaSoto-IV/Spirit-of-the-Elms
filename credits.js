@@ -48,9 +48,9 @@ class Credits extends Phaser.Scene {
           var rect = new Phaser.Geom.Rectangle(0, 0, 400, 300);
           var graphics = this.add.graphics({ fillStyle: { color: 0x000000 } });
           graphics.fillRectShape(rect);
-          this.titleText = this.add.text(150, 30, "Spirit of the Elms", { fontFamily: "Verdana", fontSize: '12px', fill: '#ffffff' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-          this.subtitleText = this.add.text(150, 40, "By TER Studios", { fontFamily: "Verdana", fontSize: '12px', fill: '#ffffff' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-          this.creditText = this.add.text(150, 50, "credits", { fontFamily: "Verdana", fontSize: '12px', fill: '#ffffff' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+          this.titleText = this.add.text(105, 30, "Spirit of the Elms", { fontFamily: "Verdana", fontSize: '24px', fill: '#ffffff' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+          this.subtitleText = this.add.text(140, 60, "By TER Studios", { fontFamily: "Verdana", fontSize: '16px', fill: '#ffffff' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
+          this.creditText = this.add.text(150, 90, 'Art:\nEstudio Vaca Toxa\nTfonez\nCethiel\nElena\n\nMusic:\nWingless Seraph "YouFulca"\n\nProgramming:\nTyler\nElena\nRoof', { fontFamily: "Verdana", fontSize: '12px', fill: '#ffffff' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
           //this.unPause();
         }
 
