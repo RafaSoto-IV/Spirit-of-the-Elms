@@ -1053,7 +1053,7 @@ class Scene2 extends Phaser.Scene{
       this.saveCheckpoint();
     } else if(powerUpPickup.id == 3){
       console.log("roll credits")
-      this.player.stun = true;
+      //this.player.stun = true;
       this.scene.pause();
       this.scene.launch('Credits');
       this.scene.bringToTop('Credits');
