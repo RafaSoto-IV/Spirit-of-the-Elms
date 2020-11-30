@@ -1332,8 +1332,8 @@ class Scene2 extends Phaser.Scene{
       }
       if(enemy == this.generatingBoss){
         this.generatingBossDead = true;
-        this.scene.launch('Credits');
-        this.scene.bringToTop('Credits');
+        // this.scene.launch('Credits');
+        // this.scene.bringToTop('Credits');
       }
       if(enemy == this.finalBoss){
         this.finalBossDead = true;
