@@ -1768,9 +1768,9 @@ class Scene2 extends Phaser.Scene{
     }
 
     //cloak
-    if (Phaser.Input.Keyboard.JustDown(this.c)){
-      this.cloaking();
-    }
+    // if (Phaser.Input.Keyboard.JustDown(this.c)){
+    //   this.cloaking();
+    // }
 
     //aoe melee damage
     if(Phaser.Input.Keyboard.JustDown(this.q) && this.player.aoe == true){

@@ -31,7 +31,7 @@ class FamiliarSceneTwo extends Phaser.Scene {
 
         } else if(this.progress == 2){
           console.log("prog2");
-          this.dialogText.setText("You can now deflect projectile\n attacks using SPACEBAR\n and cloak with C!");
+          this.dialogText.setText("You can now deflect projectile\n attacks using melee attacks");
         } else if(this.progress == 3){
           console.log("prog3");
           this.unPause();
