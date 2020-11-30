@@ -867,7 +867,9 @@ class Scene2 extends Phaser.Scene{
     //   loop: true,
     // });
     // this.mainTheme.play({seek: this.mainThemeTime});
+
     this.finalbossThemePlaying = false;
+    this.generatingBoss.body.setImmovable(true);
   }
 
 //PLAYER RELATED FUNCTIONS:
@@ -997,6 +999,7 @@ class Scene2 extends Phaser.Scene{
         this.cloak = false
       }else{
         this.cloak = true
+        this.previous = "random";
         // this.player.play("magic_anim");
       }
     }
