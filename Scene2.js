@@ -1815,10 +1815,10 @@ class Scene2 extends Phaser.Scene{
     }
 
     if (this.cursors.left.isDown){
-      if (this.player.mana >= 50 && this.player.canShootProjectiles){
+      if (this.player.mana >= 150 && this.player.canShootProjectiles){
         this.magic_direction = "player_left"
         this.magic();
-        this.player.mana -= 50;
+        this.player.mana -= 150;
         this.events.emit('playerUseMagic');
         this.sound.play("playerProjectileSound", {volume: 0.1});
         this.player.canShootProjectiles = false;
