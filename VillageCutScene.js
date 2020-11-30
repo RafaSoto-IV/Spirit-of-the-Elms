@@ -170,7 +170,7 @@ class VillageCutScene extends Phaser.Scene {
                 repeat: 0
           });
         } else if(this.progress == 7){
-          this.dialogText.setText("We really need your help. We\nneed you stop them from taking\nover, otherwise we'll all starve.");
+          this.dialogText.setText("We really need your help. We\nneed you to stop them from taking\nover, otherwise we'll all starve.");
         } else if(this.progress == 8){
           this.dialogText.setText("If you follow the road west and\nthen north. It'll take you out of the\nvillage and into the forest. It's filled\n    with slimes and much worse.");
         } else if(this.progress == 9){

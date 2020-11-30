@@ -1,7 +1,7 @@
-class FamiliarSceneTwo extends Phaser.Scene {
+class Credits extends Phaser.Scene {
 
     constructor(){
-        super({ key: 'FamiliarSceneTwo'});
+        super({ key: 'Credits'});
 
     }
 
@@ -13,8 +13,7 @@ class FamiliarSceneTwo extends Phaser.Scene {
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.dialogBox = this.add.sprite(200, 220, 'dialogBox').setScale(2);
-        this.dialogText = this.add.text(110, 198, "You saved the red familiar!\n As thanks, it wants to join\n you on your journey.\n ", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
-        this.blueFamiliar = this.add.sprite(200, 100, 'redFamiliar');
+        this.dialogText = this.add.text(110, 198, "Credits\n ", { fontFamily: "Verdana", fontSize: '12px', fill: '#000' }).setScale( 1 / this.cameras.main.zoom, 1 / this.cameras.main.zoom );
 
         this.progress = 0;
 
@@ -27,14 +26,14 @@ class FamiliarSceneTwo extends Phaser.Scene {
 
         if(this.progress == 1){
           console.log("prog1");
-          this.dialogText.setText("The red familiar lends you \n the power of the \n GODDESS SHIELD.");
+          this.dialogText.setText("...");
 
         } else if(this.progress == 2){
           console.log("prog2");
-          this.dialogText.setText("You can now deflect projectile\n attacks using SPACEBAR\n and cloak with C!");
+          this.dialogText.setText("....");
         } else if(this.progress == 3){
           console.log("prog3");
-          this.unPause();
+          //this.unPause();
         }
 
       }

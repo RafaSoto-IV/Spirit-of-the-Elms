@@ -81,7 +81,7 @@ class Scene2 extends Phaser.Scene{
       //Player sprite and interactions placed here
       //this.player = this.physics.add.sprite(120, 120, "player-right");
     this.player = this.physics.add.sprite(this.map.widthInPixels - 380, 130, "player-right");
-    this.player.mana = 2000;
+    this.player.mana = 1500;
     this.player.maxMana = this.player.mana;
     this.player.manaRegen = 1;
     this.player.health = 1000;
@@ -90,7 +90,7 @@ class Scene2 extends Phaser.Scene{
     this.player.level = 1;
     this.player.xp = 0;
     this.player.xpForNextLevel = 1000;
-    this.player.projectileDamage = 100;
+    this.player.projectileDamage = 10000;
     this.player.meleeDamage = 200;
     this.player.vulnerable = true;
     this.player.canShootProjectiles = true;
@@ -1051,6 +1051,13 @@ class Scene2 extends Phaser.Scene{
       this.scene.launch('FamiliarSceneThree');
       this.scene.bringToTop('FamiliarSceneThree');
       this.saveCheckpoint();
+    } else if(powerUpPickup.id == 3){
+      console.log("roll credits")
+      this.player.stun = true;
+      this.scene.pause();
+      this.scene.launch('Credits');
+      this.scene.bringToTop('Credits');
+      this.saveCheckpoint();
     }
     powerUpPickup.destroy();
   }
@@ -1309,12 +1316,12 @@ class Scene2 extends Phaser.Scene{
       powerUpPickup.setScale(0.04);
       if(enemy == this.slimeBigBoi){
         powerUpPickup.id = 0;
-
-
       } else if(enemy == this.generatingBoss){
         powerUpPickup.id = 1;
       } else if(enemy == this.flameBigBoi){
         powerUpPickup.id = 2;
+      } else if(enemy == this.finalboss){
+        powerUpPickup.id = 3;
       }
       this.powerUpPickups.add(powerUpPickup);
       enemy.disableBody(true, true);
@@ -1325,9 +1332,12 @@ class Scene2 extends Phaser.Scene{
       }
       if(enemy == this.generatingBoss){
         this.generatingBossDead = true;
+        this.scene.launch('Credits');
+        this.scene.bringToTop('Credits');
       }
       if(enemy == this.finalBoss){
         this.finalBossDead = true;
+
       }
     } else {
       if(Phaser.Math.Between(1, 100) <= 20){
@@ -1969,7 +1979,6 @@ class Scene2 extends Phaser.Scene{
       this.finalMinionsDead();
       this.finalFirst = false;
     }
-    console.log(this.player.x, this.player.y);
     // console.log(this.player.body.velocity.x, this.player.body.velocity.y);
     this.generatingBoss.setVelocityX(0);
     this.generatingBoss.setVelocityY(0);
