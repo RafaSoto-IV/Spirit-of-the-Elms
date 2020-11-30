@@ -7,6 +7,7 @@ class Credits extends Phaser.Scene {
 
     create(){
         //  Grab a reference to the Game Scene
+        console.log("credits.js")
         let ourGame = this.scene.get('playGame');
 
         // ourGame.mainTheme.pause();

@@ -1320,7 +1320,7 @@ class Scene2 extends Phaser.Scene{
         powerUpPickup.id = 1;
       } else if(enemy == this.flameBigBoi){
         powerUpPickup.id = 2;
-      } else if(enemy == this.finalboss){
+      } else if(enemy == this.finalBoss){
         powerUpPickup.id = 3;
       }
       this.powerUpPickups.add(powerUpPickup);
