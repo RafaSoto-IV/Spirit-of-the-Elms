@@ -90,7 +90,7 @@ class Scene2 extends Phaser.Scene{
     this.player.level = 1;
     this.player.xp = 0;
     this.player.xpForNextLevel = 1000;
-    this.player.projectileDamage = 10000;
+    this.player.projectileDamage = 100;
     this.player.meleeDamage = 200;
     this.player.vulnerable = true;
     this.player.canShootProjectiles = true;
