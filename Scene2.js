@@ -1306,7 +1306,7 @@ class Scene2 extends Phaser.Scene{
     if(enemy == this.flameBigBoi || enemy == this.slimeBigBoi || enemy == this.generatingBoss || enemy == this.finalBoss){
       console.log("drop pick up power");
       var powerUpPickup = this.physics.add.sprite(enemy.x, enemy.y, "powerUpPickup");
-      powerUpPickup.setScale(0.02);
+      powerUpPickup.setScale(0.04);
       if(enemy == this.slimeBigBoi){
         powerUpPickup.id = 0;
 
@@ -1428,6 +1428,35 @@ class Scene2 extends Phaser.Scene{
       // "slimeEnemies": Phaser.Utils.Objects.Clone(this.slime_enemies),
       // "magicSlimeEnemies": Phaser.Utils.Objects.Clone(this.magic_slime_enemies)
     }
+
+    var bossObj = {};
+    bossObj.health =   this.slimeBigBoi.health;
+    bossObj.active =   this.slimeBigBoi.active;
+    bossObj.x =   this.slimeBigBoi.x;
+    bossObj.y =   this.slimeBigBoi.y;
+    this.checkpoint.slimeBigBoi = bossObj;
+
+    bossObj = {};
+    bossObj.health =   this.generatingBoss.health;
+    bossObj.active =   this.generatingBoss.active;
+    bossObj.x =   this.generatingBoss.x;
+    bossObj.y =   this.generatingBoss.y;
+    this.checkpoint.generatingBoss = bossObj;
+
+    bossObj = {};
+    bossObj.health =   this.flameBigBoi.health;
+    bossObj.active =   this.flameBigBoi.active;
+    bossObj.x =   this.flameBigBoi.x;
+    bossObj.y =   this.flameBigBoi.y;
+    this.checkpoint.flameBigBoi = bossObj;
+
+    bossObj = {};
+    bossObj.health =   this.finalBoss.health;
+    bossObj.active =   this.finalBoss.active;
+    bossObj.x =   this.finalBoss.x;
+    bossObj.y =   this.finalBoss.y;
+    this.checkpoint.finalBoss = bossObj;
+
     var slimeEnemiesList = [];
     for(var i = 0; i < this.slime_enemies.children.size; i++){
       var slimeEnemyObj = {};
@@ -1499,6 +1528,42 @@ class Scene2 extends Phaser.Scene{
     this.events.emit('playerHit');
     this.events.emit('gainXp');
 
+    this.slimeBigBoi.health = this.checkpoint.slimeBigBoi.health;
+    this.slimeBigBoi.active = this.checkpoint.slimeBigBoi.active;
+    this.slimeBigBoi.x = this.checkpoint.slimeBigBoi.x;
+    this.slimeBigBoi.y = this.checkpoint.slimeBigBoi.y;
+    this.slimeBigBoi.setVelocityX(0);
+    this.slimeBigBoi.setVelocityY(0);
+    this.slimeBigBoi.enableBody(true,   this.slimeBigBoi.x, this.slimeBigBoi.y, true, true);
+    this.slimeBigBoi.refreshBody();
+
+    this.generatingBoss.health = this.checkpoint.generatingBoss.health;
+    this.generatingBoss.active = this.checkpoint.generatingBoss.active;
+    this.generatingBoss.x = this.checkpoint.generatingBoss.x;
+    this.generatingBoss.y = this.checkpoint.generatingBoss.y;
+    this.generatingBoss.setVelocityX(0);
+    this.generatingBoss.setVelocityY(0);
+    this.generatingBoss.enableBody(true,   this.generatingBoss.x, this.generatingBoss.y, true, true);
+    this.generatingBoss.refreshBody();
+
+    this.flameBigBoi.health = this.checkpoint.flameBigBoi.health;
+    this.flameBigBoi.active = this.checkpoint.flameBigBoi.active;
+    this.flameBigBoi.x = this.checkpoint.flameBigBoi.x;
+    this.flameBigBoi.y = this.checkpoint.flameBigBoi.y;
+    this.flameBigBoi.setVelocityX(0);
+    this.flameBigBoi.setVelocityY(0);
+    this.flameBigBoi.enableBody(true,   this.flameBigBoi.x, this.flameBigBoi.y, true, true);
+    this.flameBigBoi.refreshBody();
+
+    this.finalBoss.health = this.checkpoint.finalBoss.health;
+    this.finalBoss.active = this.checkpoint.finalBoss.active;
+    this.finalBoss.x = this.checkpoint.finalBoss.x;
+    this.finalBoss.y = this.checkpoint.finalBoss.y;
+    this.finalBoss.setVelocityX(0);
+    this.finalBoss.setVelocityY(0);
+    this.finalBoss.enableBody(true,   this.finalBoss.x, this.finalBoss.y, true, true);
+    this.finalBoss.refreshBody();
+
     for(var i = 0; i < this.slime_enemies.children.size; i++){
       this.slime_enemies.children.entries[i].health = this.checkpoint.slimeEnemies[i].health;
       if(this.slime_enemies.children.entries[i].active == false && this.checkpoint.slimeEnemies[i].active == true){
@@ -1527,6 +1592,11 @@ class Scene2 extends Phaser.Scene{
       }
     }
 
+    for(var i = 0; i < this.finalBossMinions.children.size; i++){
+      this.finalBossMinions.children.entries[i].destroy();
+      i--;
+    }
+
     for(var i = 0; i < this.generatedEnemies.children.size; i++){
       this.generatedEnemies.children.entries[i].destroy();
       i--;
@@ -1547,6 +1617,7 @@ class Scene2 extends Phaser.Scene{
     //   this.slime_projectiles.children.entries[i].destroy();
     // }
     this.gameover = false;
+    this.finalbossThemePlaying = false;
   }
 
   pause(){
